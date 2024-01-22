@@ -60,13 +60,25 @@ export const Bar = styled.img`
 /* _____Main______ */
 export const Main = styled.main`
     display: flex;
+    flex-direction: column;
+
     width: 100vw;
 `
 
 export const MainImage = styled.img`
     width: 90%;
 
-    border-radius: 3%;
+    border-radius: 2%;
 
     margin: 0 auto;
 `
+
+/* _____Categories_____ */
+export const CategoriesWrapper = styled.div`
+    display: grid;
+`
+export const CategoryItem = styled.div``
+
+export const CategoryImg = styled.img``
+
+export const CategoryName = styled.p``

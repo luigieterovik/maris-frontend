@@ -8,7 +8,7 @@ import LogoImg from '../../assets/logo.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.jpeg'
 
-import { A, Bar, Container, DownArrow, Header, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
+import { A, Bar, CategoriesWrapper, CategoryImg, CategoryItem, CategoryName, Container, DownArrow, Header, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
 
 function Home () {
   return (
@@ -34,6 +34,38 @@ function Home () {
       <Main>
         <MainImage src={MainImageImg}/>
 
+        <CategoriesWrapper>
+          <CategoryItem>
+            <CategoryImg />
+            <CategoryName></CategoryName>
+          </CategoryItem>
+
+          <CategoryItem>
+            <CategoryImg />
+            <CategoryName></CategoryName>
+          </CategoryItem>
+
+          <CategoryItem>
+            <CategoryImg />
+            <CategoryName></CategoryName>
+          </CategoryItem>
+
+          <CategoryItem>
+            <CategoryImg />
+            <CategoryName></CategoryName>
+          </CategoryItem>
+
+          <CategoryItem>
+            <CategoryImg />
+            <CategoryName></CategoryName>
+          </CategoryItem>
+
+          <CategoryItem>
+            <CategoryImg />
+            <CategoryName></CategoryName>
+          </CategoryItem>
+
+        </CategoriesWrapper>
       </Main>
     </Container>
   )
