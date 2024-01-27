@@ -19,6 +19,7 @@ export const Header = styled.header`
 export const MainHeader = styled.div`
     display: flex;
     flex-direction: row;
+    align-items: center;
 `
 
 export const Logo = styled.img`
@@ -52,7 +53,7 @@ export const HeaderSections = styled.div`
     margin: 15px 0 20px;
 `
 
-export const Bar = styled.img`
+export const HeaderBar = styled.img`
     width: 100%;
     height: 6px;
 `
@@ -82,3 +83,6 @@ export const CategoryItem = styled.div``
 export const CategoryImg = styled.img``
 
 export const CategoryName = styled.p``
+
+/* _____Offers_____ */
+export const OfferTitle = styled.h2``

@@ -1,14 +1,16 @@
 import React from 'react'
 
+import Carousel from 'react-elastic-carousel'
+
 import Bag from '../../assets/bag.png'
-import BarImg from '../../assets/bar.png'
+import HeaderBarImg from '../../assets/bar.png'
 import Cart from '../../assets/cart.png'
 import DownArrowImg from '../../assets/down-arrow.png'
 import LogoImg from '../../assets/logo.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.jpeg'
 
-import { A, Bar, CategoriesWrapper, CategoryImg, CategoryItem, CategoryName, Container, DownArrow, Header, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
+import { A, CategoriesWrapper, CategoryImg, CategoryItem, CategoryName, Container, DownArrow, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage, OfferTitle } from './styles'
 
 function Home () {
   return (
@@ -24,11 +26,11 @@ function Home () {
 
         <HeaderSections>
           <A>Início</A>
-          <A>Catálogo <DownArrow src={DownArrowImg} /></A>
-          <A>Categorias</A>
+          <A>Catálogo</A>
+          <A>Categorias <DownArrow src={DownArrowImg} /></A>
         </HeaderSections>
 
-        <Bar src={BarImg}/>
+        <HeaderBar src={HeaderBarImg}/>
       </Header>
 
       <Main>
@@ -37,35 +39,35 @@ function Home () {
         <CategoriesWrapper>
           <CategoryItem>
             <CategoryImg />
-            <CategoryName></CategoryName>
+            <CategoryName>Feminino</CategoryName>
           </CategoryItem>
 
           <CategoryItem>
             <CategoryImg />
-            <CategoryName></CategoryName>
+            <CategoryName>Masculino</CategoryName>
           </CategoryItem>
 
           <CategoryItem>
             <CategoryImg />
-            <CategoryName></CategoryName>
+            <CategoryName>Unissex</CategoryName>
           </CategoryItem>
 
           <CategoryItem>
             <CategoryImg />
-            <CategoryName></CategoryName>
+            <CategoryName>Infantil</CategoryName>
           </CategoryItem>
-
-          <CategoryItem>
-            <CategoryImg />
-            <CategoryName></CategoryName>
-          </CategoryItem>
-
-          <CategoryItem>
-            <CategoryImg />
-            <CategoryName></CategoryName>
-          </CategoryItem>
-
         </CategoriesWrapper>
+
+        <OfferTitle>Ofertas</OfferTitle>
+
+        <Carousel itemsToShow={4}>
+          <div>1</div>
+          <div>2</div>
+          <div>3</div>
+          <div>4</div>
+          <div>5</div>
+        </Carousel>
+
       </Main>
     </Container>
   )
