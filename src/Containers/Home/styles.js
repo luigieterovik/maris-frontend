@@ -74,15 +74,7 @@ export const MainImage = styled.img`
     margin: 0 auto;
 `
 
-/* _____Categories_____ */
-export const CategoriesWrapper = styled.div`
-    display: grid;
-`
-export const CategoryItem = styled.div``
-
-export const CategoryImg = styled.img``
-
-export const CategoryName = styled.p``
-
-/* _____Offers_____ */
-export const OfferTitle = styled.h2``
+/* _____Carousels_____ */
+export const CarouselWrapper = styled.div``
+export const CarouselTitle = styled.h2``
+export const CarouselAllItems = styled.a``

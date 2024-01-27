@@ -10,7 +10,7 @@ import LogoImg from '../../assets/logo.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.jpeg'
 
-import { A, CategoriesWrapper, CategoryImg, CategoryItem, CategoryName, Container, DownArrow, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage, OfferTitle } from './styles'
+import { A, CarouselTitle, CarouselAllItems, CarouselWrapper, Container, DownArrow, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
 
 function Home () {
   return (
@@ -36,37 +36,77 @@ function Home () {
       <Main>
         <MainImage src={MainImageImg}/>
 
-        <CategoriesWrapper>
-          <CategoryItem>
-            <CategoryImg />
-            <CategoryName>Feminino</CategoryName>
-          </CategoryItem>
+        <CarouselWrapper>
+          <CarouselTitle>Ofertas</CarouselTitle>
+          <CarouselAllItems>Ver todos</CarouselAllItems>
+          <Carousel itemsToShow={4}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </Carousel>
+        </CarouselWrapper>
 
-          <CategoryItem>
-            <CategoryImg />
-            <CategoryName>Masculino</CategoryName>
-          </CategoryItem>
+        <CarouselWrapper>
+          <CarouselTitle>Feminino</CarouselTitle>
+          <CarouselAllItems>Ver todos</CarouselAllItems>
+          <Carousel itemsToShow={4}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </Carousel>
+        </CarouselWrapper>
 
-          <CategoryItem>
-            <CategoryImg />
-            <CategoryName>Unissex</CategoryName>
-          </CategoryItem>
+        <CarouselWrapper>
+          <CarouselTitle>Masculino</CarouselTitle>
+          <CarouselAllItems>Ver todos</CarouselAllItems>
+          <Carousel itemsToShow={4}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </Carousel>
+        </CarouselWrapper>
 
-          <CategoryItem>
-            <CategoryImg />
-            <CategoryName>Infantil</CategoryName>
-          </CategoryItem>
-        </CategoriesWrapper>
+        <CarouselWrapper>
+          <CarouselTitle>Unissex</CarouselTitle>
+          <CarouselAllItems>Ver todos</CarouselAllItems>
+          <Carousel itemsToShow={4}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </Carousel>
+        </CarouselWrapper>
 
-        <OfferTitle>Ofertas</OfferTitle>
+        <CarouselWrapper>
+          <CarouselTitle>Infantil</CarouselTitle>
+          <CarouselAllItems>Ver todos</CarouselAllItems>
+          <Carousel itemsToShow={4}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </Carousel>
+        </CarouselWrapper>
 
-        <Carousel itemsToShow={4}>
-          <div>1</div>
-          <div>2</div>
-          <div>3</div>
-          <div>4</div>
-          <div>5</div>
-        </Carousel>
+        <CarouselWrapper>
+          <CarouselTitle>Ambiente</CarouselTitle>
+          <CarouselAllItems>Ver todos</CarouselAllItems>
+          <Carousel itemsToShow={4}>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div>5</div>
+          </Carousel>
+        </CarouselWrapper>
 
       </Main>
     </Container>
