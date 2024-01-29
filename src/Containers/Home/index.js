@@ -3,16 +3,16 @@ import React from 'react'
 import Carousel from 'react-elastic-carousel'
 
 import Bag from '../../assets/bag.png'
-import MagnifyingImg from '../../assets/magnifying.png'
 import HeaderBarImg from '../../assets/bar.png'
 import Cart from '../../assets/cart.png'
 import DownArrowImg from '../../assets/down-arrow.png'
 import FooterBarImg from '../../assets/footerBar.png'
 import LogoImg from '../../assets/logo.png'
+import MagnifyingImg from '../../assets/magnifying.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.jpeg'
 
-import { A, AboutDescription, AboutTitle, AboutWrapper, CarouselAllItems, CarouselTitle, CarouselWrapper, Container, DivInput, DownArrow, FooterBar, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage, Magnifying, SearchInputButton } from './styles'
+import { AIcons, ASections, AboutDescription, AboutTitle, AboutWrapper, CarouselAllItems, CarouselTitle, CarouselWrapper, Container, DivHeaderIcons, DivInput, DownArrow, FooterBar, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Magnifying, LabelLogin, Main, MainHeader, MainImage, SearchInputButton } from './styles'
 
 function Home () {
   return (
@@ -24,15 +24,18 @@ function Home () {
             <Input placeholder='O que está buscando?'/>
             <SearchInputButton><Magnifying src={MagnifyingImg} alt='magnifying-glass-icon' /></SearchInputButton>
           </DivInput>
-          <Icons src={Person} alt='icone-person' /><A>Entrar / Cadastrar <br /> Minha conta <DownArrow src={DownArrowImg}/></A>
-          <Icons src={Bag} alt='icone-sacola' /><A>Meus pedidos</A>
-          <Icons src={Cart} alt='icone-carrinho' /><A>Carrinho</A>
+
+          <DivHeaderIcons>
+            <Icons src={Person} alt='icone-person' /><AIcons><LabelLogin>Entrar / Cadastrar</LabelLogin><br /> Minha conta <DownArrow src={DownArrowImg}/></AIcons>
+            <Icons src={Bag} alt='icone-sacola' /><AIcons>Meus pedidos</AIcons>
+            <Icons src={Cart} alt='icone-carrinho' /><AIcons>Carrinho</AIcons>
+          </DivHeaderIcons>
         </MainHeader>
 
         <HeaderSections>
-          <A>Início</A>
-          <A>Catálogo</A>
-          <A>Categorias <DownArrow src={DownArrowImg} /></A>
+          <ASections>Início</ASections>
+          <ASections>Catálogo</ASections>
+          <ASections>Categorias <DownArrow src={DownArrowImg} /></ASections>
         </HeaderSections>
 
         <HeaderBar src={HeaderBarImg}/>

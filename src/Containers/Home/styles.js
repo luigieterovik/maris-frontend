@@ -8,16 +8,16 @@ export const Container = styled.section`
 /* _____Header______ */
 export const Header = styled.header`
     height: 20vh;
-    width: 100vw;
+    width: 100%;
 
     display: flex;
     flex-direction: column;
-
-    margin-bottom: 30px;
 `
 
 export const MainHeader = styled.div`
     height: 80%;
+    width: 100%;
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -28,22 +28,37 @@ export const Logo = styled.img`
     margin: 0 30px;
 `
 
+export const DivHeaderIcons = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    position: absolute;
+    right: 20px;
+`
+
 export const Icons = styled.img`
     height: 20px;
 
-    margin: 0 10px;
+    margin: 0 10px 0 30px;
+
+
 `
 
 export const DownArrow = styled.img`
     width: 15px;
+    margin-left: 3px;
+    position: relative;
+    top: 3px;
 `
 
 export const DivInput = styled.div`
     height: 40px;
-    width: 400px;
+    width: 500px;
 
     border-radius: 50px;
     
+    margin: 0 2%;
     padding: 0 5px 0 18px;
 
     background-color: #F1F1F1;
@@ -56,8 +71,8 @@ export const Input = styled.input`
     height: 100%;
     width: 87%;
 
-
     border: none;
+    outline: none;
 
     background-color: #F1F1F1;
 `
@@ -74,22 +89,53 @@ export const SearchInputButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    &:active {
+        cursor: pointer;
+        opacity: 0.7;
+    }
+
+    
 `
 
 export const Magnifying = styled.img`
     height: 50%;
-
     rotate: -90deg;
 `
 
-export const A = styled.a`
-    width: 120px;
+export const ASections = styled.a`
+    margin-left: 50px;
+    font-size: 14px;
+    font-weight: 500;
+
+    &:hover {
+        cursor: pointer;
+    }
+`
+
+export const AIcons = styled.a`
+    font-weight: 700;
+    font-size: 14px;
+
+    &:hover {
+        cursor: pointer;
+    }
+`
+
+export const LabelLogin = styled.label`
+    font-weight: 400;
+    font-size: 14px;
+    color: blue;
 `
 
 export const HeaderSections = styled.div`
     display: flex;
     justify-content: center;
-
     margin: 15px 0 20px;
 `
 
@@ -103,6 +149,8 @@ export const Main = styled.main`
     display: flex;
     flex-direction: column;
 
+    background: #F7F7F7;
+
     width: 100vw;
 `
 
@@ -111,7 +159,7 @@ export const MainImage = styled.img`
 
     border-radius: 2%;
 
-    margin: 0 auto;
+    margin: 30px auto 0;
 `
 
 /* _____Carousels_____ */
