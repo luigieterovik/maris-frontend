@@ -10,7 +10,7 @@ import LogoImg from '../../assets/logo.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.jpeg'
 
-import { A, CarouselTitle, CarouselAllItems, CarouselWrapper, Container, DownArrow, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
+import { A, AboutWrapper, AboutTitle, AboutDescription, CarouselTitle, CarouselAllItems, CarouselWrapper, Container, DownArrow, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
 
 function Home () {
   return (
@@ -107,6 +107,11 @@ function Home () {
             <div>5</div>
           </Carousel>
         </CarouselWrapper>
+
+        <AboutWrapper>
+          <AboutTitle>Sobre nós</AboutTitle>
+          <AboutDescription>Somos uma empresa top de perfumes</AboutDescription>
+        </AboutWrapper>
 
       </Main>
     </Container>

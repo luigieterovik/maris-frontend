@@ -67,7 +67,7 @@ export const Main = styled.main`
 `
 
 export const MainImage = styled.img`
-    width: 90%;
+    width: 70%;
 
     border-radius: 2%;
 
@@ -78,3 +78,8 @@ export const MainImage = styled.img`
 export const CarouselWrapper = styled.div``
 export const CarouselTitle = styled.h2``
 export const CarouselAllItems = styled.a``
+
+/* _____About_____ */
+export const AboutWrapper = styled.div``
+export const AboutTitle = styled.h2``
+export const AboutDescription = styled.p``
