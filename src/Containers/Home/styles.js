@@ -15,7 +15,7 @@ export const Header = styled.header`
 `
 
 export const MainHeader = styled.div`
-    height: 80%;
+    height: 90%;
     width: 100%;
 
     display: flex;
@@ -38,11 +38,9 @@ export const DivHeaderIcons = styled.div`
 `
 
 export const Icons = styled.img`
-    height: 20px;
+    height: 25px;
 
     margin: 0 10px 0 30px;
-
-
 `
 
 export const DownArrow = styled.img`
@@ -75,6 +73,10 @@ export const Input = styled.input`
     outline: none;
 
     background-color: #F1F1F1;
+
+    &::placeholder {
+        color: black;
+    }
 `
 
 export const SearchInputButton = styled.button`
@@ -98,9 +100,7 @@ export const SearchInputButton = styled.button`
     &:active {
         cursor: pointer;
         opacity: 0.7;
-    }
-
-    
+    }    
 `
 
 export const Magnifying = styled.img`
@@ -129,11 +129,12 @@ export const AIcons = styled.a`
 
 export const LabelLogin = styled.label`
     font-weight: 400;
-    font-size: 14px;
+    font-size: 13px;
     color: blue;
 `
 
-export const HeaderSections = styled.div`
+export const HeaderSections = styled.div`   
+    height: 3vh;
     display: flex;
     justify-content: center;
     margin: 15px 0 20px;

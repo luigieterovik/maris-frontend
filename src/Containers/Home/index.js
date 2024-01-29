@@ -2,9 +2,9 @@ import React from 'react'
 
 import Carousel from 'react-elastic-carousel'
 
-import Bag from '../../assets/bag.png'
+import Bag from '../../assets/bag.svg'
 import HeaderBarImg from '../../assets/bar.png'
-import Cart from '../../assets/cart.png'
+import Cart from '../../assets/cart.svg'
 import DownArrowImg from '../../assets/down-arrow.png'
 import FooterBarImg from '../../assets/footerBar.png'
 import LogoImg from '../../assets/logo.png'
