@@ -3,14 +3,16 @@ import React from 'react'
 import Carousel from 'react-elastic-carousel'
 
 import Bag from '../../assets/bag.png'
+import MagnifyingImg from '../../assets/magnifying.png'
 import HeaderBarImg from '../../assets/bar.png'
 import Cart from '../../assets/cart.png'
 import DownArrowImg from '../../assets/down-arrow.png'
+import FooterBarImg from '../../assets/footerBar.png'
 import LogoImg from '../../assets/logo.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.jpeg'
 
-import { A, AboutWrapper, AboutTitle, AboutDescription, CarouselTitle, CarouselAllItems, CarouselWrapper, Container, DownArrow, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage } from './styles'
+import { A, AboutDescription, AboutTitle, AboutWrapper, CarouselAllItems, CarouselTitle, CarouselWrapper, Container, DivInput, DownArrow, FooterBar, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Main, MainHeader, MainImage, Magnifying, SearchInputButton } from './styles'
 
 function Home () {
   return (
@@ -18,7 +20,10 @@ function Home () {
       <Header>
         <MainHeader>
           <Logo src={LogoImg} alt='logo' />
-          <Input placeholder='O que está buscando?'/>
+          <DivInput>
+            <Input placeholder='O que está buscando?'/>
+            <SearchInputButton><Magnifying src={MagnifyingImg} alt='magnifying-glass-icon' /></SearchInputButton>
+          </DivInput>
           <Icons src={Person} alt='icone-person' /><A>Entrar / Cadastrar <br /> Minha conta <DownArrow src={DownArrowImg}/></A>
           <Icons src={Bag} alt='icone-sacola' /><A>Meus pedidos</A>
           <Icons src={Cart} alt='icone-carrinho' /><A>Carrinho</A>
@@ -113,6 +118,7 @@ function Home () {
           <AboutDescription>Somos uma empresa top de perfumes</AboutDescription>
         </AboutWrapper>
 
+        <FooterBar src={FooterBarImg} alt='footer-bar-img'/>
       </Main>
     </Container>
   )

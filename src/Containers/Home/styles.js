@@ -5,9 +5,9 @@ export const Container = styled.section`
     height: 100vh;
 `
 
-/* _____HEADER______ */
+/* _____Header______ */
 export const Header = styled.header`
-    height: 15vh;
+    height: 20vh;
     width: 100vw;
 
     display: flex;
@@ -17,6 +17,7 @@ export const Header = styled.header`
 `
 
 export const MainHeader = styled.div`
+    height: 80%;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,6 +25,7 @@ export const MainHeader = styled.div`
 
 export const Logo = styled.img`
     height: 30px;
+    margin: 0 30px;
 `
 
 export const Icons = styled.img`
@@ -36,10 +38,48 @@ export const DownArrow = styled.img`
     width: 15px;
 `
 
-export const Input = styled.input`
-    height: 30px;
-
+export const DivInput = styled.div`
+    height: 40px;
     width: 400px;
+
+    border-radius: 50px;
+    
+    padding: 0 5px 0 18px;
+
+    background-color: #F1F1F1;
+
+    display: flex;
+    align-items: center;
+`
+
+export const Input = styled.input`
+    height: 100%;
+    width: 87%;
+
+
+    border: none;
+
+    background-color: #F1F1F1;
+`
+
+export const SearchInputButton = styled.button`
+    border-radius: 50px;
+    border: none;
+
+    height: 80%;
+    width: 13%;
+
+    background-color: #8800E4;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
+export const Magnifying = styled.img`
+    height: 50%;
+
+    rotate: -90deg;
 `
 
 export const A = styled.a`
@@ -83,3 +123,6 @@ export const CarouselAllItems = styled.a``
 export const AboutWrapper = styled.div``
 export const AboutTitle = styled.h2``
 export const AboutDescription = styled.p``
+
+/* _____Footer_____ */
+export const FooterBar = styled.img``
