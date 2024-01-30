@@ -120,7 +120,7 @@ export const ASections = styled.a`
 
 export const AIcons = styled.a`
     font-weight: 600;
-    font-size: 13px;
+    font-size: 14px;
 
     &:hover {
         cursor: pointer;
