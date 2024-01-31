@@ -156,9 +156,9 @@ export const Main = styled.main`
 `
 
 export const MainImage = styled.img`
-    width: 70%;
+    width: 95%;
 
-    border-radius: 2%;
+    border-radius: 20px;
 
     margin: 30px auto 0;
 `

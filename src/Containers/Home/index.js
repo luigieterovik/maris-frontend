@@ -10,7 +10,7 @@ import FooterBarImg from '../../assets/footerBar.png'
 import LogoImg from '../../assets/logo.png'
 import MagnifyingImg from '../../assets/magnifying.png'
 import Person from '../../assets/person.png'
-import MainImageImg from '../../assets/teste.jpeg'
+import MainImageImg from '../../assets/teste.png'
 
 import { AIcons, ASections, AboutDescription, AboutTitle, AboutWrapper, CarouselAllItems, CarouselTitle, CarouselWrapper, Container, DivHeaderIcons, DivInput, DownArrow, FooterBar, Header, HeaderBar, HeaderSections, Icons, Input, Logo, Magnifying, LabelLogin, Main, MainHeader, MainImage, SearchInputButton } from './styles'
 
