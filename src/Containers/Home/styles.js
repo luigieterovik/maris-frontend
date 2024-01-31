@@ -86,7 +86,7 @@ export const SearchInputButton = styled.button`
     height: 80%;
     width: 13%;
 
-    background-color: #8800E4;
+    background-color: #B423EF;
 
     display: flex;
     align-items: center;
