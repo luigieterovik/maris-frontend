@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
-export const Container = styled.section`
-    width: 100vw;
+export const Container = styled.body`
+    width: auto;
     height: 100vh;
 `
 
@@ -33,7 +33,7 @@ export const DivHeaderIcons = styled.div`
     flex-direction: row;
     align-items: center;
 
-    position: absolute;
+    position: relative;
     right: 20px;
 `
 
@@ -56,7 +56,7 @@ export const DivInput = styled.div`
 
     border-radius: 50px;
     
-    margin: 0 2%;
+    margin: 0 auto;
     padding: 0 5px 0 18px;
 
     background-color: #F1F1F1;
@@ -86,7 +86,7 @@ export const SearchInputButton = styled.button`
     height: 80%;
     width: 13%;
 
-    background-color: #B423EF;
+    background-color: #9c19e8;
 
     display: flex;
     align-items: center;
@@ -135,6 +135,7 @@ export const LabelLogin = styled.label`
 
 export const HeaderSections = styled.div`   
     height: 3vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     margin: 15px 0 20px;
@@ -152,7 +153,7 @@ export const Main = styled.main`
 
     background: #F7F7F7;
 
-    width: 100vw;
+    width: 100%;
 `
 
 export const MainImage = styled.img`
@@ -215,13 +216,91 @@ export const CategoryDescription = styled.p`
 `
 
 /* _____Carousels_____ */
-export const CarouselWrapper = styled.div``
-export const CarouselTitle = styled.h2``
-export const CarouselAllItems = styled.a``
+export const CarouselWrapper = styled.div`
+    width: 90%;
+
+    margin: 0 50px;
+
+    .rec-dot {
+        display: none;
+    }
+    .rec-arrow {
+        display: none;
+    }
+    .Carousel:hover .rec-arrow {
+        
+    }
+
+`
+
+export const CarouselTitle = styled.h3`
+    margin-left: 15px;
+`
+
+export const CarouselSeeAll = styled.span`
+    margin-top: 10px;
+    position: absolute;
+    right: 8%;
+
+    font-weight: 600;
+    font-size: 15px;
+
+    color: blue;
+`
+
+export const CarouselBar = styled.div`
+    width: 185px;
+    height: 6px;
+
+    background-color: #9c19e8;
+
+    border-radius: 50px;
+
+    margin: 5px 0 15px 15px;
+`
+
+export const CarouselItem = styled.div`
+    width: 230px;
+    height: 400px;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+
+    padding: 20px;
+    margin: 10px 0;
+`
+
+export const ItemImage = styled.img`
+    max-height: 50%;
+    max-width: 90%;
+
+    align-self: center;
+`
+
+export const ItemName = styled.p`
+    margin: 10px 0 20px;
+
+    font-size: 15px;
+`
+
+export const ItemPrice = styled.p`
+    font-weight: 600;
+    font-size: 19px;
+`
+
+export const ItemInstallment = styled.label`
+    font-size: 15px;
+`
 
 /* _____About_____ */
 export const AboutWrapper = styled.div``
+
 export const AboutTitle = styled.h2``
+
 export const AboutDescription = styled.p``
 
 /* _____Footer_____ */
