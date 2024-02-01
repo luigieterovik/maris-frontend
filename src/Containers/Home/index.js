@@ -2,13 +2,17 @@ import React from 'react'
 
 import Carousel from 'react-elastic-carousel'
 
+import AmbientCategoryImg from '../../assets/ambientCategory.png'
 import Bag from '../../assets/bag.svg'
 import HeaderBarImg from '../../assets/bar.png'
 import Cart from '../../assets/cart.svg'
 import DownArrowImg from '../../assets/down-arrow.png'
+import FeminineCategoryImg from '../../assets/feminineCategory.png'
 import FooterBarImg from '../../assets/footerBar.png'
 import LogoImg from '../../assets/logo.png'
 import MagnifyingImg from '../../assets/magnifying.png'
+import MasculineCategoryImg from '../../assets/masculineCategory.png'
+import OfferCategoryImg from '../../assets/offerCategory.png'
 import Person from '../../assets/person.png'
 import MainImageImg from '../../assets/teste.png'
 
@@ -43,6 +47,20 @@ function Home () {
 
       <S.Main>
         <S.MainImage src={MainImageImg}/>
+
+        <S.CategoriesWrapper>
+            <S.CategoryImage src={OfferCategoryImg} alt="offer-category-icon" className='offerImage'/>
+            <S.CategoryDescription className='offerDescription'>Ofertas</S.CategoryDescription>
+
+            <S.CategoryImage src={FeminineCategoryImg} alt="feminine-category-icon" className='feminineImage'/>
+            <S.CategoryDescription className='feminineDescription'>Feminino</S.CategoryDescription>
+
+            <S.CategoryImage src={MasculineCategoryImg} alt="masculine-category-icon" className='masculineImage'/>
+            <S.CategoryDescription className='masculineDescription'>Masculino</S.CategoryDescription>
+
+            <S.CategoryImage src={AmbientCategoryImg} alt="ambient-category-icon" className='ambientImage'/>
+            <S.CategoryDescription className='ambientDescription'>Ambiente</S.CategoryDescription>
+        </S.CategoriesWrapper>
 
         <S.CarouselWrapper>
           <S.CarouselTitle>Ofertas</S.CarouselTitle>

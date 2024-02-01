@@ -163,6 +163,57 @@ export const MainImage = styled.img`
     margin: 30px auto 0;
 `
 
+/* _____Categories_____ */
+export const CategoriesWrapper = styled.div`
+    width: 70%;
+    margin: 50px auto;
+
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    grid-template-areas: 
+    "main feminineImage masculineImage ambientImage"
+    "offerDescription feminineDescription masculineDescription ambientDescription";
+`
+
+export const CategoryImage = styled.img`
+    height: 100px;
+
+    & .offerImage {
+        grid-area: main;
+    }
+    & .feminineImage {
+        grid-area: "feminineImage";
+    }
+    & .masculineImage {
+        grid-area: "masculineImage";
+    }
+    & .ambientImage {
+        grid-area: "ambientImage";
+    }
+`
+
+export const CategoryDescription = styled.span`
+    margin-top: 10px;
+
+    font-weight: 400;
+    font-size: 16px;
+
+    & .offerDescription {
+        grid-area: "offerDescription";
+    }
+    & .feminineDescription {
+        grid-area: "feminineDescription";
+    }
+    & .masculineDescription {
+        grid-area: "masculineDescription";
+    }
+    & .ambientDescription {
+        grid-area: "ambientDescription";
+    }
+`
+
 /* _____Carousels_____ */
 export const CarouselWrapper = styled.div``
 export const CarouselTitle = styled.h2``
@@ -174,4 +225,6 @@ export const AboutTitle = styled.h2``
 export const AboutDescription = styled.p``
 
 /* _____Footer_____ */
-export const FooterBar = styled.img``
+export const FooterBar = styled.img`
+    width: 100%;
+`
