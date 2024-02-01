@@ -49,17 +49,18 @@ function Home () {
         <S.MainImage src={MainImageImg}/>
 
         <S.CategoriesWrapper>
-            <S.CategoryImage src={OfferCategoryImg} alt="offer-category-icon" className='offerImage'/>
+            <S.CategoryImage src={OfferCategoryImg} alt="offer-category-icon" className="offerImage"/>
             <S.CategoryDescription className='offerDescription'>Ofertas</S.CategoryDescription>
 
-            <S.CategoryImage src={FeminineCategoryImg} alt="feminine-category-icon" className='feminineImage'/>
+            <S.CategoryImage src={FeminineCategoryImg} alt="feminine-category-icon" className="feminineImage"/>
             <S.CategoryDescription className='feminineDescription'>Feminino</S.CategoryDescription>
 
-            <S.CategoryImage src={MasculineCategoryImg} alt="masculine-category-icon" className='masculineImage'/>
-            <S.CategoryDescription className='masculineDescription'>Masculino</S.CategoryDescription>
+            <S.CategoryImage src={MasculineCategoryImg} alt="masculine-category-icon" className="masculineImage"/>
+            <S.CategoryDescription className="masculineDescription">Masculino</S.CategoryDescription>
 
-            <S.CategoryImage src={AmbientCategoryImg} alt="ambient-category-icon" className='ambientImage'/>
-            <S.CategoryDescription className='ambientDescription'>Ambiente</S.CategoryDescription>
+            <S.CategoryImage src={AmbientCategoryImg} alt="ambient-category-icon" className="ambientImage"/>
+            <S.CategoryDescription className="ambientDescription">Ambiente</S.CategoryDescription>
+
         </S.CategoriesWrapper>
 
         <S.CarouselWrapper>

@@ -169,48 +169,48 @@ export const CategoriesWrapper = styled.div`
     margin: 50px auto;
 
     display: grid;
-    justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: auto auto;
+    justify-items: center;
     grid-template-areas: 
-    "main feminineImage masculineImage ambientImage"
-    "offerDescription feminineDescription masculineDescription ambientDescription";
+        "offerImage feminineImage masculineImage ambientImage"
+        "offerDescription feminineDescription masculineDescription ambientDescription";
 `
 
 export const CategoryImage = styled.img`
     height: 100px;
 
-    & .offerImage {
-        grid-area: main;
+    &.offerImage {
+        grid-area: offerImage;
     }
-    & .feminineImage {
-        grid-area: "feminineImage";
+    &.feminineImage {
+        grid-area: feminineImage;
     }
-    & .masculineImage {
-        grid-area: "masculineImage";
+    &.masculineImage {
+        grid-area: masculineImage;
     }
-    & .ambientImage {
-        grid-area: "ambientImage";
+    &.ambientImage {
+        grid-area: ambientImage;
     }
 `
 
-export const CategoryDescription = styled.span`
+export const CategoryDescription = styled.p`
     margin-top: 10px;
 
     font-weight: 400;
     font-size: 16px;
 
-    & .offerDescription {
-        grid-area: "offerDescription";
+    &.offerDescription {
+        grid-area: offerDescription;
     }
-    & .feminineDescription {
-        grid-area: "feminineDescription";
+    &.feminineDescription {
+        grid-area: feminineDescription;
     }
-    & .masculineDescription {
-        grid-area: "masculineDescription";
+    &.masculineDescription {
+        grid-area: masculineDescription;
     }
-    & .ambientDescription {
-        grid-area: "ambientDescription";
+    &.ambientDescription {
+        grid-area: ambientDescription;
     }
 `
 
