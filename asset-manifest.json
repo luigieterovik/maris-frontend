@@ -1,9 +1,10 @@
 {
   "files": {
-    "main.js": "/maris-frontend/static/js/main.42cab10c.js",
+    "main.js": "/maris-frontend/static/js/main.48806019.js",
     "static/media/teste.png": "/maris-frontend/static/media/teste.e56c16970ee3b381802d.png",
     "static/media/logo.png": "/maris-frontend/static/media/logo.30f9557ef663f94ee242.png",
     "static/media/person.png": "/maris-frontend/static/media/person.90365dba9ab24805fffa.png",
+    "static/media/perfume.jpg": "/maris-frontend/static/media/perfume.cff6e77130fded7d20cb.jpg",
     "static/media/offerCategory.png": "/maris-frontend/static/media/offerCategory.dfd0da00c6dd98c933d6.png",
     "static/media/ambientCategory.png": "/maris-frontend/static/media/ambientCategory.ea1e1f51a7a15faa440e.png",
     "static/media/feminineCategory.png": "/maris-frontend/static/media/feminineCategory.3aac19f7f3c1bb1b45fd.png",
@@ -12,9 +13,9 @@
     "static/media/cart.svg": "/maris-frontend/static/media/cart.b12226dc8dfbc1951895b4936a0b169c.svg",
     "static/media/bag.svg": "/maris-frontend/static/media/bag.7d3b018c2275f55a46001a89c3c364bc.svg",
     "index.html": "/maris-frontend/index.html",
-    "main.42cab10c.js.map": "/maris-frontend/static/js/main.42cab10c.js.map"
+    "main.48806019.js.map": "/maris-frontend/static/js/main.48806019.js.map"
   },
   "entrypoints": [
-    "static/js/main.42cab10c.js"
+    "static/js/main.48806019.js"
   ]
 }
