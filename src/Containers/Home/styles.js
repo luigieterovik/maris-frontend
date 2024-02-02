@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const Container = styled.body`
     width: auto;
     height: 100vh;
+    margin: 0 auto;
 `
 
 /* _____Header______ */
@@ -167,7 +168,7 @@ export const MainImage = styled.img`
 /* _____Categories_____ */
 export const CategoriesWrapper = styled.div`
     width: 70%;
-    margin: 50px auto;
+    margin: 40px auto;
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -218,19 +219,48 @@ export const CategoryDescription = styled.p`
 /* _____Carousels_____ */
 export const CarouselWrapper = styled.div`
     width: 90%;
-
     margin: 0 50px;
+    position: relative;
 
     .rec-dot {
         display: none;
     }
+
     .rec-arrow {
         display: none;
-    }
-    .Carousel:hover .rec-arrow {
-        
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        z-index: 1;
+
+        background-color: #9C19E8;
+        color: white;
     }
 
+    .rec-arrow:hover {
+        background-color: white;
+        color: #9C19E8;
+        border: 1px solid #9C19E8;
+    }
+
+    .rec.rec-arrow:disabled {
+        visibility: hidden;
+    }
+
+
+    .rec-arrow-left {
+        left: 0;
+    }
+
+    .rec-arrow-right {
+        right: 0;
+    }
+
+    .Carousel:hover .rec-arrow {
+        display: block;
+    }
 `
 
 export const CarouselTitle = styled.h3`
@@ -239,8 +269,8 @@ export const CarouselTitle = styled.h3`
 
 export const CarouselSeeAll = styled.span`
     margin-top: 10px;
-    position: absolute;
-    right: 8%;
+    position: relative;
+    left: 75%;
 
     font-weight: 600;
     font-size: 15px;
