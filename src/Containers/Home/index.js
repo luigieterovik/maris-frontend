@@ -68,42 +68,42 @@ function Home () {
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00</S.ItemPrice>
+              <S.ItemPrice>R$ 142,00 <S.OldPrice>R$ 183,00</S.OldPrice></S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00</S.ItemPrice>
+              <S.ItemPrice>R$ 142,00 <S.OldPrice>R$ 183,00</S.OldPrice></S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00</S.ItemPrice>
+              <S.ItemPrice>R$ 142,00 <S.OldPrice>R$ 183,00</S.OldPrice></S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00</S.ItemPrice>
+              <S.ItemPrice>R$ 142,00 <S.OldPrice>R$ 183,00</S.OldPrice></S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00</S.ItemPrice>
+              <S.ItemPrice>R$ 142,00 <S.OldPrice>R$ 183,00</S.OldPrice></S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00</S.ItemPrice>
+              <S.ItemPrice>R$ 142,00 <S.OldPrice>R$ 183,00</S.OldPrice></S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
           </Carousel>

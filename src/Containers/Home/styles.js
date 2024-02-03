@@ -383,6 +383,14 @@ export const ItemName = styled.p`
 export const ItemPrice = styled.p`
     font-weight: 600;
     font-size: 19px;
+    color: green;
+`
+
+export const OldPrice = styled.span`
+    color: gray; 
+    font-size: 13px; 
+    text-decoration: line-through;
+    font-weight: 500;
 `
 
 export const ItemInstallment = styled.label`
