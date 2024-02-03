@@ -29,7 +29,7 @@ function Home () {
         <S.HeaderSections>
           <S.ASections>Início</S.ASections>
           <S.ASections>Catálogo</S.ASections>
-          <S.ASections>Categorias <S.DownArrow src={i('downArrow.png')} /></S.ASections>
+          <S.ASections className='ACategoriasHeader'>Categorias <S.DownArrow src={i('downArrow.png')} /></S.ASections>
         </S.HeaderSections>
 
         <S.HeaderBar src={i('bar.png')}/>
@@ -64,6 +64,7 @@ function Home () {
           <S.CarouselTitle>Ofertas da semana
           <S.CarouselSeeAll>Ver todos <S.RightArrowSeeAll src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CarouselSeeAll></S.CarouselTitle>
           <S.CarouselBar></S.CarouselBar>
+
           <Carousel className="Carousel" itemsToShow={5}>
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
@@ -108,6 +109,44 @@ function Home () {
             </S.CarouselItem>
           </Carousel>
         </S.CarouselWrapper>
+
+        <S.SpecialCarouselWrapper>
+          <S.SpecialCarouselInformations>
+            <S.SpecialCarouselTitle>Novidades</S.SpecialCarouselTitle>
+            <S.SpecialCarouselDescription>Veja outras novidades clicando no botão abaixo</S.SpecialCarouselDescription>
+            <S.SpecialCarouselButton>Ver mais</S.SpecialCarouselButton>
+          </S.SpecialCarouselInformations>
+
+          <Carousel className='Carousel' itemsToShow={3}>
+            <S.CarouselItem>
+              <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
+              <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
+              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+            </S.CarouselItem>
+
+            <S.CarouselItem>
+              <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
+              <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
+              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+            </S.CarouselItem>
+
+            <S.CarouselItem>
+              <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
+              <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
+              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+            </S.CarouselItem>
+
+            <S.CarouselItem>
+              <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
+              <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
+              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+            </S.CarouselItem>
+          </Carousel>
+        </S.SpecialCarouselWrapper>
 
         <S.AboutWrapper>
           <S.AboutTitle>Sobre nós</S.AboutTitle>

@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const Container = styled.body`
     width: auto;
+    max-width: 1366px;
     height: 100vh;
     margin: 0 auto;
 `
@@ -116,6 +117,8 @@ export const ASections = styled.a`
 
     &:hover {
         cursor: pointer;
+        color: #05004D;
+        opacity: 0.9;
     }
 `
 
@@ -140,6 +143,15 @@ export const HeaderSections = styled.div`
     display: flex;
     justify-content: center;
     margin: 15px 0 20px;
+
+    .ACategoriasHeader:hover {
+        color: blue;
+        opacity: 0.8;
+
+        ${DownArrow} {
+            filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7214%) hue-rotate(245deg) brightness(112%) contrast(138%);
+        }
+    }
 `
 
 export const HeaderBar = styled.img`
@@ -267,14 +279,14 @@ export const CarouselWrapper = styled.div`
         cursor: pointer;
         z-index: 1;
 
-        background-color: white;
-        color: #9C19E8;
-        border: 1px solid #9C19E8;
+        background-color: #9C19E8;
+        color: white;
     }
 
     .rec-arrow:hover {
-        background-color: #9C19E8;
-        color: white;
+        background-color: white;
+        color: #9C19E8;
+        border: 1px solid #9C19E8;
     }
 
     .rec.rec-arrow:disabled {
@@ -292,10 +304,13 @@ export const CarouselWrapper = styled.div`
     .Carousel:hover .rec-arrow {
         display: block;
     }
+
 `
 
 export const CarouselTitle = styled.h3`
     margin-left: 15px;
+    font-size: 20px;
+    font-weight: 600;
 `
 
 export const RightArrowSeeAll = styled.img`
@@ -320,6 +335,8 @@ export const CarouselSeeAll = styled.label`
   &:hover {
     transform: translateX(-30px);
 
+    filter: brightness(60%);
+
     ${RightArrowSeeAll} {
       transform: translateX(-10px);
       visibility: initial;
@@ -332,7 +349,7 @@ export const CarouselSeeAll = styled.label`
 `
 
 export const CarouselBar = styled.div`
-    width: 185px;
+    width: 200px;
     height: 6px;
 
     background-color: #9c19e8;
@@ -371,6 +388,8 @@ export const ItemImage = styled.img`
     max-height: 50%;
     max-width: 90%;
 
+    border-radius: 15px;
+
     align-self: center;
 `
 
@@ -395,6 +414,105 @@ export const OldPrice = styled.span`
 
 export const ItemInstallment = styled.label`
     font-size: 15px;
+`
+
+/* _____Special Carousel_____ */
+export const SpecialCarouselWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    width: 89%;
+    margin: 0 55px;
+    position: relative;
+    border-radius: 20px;
+    padding: 10px 0 0 30px;
+
+    background-image: linear-gradient(to right, #6E00B9, #DF00FF, #FF00E4);
+
+    .rec-dot {
+        display: none;
+    }
+
+    .rec-arrow {
+        display: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background-color: rgba(255, 255, 255, 0.7);
+        cursor: pointer;
+        z-index: 1;
+
+        background-color: white;
+        color: #9C19E8;
+        border: 1px solid #9C19E8;
+    }
+
+    .rec-arrow:hover {
+        background-color: #9C19E8;
+        color: white;
+    }
+
+    .rec.rec-arrow:disabled {
+        visibility: hidden;
+    }
+
+    .rec-arrow-left {
+        left: -10px;
+    }
+
+    .rec-arrow-right {
+        right: -10px;
+    }
+
+    .Carousel:hover .rec-arrow {
+        display: block;
+    }
+
+    .Carousel {
+        width: 63%; 
+        position: relative;
+        left: 70px;
+    }   
+
+    ${ItemPrice} {
+        color: black;
+    }
+`
+
+export const SpecialCarouselInformations = styled.div`
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+`
+
+export const SpecialCarouselTitle = styled.h2`
+    color: white;
+    margin: 30px 0 20px;
+    font-size: 25px;
+    width: fit-content;
+`
+
+export const SpecialCarouselDescription = styled.p`
+    color: white;
+    font-size: 15px;
+    margin-bottom: 20px;
+`
+
+export const SpecialCarouselButton = styled.button`
+    background-color: white;
+    color: #8500DD;
+    border: none;
+    width: 220px;
+    height: 45px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 600;
+
+    &:hover {
+        background-color: #9C19E8;
+        border: 2px solid white;
+        color: white;
+        cursor: pointer;
+    }
 `
 
 /* _____About_____ */
