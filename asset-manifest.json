@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/maris-frontend/static/js/main.e6403d2a.js",
+    "main.js": "/maris-frontend/static/js/main.e09844e5.js",
     "static/media/banner.png": "/maris-frontend/static/media/banner.e56c16970ee3b381802d.png",
     "static/media/logo.png": "/maris-frontend/static/media/logo.30f9557ef663f94ee242.png",
     "static/media/whiteLogo.png": "/maris-frontend/static/media/whiteLogo.77a8a47d27fbc6169ff5.png",
@@ -14,9 +14,9 @@
     "static/media/cart.svg": "/maris-frontend/static/media/cart.b12226dc8dfbc1951895.svg",
     "static/media/bag.svg": "/maris-frontend/static/media/bag.7d3b018c2275f55a4600.svg",
     "index.html": "/maris-frontend/index.html",
-    "main.e6403d2a.js.map": "/maris-frontend/static/js/main.e6403d2a.js.map"
+    "main.e09844e5.js.map": "/maris-frontend/static/js/main.e09844e5.js.map"
   },
   "entrypoints": [
-    "static/js/main.e6403d2a.js"
+    "static/js/main.e09844e5.js"
   ]
 }
