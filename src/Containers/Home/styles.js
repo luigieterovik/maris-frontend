@@ -178,6 +178,57 @@ export const CategoriesWrapper = styled.div`
         "offerImage feminineImage masculineImage ambientImage"
         "offerDescription feminineDescription masculineDescription ambientDescription";
 `
+export const RightArrow = styled.img`
+    height: 18px;
+    position: relative;
+    top: 3px;
+    left: 15px;
+    transform: translateX(0);
+    transition: transform 0.3s ease-in-out;
+    visibility: hidden;
+`
+
+export const CategoryDescription = styled.p`
+    margin-top: 10px;
+    font-weight: 400;
+    font-size: 16px;
+    transform: translateX(10px);
+    transition: transform 0.3s ease-in-out;
+
+    &.offerDescription {
+        grid-area: offerDescription;
+    }
+    &.feminineDescription {
+        grid-area: feminineDescription;
+    }
+    &.masculineDescription {
+        grid-area: masculineDescription;
+    }
+    &.ambientDescription {
+        grid-area: ambientDescription;
+    }
+`
+
+export const CategoryItem = styled.div`
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        ${RightArrow} {
+            transform: translateX(-3px);
+            visibility: initial;
+            filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
+        }
+        ${CategoryDescription} {
+            transform: translateX(-3px);
+            color: blue;
+        }
+        cursor: pointer;
+    }
+`
 
 export const CategoryImage = styled.img`
     height: 100px;
@@ -193,26 +244,6 @@ export const CategoryImage = styled.img`
     }
     &.ambientImage {
         grid-area: ambientImage;
-    }
-`
-
-export const CategoryDescription = styled.p`
-    margin-top: 10px;
-
-    font-weight: 400;
-    font-size: 16px;
-
-    &.offerDescription {
-        grid-area: offerDescription;
-    }
-    &.feminineDescription {
-        grid-area: feminineDescription;
-    }
-    &.masculineDescription {
-        grid-area: masculineDescription;
-    }
-    &.ambientDescription {
-        grid-area: ambientDescription;
     }
 `
 
@@ -235,27 +266,26 @@ export const CarouselWrapper = styled.div`
         cursor: pointer;
         z-index: 1;
 
-        background-color: #9C19E8;
-        color: white;
-    }
-
-    .rec-arrow:hover {
         background-color: white;
         color: #9C19E8;
         border: 1px solid #9C19E8;
+    }
+
+    .rec-arrow:hover {
+        background-color: #9C19E8;
+        color: white;
     }
 
     .rec.rec-arrow:disabled {
         visibility: hidden;
     }
 
-
     .rec-arrow-left {
-        left: 0;
+        left: -10px;
     }
 
     .rec-arrow-right {
-        right: 0;
+        right: -10px;
     }
 
     .Carousel:hover .rec-arrow {
