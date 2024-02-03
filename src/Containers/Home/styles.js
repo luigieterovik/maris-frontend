@@ -178,7 +178,8 @@ export const CategoriesWrapper = styled.div`
         "offerImage feminineImage masculineImage ambientImage"
         "offerDescription feminineDescription masculineDescription ambientDescription";
 `
-export const RightArrow = styled.img`
+
+export const RightArrowCategory = styled.img`
     height: 18px;
     position: relative;
     top: 3px;
@@ -217,7 +218,7 @@ export const CategoryItem = styled.div`
     align-items: center;
 
     &:hover {
-        ${RightArrow} {
+        ${RightArrowCategory} {
             transform: translateX(-3px);
             visibility: initial;
             filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
@@ -297,15 +298,37 @@ export const CarouselTitle = styled.h3`
     margin-left: 15px;
 `
 
-export const CarouselSeeAll = styled.span`
-    margin-top: 10px;
-    position: relative;
-    left: 75%;
+export const RightArrowSeeAll = styled.img`
+  height: 18px;
+  position: relative;
+  top: 3px;
+  left: 15px;   
+  transform: translateX(0);
+  transition: transform 0.3s ease-in-out;
+  visibility: hidden;
+`
 
-    font-weight: 600;
-    font-size: 15px;
+export const CarouselSeeAll = styled.label`
+  margin-top: 10px;
+  position: absolute;
+  right: 0;
+  font-weight: 600;
+  font-size: 15px;
+  color: blue;
+  transition: transform 0.3s ease-in-out;
 
-    color: blue;
+  &:hover {
+    transform: translateX(-30px);
+
+    ${RightArrowSeeAll} {
+      transform: translateX(-10px);
+      visibility: initial;
+      filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
+      color: blue;
+    }
+
+    cursor: pointer;
+  }
 `
 
 export const CarouselBar = styled.div`
@@ -332,6 +355,16 @@ export const CarouselItem = styled.div`
 
     padding: 20px;
     margin: 10px 0;
+
+    &:hover {
+        transition: transform 0.3s ease-in-out;
+        transform: translateY(-10px);
+        cursor: pointer;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    &:not(:hover) {
+        transition: transform 0.3s ease-in-out;
+    }
 `
 
 export const ItemImage = styled.img`

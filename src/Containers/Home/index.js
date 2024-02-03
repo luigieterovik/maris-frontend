@@ -41,28 +41,28 @@ function Home () {
         <S.CategoriesWrapper>
             <S.CategoryItem>
               <S.CategoryImage src={i('offerCategory.png')} alt="offer-category-icon" className="offerImage"/>
-              <S.CategoryDescription className='offerDescription'>Ofertas <S.RightArrow src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
+              <S.CategoryDescription className='offerDescription'>Ofertas <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
 
             <S.CategoryItem>
               <S.CategoryImage src={i('feminineCategory.png')} alt="feminine-category-icon" className="feminineImage"/>
-              <S.CategoryDescription className='feminineDescription'>Feminino <S.RightArrow src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
+              <S.CategoryDescription className='feminineDescription'>Feminino <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
 
             <S.CategoryItem>
               <S.CategoryImage src={i('masculineCategory.png')} alt="masculine-category-icon" className="masculineImage"/>
-              <S.CategoryDescription className="masculineDescription">Masculino <S.RightArrow src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
+              <S.CategoryDescription className="masculineDescription">Masculino <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
 
             <S.CategoryItem>
               <S.CategoryImage src={i('ambientCategory.png')} alt="ambient-category-icon" className="ambientImage"/>
-              <S.CategoryDescription className="ambientDescription">Ambiente <S.RightArrow src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
+              <S.CategoryDescription className="ambientDescription">Ambiente <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
         </S.CategoriesWrapper>
 
         <S.CarouselWrapper>
           <S.CarouselTitle>Ofertas da semana
-          <S.CarouselSeeAll>Ver todos</S.CarouselSeeAll></S.CarouselTitle>
+          <S.CarouselSeeAll>Ver todos <S.RightArrowSeeAll src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CarouselSeeAll></S.CarouselTitle>
           <S.CarouselBar></S.CarouselBar>
           <Carousel className="Carousel" itemsToShow={5}>
             <S.CarouselItem>
