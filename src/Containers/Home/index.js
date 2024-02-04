@@ -121,39 +121,44 @@ function Home () {
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
-              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
-              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
-              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ 142,00 </S.ItemPrice>
-              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
+              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
           </Carousel>
         </S.SpecialCarouselWrapper>
 
         <S.AboutWrapper>
-          <S.AboutTitle>Sobre nós</S.AboutTitle>
-          <S.AboutDescription>Somos uma empresa top de perfumes</S.AboutDescription>
+          <S.AboutImage src={i('about.png')} alt='about-image' />
+          <S.AboutInformation>
+            <S.AboutTitle>Um pouco sobre nós</S.AboutTitle>
+            <S.AboutDescription>Mari&apos;s Boutik&apos;s surgiu com o propósito de oferecer perfumes de qualidade com preços acessíveis. Cada produto é único, com fórmulas inovadoras que proporcionam ao usuário uma experiência especial.</S.AboutDescription>
+            <S.AboutDescription className='SecondAboutDescription'>Gostaria de conhecer melhor nossos produtos? <br /> Clique no botão abaixo</S.AboutDescription>
+            <S.AboutButton>Nossos produtos</S.AboutButton>
+          </S.AboutInformation>
         </S.AboutWrapper>
 
-        <S.FooterBar src={i('footerBar.png')} alt='footer-bar-img'/>
+        <S.FooterBar></S.FooterBar>
       </S.Main>
     </S.Container>
   )

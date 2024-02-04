@@ -421,7 +421,7 @@ export const SpecialCarouselWrapper = styled.div`
     display: flex;
     flex-direction: row;
     width: 89%;
-    margin: 0 55px;
+    margin: 20px 55px 0;
     position: relative;
     border-radius: 20px;
     padding: 10px 0 0 30px;
@@ -516,13 +516,67 @@ export const SpecialCarouselButton = styled.button`
 `
 
 /* _____About_____ */
-export const AboutWrapper = styled.div``
+export const AboutWrapper = styled.div`
+    height: 90vh;
 
-export const AboutTitle = styled.h2``
+    margin: 70px 0;
+    padding: 0 50px;
 
-export const AboutDescription = styled.p``
+    display: flex;
+    flex-direction: row;
+`
+
+export const AboutInformation = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 80px;
+
+    .SecondAboutDescription {
+        font-weight: 600;
+        margin: 15px 0 25px;
+    }
+`
+
+export const AboutButton = styled.button`
+    background-color: #9C19E8;
+    color: white;
+
+    border: none;
+    border-radius: 30px;
+
+    height: 45px;
+    width: 200px;
+
+    font-weight: 600;
+    font-size: 15px;
+
+    &:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+`
+
+export const AboutImage = styled.img`
+    height: 100%;
+
+`
+
+export const AboutTitle = styled.h2`
+    font-size: 30px;
+`
+
+export const AboutDescription = styled.p`
+    font-size: 16px;
+    font-weight: 400;
+    margin-top: 15px;
+    
+`
 
 /* _____Footer_____ */
-export const FooterBar = styled.img`
+export const FooterBar = styled.div`
     width: 100%;
+    height: 6px;
+
+    background-image: linear-gradient(90deg, #7000BA, #F300ED, #7000BA);
 `
