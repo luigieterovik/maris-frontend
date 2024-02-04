@@ -471,6 +471,7 @@ export const SpecialCarouselWrapper = styled.div`
         width: 63%; 
         position: relative;
         left: 70px;
+        margin-left: 30px;
     }   
 
     ${ItemPrice} {
@@ -517,7 +518,7 @@ export const SpecialCarouselButton = styled.button`
 
 /* _____About_____ */
 export const AboutWrapper = styled.div`
-    height: 90vh;
+    height: 550px;
 
     margin: 70px 0;
     padding: 0 50px;
@@ -559,7 +560,6 @@ export const AboutButton = styled.button`
 
 export const AboutImage = styled.img`
     height: 100%;
-
 `
 
 export const AboutTitle = styled.h2`
@@ -567,10 +567,9 @@ export const AboutTitle = styled.h2`
 `
 
 export const AboutDescription = styled.p`
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 400;
     margin-top: 15px;
-    
 `
 
 /* _____Footer_____ */
@@ -579,4 +578,14 @@ export const FooterBar = styled.div`
     height: 6px;
 
     background-image: linear-gradient(90deg, #7000BA, #F300ED, #7000BA);
+`
+
+export const Footer = styled.footer`
+    height: 250px;
+    background-color: black;
+    padding: 60px 60px;
+`
+
+export const FooterItem = styled.p`
+    color: white;
 `
