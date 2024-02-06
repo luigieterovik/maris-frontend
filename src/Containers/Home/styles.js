@@ -583,8 +583,33 @@ export const Footer = styled.footer`
     height: 250px;
     background-color: black;
     padding: 60px 60px;
+
+    .payment {
+        font-size: 14px;
+    }
 `
 
 export const FooterItem = styled.p`
     color: white;
+
+    .emailIcon {
+        height: 20px;
+        width: auto;
+        margin: 0;
+        transform: translateY(6px);
+    }
+
+    .phoneIcon {
+        height: 24px;
+        width: auto;
+        margin: 0;
+        transform: translateY(5px);
+    }
+`
+
+export const PaymentIcon = styled.img`
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    margin: 5px 10px 0 0;
 `
