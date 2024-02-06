@@ -9,7 +9,7 @@ export const Container = styled.body`
 
 /* _____Header______ */
 export const Header = styled.header`
-    height: 20vh;
+    height: 125px;
     width: 100%;
 
     display: flex;
@@ -579,6 +579,13 @@ export const FooterBar = styled.div`
     background-image: linear-gradient(90deg, #7000BA, #F300ED, #7000BA);
 `
 
+export const PaymentIcon = styled.img`
+    height: 30px;
+    width: 50px;
+    border-radius: 5px;
+    margin: 5px 10px 0 0;
+`
+
 export const Footer = styled.footer`
     height: 250px;
     background-color: black;
@@ -587,10 +594,16 @@ export const Footer = styled.footer`
     .payment {
         font-size: 14px;
     }
+
+    .comunication:hover {
+        cursor: pointer;
+        opacity: 0.6;
+    }
 `
 
 export const FooterItem = styled.p`
     color: white;
+    width: fit-content;
 
     .emailIcon {
         height: 20px;
@@ -605,11 +618,4 @@ export const FooterItem = styled.p`
         margin: 0;
         transform: translateY(5px);
     }
-`
-
-export const PaymentIcon = styled.img`
-    height: 30px;
-    width: 50px;
-    border-radius: 5px;
-    margin: 5px 10px 0 0;
 `

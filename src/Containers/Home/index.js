@@ -164,8 +164,8 @@ function Home () {
 
           <S.FooterItem style={{ fontWeight: 700, fontSize: '14px' }}>ATENDIMENTO AO CLIENTE</S.FooterItem> <br/>
 
-          <S.FooterItem style={{ fontSize: '15px' }}> <S.PaymentIcon src={i('mail.png')} alt='mail-icon' className='emailIcon'/> ENTRAR EM CONTATO (E-MAIL)</S.FooterItem> <br />
-          <S.FooterItem style={{ fontSize: '15px' }}> <S.PaymentIcon src={i('phone.png')} alt='mail-icon' className='phoneIcon'/> +55 (11) 99556-4108 (WHATSAPP)</S.FooterItem> <br />
+          <S.FooterItem style={{ fontSize: '14px' }} className='comunication'> <S.PaymentIcon src={i('mail.png')} alt='mail-icon' className='emailIcon'/> ENTRAR EM CONTATO (E-MAIL)</S.FooterItem> <br />
+          <S.FooterItem style={{ fontSize: '14px' }} className='comunication'> <S.PaymentIcon src={i('phone.png')} alt='mail-icon' className='phoneIcon'/> +55 (11) 99556-4108 (WHATSAPP)</S.FooterItem> <br />
 
           <S.FooterItem className='payment'>Nós aceitamos:</S.FooterItem>
           <S.PaymentIcon src={i('pix.jpg')} alt='pix-icon'/>
