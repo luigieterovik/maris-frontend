@@ -471,7 +471,6 @@ export const SpecialCarouselWrapper = styled.div`
         width: 63%; 
         position: relative;
         left: 70px;
-        margin-left: 30px;
     }   
 
     ${ItemPrice} {
