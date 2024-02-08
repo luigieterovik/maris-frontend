@@ -184,11 +184,6 @@ export const CategoriesWrapper = styled.div`
 
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: auto auto;
-    justify-items: center;
-    grid-template-areas: 
-        "offerImage feminineImage masculineImage ambientImage"
-        "offerDescription feminineDescription masculineDescription ambientDescription";
 `
 
 export const RightArrowCategory = styled.img`
@@ -207,19 +202,6 @@ export const CategoryDescription = styled.p`
     font-size: 16px;
     transform: translateX(10px);
     transition: transform 0.3s ease-in-out;
-
-    &.offerDescription {
-        grid-area: offerDescription;
-    }
-    &.feminineDescription {
-        grid-area: feminineDescription;
-    }
-    &.masculineDescription {
-        grid-area: masculineDescription;
-    }
-    &.ambientDescription {
-        grid-area: ambientDescription;
-    }
 `
 
 export const CategoryItem = styled.div`
@@ -235,7 +217,7 @@ export const CategoryItem = styled.div`
             visibility: initial;
             filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
         }
-        ${CategoryDescription} {
+        p {
             transform: translateX(-3px);
             color: blue;
         }
@@ -245,19 +227,6 @@ export const CategoryItem = styled.div`
 
 export const CategoryImage = styled.img`
     height: 100px;
-
-    &.offerImage {
-        grid-area: offerImage;
-    }
-    &.feminineImage {
-        grid-area: feminineImage;
-    }
-    &.masculineImage {
-        grid-area: masculineImage;
-    }
-    &.ambientImage {
-        grid-area: ambientImage;
-    }
 `
 
 /* _____Carousels_____ */
