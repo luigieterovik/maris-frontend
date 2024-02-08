@@ -4,6 +4,9 @@ import Carousel from 'react-elastic-carousel'
 
 import * as S from './styles'
 
+import Button from '../../components/Button'
+import CarouselWrapper from '../../components/CarouselWrapper'
+
 const i = (name) => {
   return require('../../assets/' + name)
 }
@@ -60,11 +63,7 @@ function Home () {
             </S.CategoryItem>
         </S.CategoriesWrapper>
 
-        <S.CarouselWrapper>
-          <S.CarouselTitle>Ofertas da semana
-          <S.CarouselSeeAll>Ver todos <S.RightArrowSeeAll src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CarouselSeeAll></S.CarouselTitle>
-          <S.CarouselBar></S.CarouselBar>
-
+        <CarouselWrapper title='Ofertas da semana' seeAll='Ver todos' arrow='rightArrow.png'>
           <Carousel className="Carousel" itemsToShow={5}>
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
@@ -108,45 +107,39 @@ function Home () {
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 11,83</span></S.ItemInstallment>
             </S.CarouselItem>
           </Carousel>
-        </S.CarouselWrapper>
+        </CarouselWrapper>
 
-        <S.SpecialCarouselWrapper>
-          <S.SpecialCarouselInformations>
-            <S.SpecialCarouselTitle>Novidades</S.SpecialCarouselTitle>
-            <S.SpecialCarouselDescription>Veja outras novidades clicando no botão abaixo</S.SpecialCarouselDescription>
-            <S.SpecialCarouselButton>Ver mais</S.SpecialCarouselButton>
-          </S.SpecialCarouselInformations>
-
+        <CarouselWrapper isSpecialCarousel={true} title='Novidades' description='Veja outras novidades clicando no botão abaixo' button='Ver mais'>
           <Carousel className='Carousel' itemsToShow={3}>
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemPrice>R$ 183,00 </S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemPrice>R$ 183,00 </S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemPrice>R$ 183,00 </S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
 
             <S.CarouselItem>
               <S.ItemImage src={i('perfume.jpg')} alt='perfume-image'/>
               <S.ItemName>Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino</S.ItemName>
-              <S.ItemPrice>R$ R$ 183,00 </S.ItemPrice>
+              <S.ItemPrice>R$ 183,00 </S.ItemPrice>
               <S.ItemInstallment>em até <b>12x</b> de <span style={{ color: 'green', fontWeight: 600 }}>R$ 15,25  </span></S.ItemInstallment>
             </S.CarouselItem>
           </Carousel>
-        </S.SpecialCarouselWrapper>
+        </CarouselWrapper>
 
         <S.AboutWrapper>
           <S.AboutImage src={i('about.png')} alt='about-image' />
@@ -154,7 +147,7 @@ function Home () {
             <S.AboutTitle>Um pouco sobre nós</S.AboutTitle>
             <S.AboutDescription>Mari&apos;s Boutik&apos;s surgiu com o propósito de oferecer perfumes de qualidade com preços acessíveis. Cada produto é único, com fórmulas inovadoras que proporcionam ao usuário uma experiência especial.</S.AboutDescription>
             <S.AboutDescription className='SecondAboutDescription'>Gostaria de conhecer melhor nossos produtos? <br /> Clique no botão abaixo</S.AboutDescription>
-            <S.AboutButton>Nossos produtos</S.AboutButton>
+            <Button>Nossos produtos</Button>
           </S.AboutInformation>
         </S.AboutWrapper>
 

@@ -261,102 +261,10 @@ export const CategoryImage = styled.img`
 `
 
 /* _____Carousels_____ */
-export const CarouselWrapper = styled.div`
-    width: 90%;
-    margin: 0 50px;
-    position: relative;
-
-    .rec-dot {
-        display: none;
-    }
-
-    .rec-arrow {
-        display: none;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(255, 255, 255, 0.7);
-        cursor: pointer;
-        z-index: 1;
-
-        background-color: #9C19E8;
-        color: white;
-    }
-
-    .rec-arrow:hover {
-        background-color: white;
-        color: #9C19E8;
-        border: 1px solid #9C19E8;
-    }
-
-    .rec.rec-arrow:disabled {
-        visibility: hidden;
-    }
-
-    .rec-arrow-left {
-        left: -10px;
-    }
-
-    .rec-arrow-right {
-        right: -10px;
-    }
-
-    .Carousel:hover .rec-arrow {
-        display: block;
-    }
-
-`
-
-export const CarouselTitle = styled.h3`
-    margin-left: 15px;
-    font-size: 20px;
+export const ItemPrice = styled.p`
     font-weight: 600;
-`
-
-export const RightArrowSeeAll = styled.img`
-  height: 18px;
-  position: relative;
-  top: 3px;
-  left: 15px;   
-  transform: translateX(0);
-  transition: transform 0.3s ease-in-out;
-  visibility: hidden;
-`
-
-export const CarouselSeeAll = styled.label`
-  margin-top: 10px;
-  position: absolute;
-  right: 0;
-  font-weight: 600;
-  font-size: 15px;
-  color: blue;
-  transition: transform 0.3s ease-in-out;
-
-  &:hover {
-    transform: translateX(-30px);
-
-    filter: brightness(60%);
-
-    ${RightArrowSeeAll} {
-      transform: translateX(-10px);
-      visibility: initial;
-      filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
-      color: blue;
-    }
-
-    cursor: pointer;
-  }
-`
-
-export const CarouselBar = styled.div`
-    width: 200px;
-    height: 6px;
-
-    background-color: #9c19e8;
-
-    border-radius: 50px;
-
-    margin: 5px 0 15px 15px;
+    font-size: 19px;
+    color: green;
 `
 
 export const CarouselItem = styled.div`
@@ -382,6 +290,10 @@ export const CarouselItem = styled.div`
     &:not(:hover) {
         transition: transform 0.3s ease-in-out;
     }
+
+    ${ItemPrice} {
+        color: black;
+    }
 `
 
 export const ItemImage = styled.img`
@@ -399,12 +311,6 @@ export const ItemName = styled.p`
     font-size: 15px;
 `
 
-export const ItemPrice = styled.p`
-    font-weight: 600;
-    font-size: 19px;
-    color: green;
-`
-
 export const OldPrice = styled.span`
     color: gray; 
     font-size: 13px; 
@@ -414,105 +320,6 @@ export const OldPrice = styled.span`
 
 export const ItemInstallment = styled.label`
     font-size: 15px;
-`
-
-/* _____Special Carousel_____ */
-export const SpecialCarouselWrapper = styled.div`
-    display: flex;
-    flex-direction: row;
-    width: 89%;
-    margin: 20px 55px 0;
-    position: relative;
-    border-radius: 20px;
-    padding: 10px 0 0 30px;
-
-    background-image: linear-gradient(to right, #6E00B9, #DF00FF, #FF00E4);
-
-    .rec-dot {
-        display: none;
-    }
-
-    .rec-arrow {
-        display: none;
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        background-color: rgba(255, 255, 255, 0.7);
-        cursor: pointer;
-        z-index: 1;
-
-        background-color: white;
-        color: #9C19E8;
-        border: 1px solid #9C19E8;
-    }
-
-    .rec-arrow:hover {
-        background-color: #9C19E8;
-        color: white;
-    }
-
-    .rec.rec-arrow:disabled {
-        visibility: hidden;
-    }
-
-    .rec-arrow-left {
-        left: -10px;
-    }
-
-    .rec-arrow-right {
-        right: -10px;
-    }
-
-    .Carousel:hover .rec-arrow {
-        display: block;
-    }
-
-    .Carousel {
-        width: 63%; 
-        position: relative;
-        left: 70px;
-    }   
-
-    ${ItemPrice} {
-        color: black;
-    }
-`
-
-export const SpecialCarouselInformations = styled.div`
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-`
-
-export const SpecialCarouselTitle = styled.h2`
-    color: white;
-    margin: 30px 0 20px;
-    font-size: 25px;
-    width: fit-content;
-`
-
-export const SpecialCarouselDescription = styled.p`
-    color: white;
-    font-size: 15px;
-    margin-bottom: 20px;
-`
-
-export const SpecialCarouselButton = styled.button`
-    background-color: white;
-    color: #8500DD;
-    border: none;
-    width: 220px;
-    height: 45px;
-    border-radius: 100px;
-    font-size: 15px;
-    font-weight: 600;
-
-    &:hover {
-        background-color: #9C19E8;
-        border: 2px solid white;
-        color: white;
-        cursor: pointer;
-    }
 `
 
 /* _____About_____ */
@@ -535,25 +342,6 @@ export const AboutInformation = styled.div`
     .SecondAboutDescription {
         font-weight: 600;
         margin: 15px 0 25px;
-    }
-`
-
-export const AboutButton = styled.button`
-    background-color: #9C19E8;
-    color: white;
-
-    border: none;
-    border-radius: 30px;
-
-    height: 45px;
-    width: 200px;
-
-    font-weight: 600;
-    font-size: 15px;
-
-    &:hover {
-        opacity: 0.8;
-        cursor: pointer;
     }
 `
 
