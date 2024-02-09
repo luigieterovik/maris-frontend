@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { keyframes, css } from 'styled-components'
 
 export const CarouselWrapper = styled.div`
     width: 90%;
@@ -89,6 +89,16 @@ export const RightArrowSeeAll = styled.img`
   visibility: hidden;
 `
 
+const disappear = keyframes`
+    from {
+        visibility: initial;
+    }
+
+    to {
+        visibility: hidden;
+    }
+`
+
 export const CarouselSeeAll = styled.label`
   position: absolute;
   right: 0;
@@ -96,6 +106,7 @@ export const CarouselSeeAll = styled.label`
   font-size: 15px;
   color: blue;
   transition: transform 0.3s ease-in-out;
+  cursor: pointer;
 
   &:hover {
     transform: translateX(-30px);
@@ -105,12 +116,15 @@ export const CarouselSeeAll = styled.label`
     ${RightArrowSeeAll} {
       transform: translateX(-10px);
       visibility: initial;
-      filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
       color: blue;
-    }
-
-    cursor: pointer;
+    } 
   }
+
+    &:not(:hover) {
+        ${RightArrowSeeAll} {
+            animation: ${disappear} 0.2s;
+        }
+    }   
 `
 
 export const CarouselBar = styled.div`

@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.body`
     width: auto;
@@ -204,6 +204,16 @@ export const CategoryDescription = styled.p`
     transition: transform 0.3s ease-in-out;
 `
 
+const disappear = keyframes`
+    from {
+        visibility: initial;
+    }
+
+    to {
+        visibility: hidden;
+    }
+`
+
 export const CategoryItem = styled.div`
     width: auto;
     display: flex;
@@ -215,13 +225,18 @@ export const CategoryItem = styled.div`
         ${RightArrowCategory} {
             transform: translateX(-3px);
             visibility: initial;
-            filter: brightness(0) saturate(100%) invert(7%) sepia(100%) saturate(7336%) hue-rotate(250deg) brightness(108%) contrast(143%);
         }
         p {
             transform: translateX(-3px);
             color: blue;
         }
         cursor: pointer;
+    }
+
+    &:not(:hover) {
+        ${RightArrowCategory} {
+            animation: ${disappear} 0.2s;
+        }
     }
 `
 
