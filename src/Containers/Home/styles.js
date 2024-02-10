@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled, { css, keyframes } from 'styled-components'
 
 export const Container = styled.body`
     width: auto;
@@ -215,29 +215,34 @@ const disappear = keyframes`
 `
 
 export const CategoryItem = styled.div`
-    width: auto;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    &:hover {
+    ${props => props.isHovered
+? css`
         ${RightArrowCategory} {
             transform: translateX(-3px);
             visibility: initial;
         }
+
         p {
             transform: translateX(-3px);
             color: blue;
         }
-        cursor: pointer;
-    }
-
-    &:not(:hover) {
+    `
+: css`
         ${RightArrowCategory} {
             animation: ${disappear} 0.2s;
+            transform: translateX(3px);
         }
-    }
+
+        p {
+            transform: translateX(3px);
+            color: black;
+        }
+    `}
 `
 
 export const CategoryImage = styled.img`

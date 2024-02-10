@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Carousel from 'react-elastic-carousel'
 
@@ -12,6 +12,8 @@ const i = (name) => {
 }
 
 function Home () {
+  const [isHovered, setIsHovered] = useState('')
+
   return (
     <S.Container>
       <S.Header>
@@ -42,7 +44,9 @@ function Home () {
         <S.MainImage src={i('banner.png')}/>
 
         <S.CategoriesWrapper>
-            <S.CategoryItem>
+            <S.CategoryItem onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      isHovered={isHovered}>
               <S.CategoryImage src={i('offerCategory.png')} alt="offer-category-icon" className="offerImage"/>
               <S.CategoryDescription className='offerDescription'>Ofertas <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>

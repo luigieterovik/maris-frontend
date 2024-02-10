@@ -86,16 +86,16 @@ export const RightArrowSeeAll = styled.img`
   left: 15px;   
   transform: translateX(0);
   transition: transform 0.3s ease-in-out;
-  visibility: hidden;
+  opacity: 0;
 `
 
 const disappear = keyframes`
     from {
-        visibility: initial;
+        opacity: 1;
     }
 
     to {
-        visibility: hidden;
+        opacity: 0;
     }
 `
 
@@ -115,8 +115,7 @@ export const CarouselSeeAll = styled.label`
 
     ${RightArrowSeeAll} {
       transform: translateX(-10px);
-      visibility: initial;
-      color: blue;
+      opacity: 1;
     } 
   }
 
@@ -124,7 +123,7 @@ export const CarouselSeeAll = styled.label`
         ${RightArrowSeeAll} {
             animation: ${disappear} 0.2s;
         }
-    }   
+    }    
 `
 
 export const CarouselBar = styled.div`
