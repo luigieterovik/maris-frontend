@@ -1,4 +1,4 @@
-import styled, { css, keyframes } from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 export const Container = styled.body`
     width: auto;
@@ -215,34 +215,29 @@ const disappear = keyframes`
 `
 
 export const CategoryItem = styled.div`
-    cursor: pointer;
+    width: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    ${props => props.isHovered
-? css`
+
+    &:hover {
         ${RightArrowCategory} {
             transform: translateX(-3px);
             visibility: initial;
         }
-
         p {
             transform: translateX(-3px);
             color: blue;
         }
-    `
-: css`
+        cursor: pointer;
+    }
+
+    &:not(:hover) {
         ${RightArrowCategory} {
             animation: ${disappear} 0.2s;
-            transform: translateX(3px);
         }
-
-        p {
-            transform: translateX(3px);
-            color: black;
-        }
-    `}
+    }
 `
 
 export const CategoryImage = styled.img`
@@ -250,12 +245,6 @@ export const CategoryImage = styled.img`
 `
 
 /* _____Carousels_____ */
-export const ItemPrice = styled.p`
-    font-weight: 600;
-    font-size: 19px;
-    color: green;
-`
-
 export const CarouselItem = styled.div`
     width: 230px;
     height: 400px;
@@ -279,10 +268,12 @@ export const CarouselItem = styled.div`
     &:not(:hover) {
         transition: transform 0.3s ease-in-out;
     }
+`
 
-    ${ItemPrice} {
-        color: black;
-    }
+export const ItemPrice = styled.p`
+    font-weight: 600;
+    font-size: 19px;
+    color: green;
 `
 
 export const ItemImage = styled.img`
