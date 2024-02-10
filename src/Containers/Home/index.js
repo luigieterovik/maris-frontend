@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import Carousel from 'react-elastic-carousel'
 
@@ -12,6 +12,8 @@ const i = (name) => {
 }
 
 function Home () {
+  const [firstLoad, setFirstLoad] = useState(false)
+
   return (
     <S.Container>
       <S.Header>
@@ -47,17 +49,17 @@ function Home () {
               <S.CategoryDescription className='offerDescription'>Ofertas <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
 
-            <S.CategoryItem>
+            <S.CategoryItem firstLoad={firstLoad} onMouseEnter={() => setFirstLoad(false)}>
               <S.CategoryImage src={i('feminineCategory.png')} alt="feminine-category-icon" className="feminineImage"/>
               <S.CategoryDescription className='feminineDescription'>Feminino <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
 
-            <S.CategoryItem>
+            <S.CategoryItem firstLoad={firstLoad} onMouseEnter={() => setFirstLoad(false)}>
               <S.CategoryImage src={i('masculineCategory.png')} alt="masculine-category-icon" className="masculineImage"/>
               <S.CategoryDescription className="masculineDescription">Masculino <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>
 
-            <S.CategoryItem>
+            <S.CategoryItem firstLoad={firstLoad} onMouseEnter={() => setFirstLoad(false)}>
               <S.CategoryImage src={i('ambientCategory.png')} alt="ambient-category-icon" className="ambientImage"/>
               <S.CategoryDescription className="ambientDescription">Ambiente <S.RightArrowCategory src={i('rightArrow.png')} alt='right-arrow-icon'/></S.CategoryDescription>
             </S.CategoryItem>

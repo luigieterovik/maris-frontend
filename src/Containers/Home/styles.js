@@ -1,4 +1,4 @@
-import styled, { keyframes } from 'styled-components'
+import styled from 'styled-components'
 
 export const Container = styled.body`
     width: auto;
@@ -191,9 +191,7 @@ export const RightArrowCategory = styled.img`
     position: relative;
     top: 3px;
     left: 15px;
-    transform: translateX(0);
-    transition: transform 0.3s ease-in-out;
-    visibility: hidden;
+    opacity: 0;
 `
 
 export const CategoryDescription = styled.p`
@@ -204,38 +202,31 @@ export const CategoryDescription = styled.p`
     transition: transform 0.3s ease-in-out;
 `
 
-const disappear = keyframes`
-    from {
-        visibility: initial;
-    }
-
-    to {
-        visibility: hidden;
-    }
-`
-
 export const CategoryItem = styled.div`
     width: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 
     &:hover {
         ${RightArrowCategory} {
+            transition: opacity 0.3s linear;
             transform: translateX(-3px);
-            visibility: initial;
+            opacity: 1;
         }
         p {
             transform: translateX(-3px);
             color: blue;
         }
-        cursor: pointer;
     }
 
     &:not(:hover) {
         ${RightArrowCategory} {
-            animation: ${disappear} 0.2s;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            transform: translateX(-3px);
         }
     }
 `
