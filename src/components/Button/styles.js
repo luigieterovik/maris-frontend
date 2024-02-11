@@ -1,7 +1,7 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Button = styled.button`
-    border-radius: 100px;
+    border-radius: 30px;
     border: none;
 
     height: 45px;
@@ -18,12 +18,13 @@ export const Button = styled.button`
         opacity: 0.8;
     }
 
-    ${props => props.isSpecialButton && `
+    ${props => props.isSpecialButton && css`
+        transition: background 300ms, color 300ms; 
         background-color: white;
         color: #8500DD;
 
         &:hover {
-            background-color: #9C19E8;
+            background: transparent;
             border: 2px solid white;
             color: white;
             opacity: 1;
