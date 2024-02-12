@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import Button from '../Button'
-import * as Styles from './styles'
+import * as S from './styles'
 
 function CarouselWrapper ({ children, ...props }) {
   const i = (name) => {
@@ -12,25 +12,25 @@ function CarouselWrapper ({ children, ...props }) {
     <>
       { props.isSpecialCarousel
         ? (
-          <Styles.CarouselWrapper isSpecialCarousel={true}>
-            <Styles.SpecialCarouselInformations>
-              <Styles.SpecialCarouselTitle>{ props.title }</Styles.SpecialCarouselTitle>
+          <S.CarouselWrapper isSpecialCarousel={true}>
+            <S.SpecialCarouselInformations>
+              <S.SpecialCarouselTitle>{ props.title }</S.SpecialCarouselTitle>
 
-              <Styles.SpecialCarouselDescription>{ props.description }</Styles.SpecialCarouselDescription>
+              <S.SpecialCarouselDescription>{ props.description }</S.SpecialCarouselDescription>
               <Button isSpecialButton={true}>{ props.button }</Button>
-            </Styles.SpecialCarouselInformations>
+            </S.SpecialCarouselInformations>
 
             { children }
-          </Styles.CarouselWrapper>
+          </S.CarouselWrapper>
           )
         : (
-        <Styles.CarouselWrapper>
-          <Styles.CarouselTitle>{ props.title } <Styles.CarouselSeeAll>{ props.seeAll } <Styles.RightArrowSeeAll src={i(props.arrow)} alt='right-arrow-icon'/> </Styles.CarouselSeeAll> </Styles.CarouselTitle>
+        <S.CarouselWrapper>
+          <S.CarouselTitle>{ props.title } <S.CarouselSeeAll>{ props.seeAll } <S.RightArrowSeeAll src={i(props.arrow)} alt='right-arrow-icon'/> </S.CarouselSeeAll> </S.CarouselTitle>
 
-          <Styles.CarouselBar></Styles.CarouselBar>
+          <S.CarouselBar></S.CarouselBar>
 
           { children }
-        </Styles.CarouselWrapper>
+        </S.CarouselWrapper>
           ) }
     </>
   )
