@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const Header = styled.header`
   height: 125px;
-  width: 100%;
+  width: auto;
 
   display: flex;
   flex-direction: column;
@@ -13,20 +13,21 @@ export const QuantidadeProdutosCarrinho = styled.div`
   height: 18px;
   border-radius: 10px;
 
+  p {
+    padding-top: 3px;
+    text-align: center;
+  }
+
   color: white;
   background-color: #9c19e8;
   font-size: 10px;
   font-weight: 700;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
   position: absolute;
   top: 0;
   right: 70px;
 
-  transition: padding-bottom 200ms transform 200ms ease-in-out;
+  transition: all 300ms ease;
 `
 
 export const MainHeader = styled.div`
@@ -36,13 +37,6 @@ export const MainHeader = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-
-  .carrinhoHeaderDiv:hover {
-    ${QuantidadeProdutosCarrinho} {
-      transform: scale(1.2);
-      padding-bottom: 1px;
-    }
-  }
 `
 
 export const Logo = styled.img`
@@ -57,6 +51,12 @@ export const DivHeaderIcons = styled.div`
 
   position: relative;
   right: 20px;
+
+  .carrinhoHeaderDiv:hover {
+    ${QuantidadeProdutosCarrinho} {
+      transform: scale(1.2);
+    }
+  }
 `
 
 export const Icons = styled.img`

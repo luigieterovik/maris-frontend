@@ -34,7 +34,9 @@ function Header() {
 
           <S.AIcons className="carrinhoHeaderDiv">
             <S.Icons src={i('cart.svg')} alt="icone-carrinho" />
-            <S.QuantidadeProdutosCarrinho>0</S.QuantidadeProdutosCarrinho>{' '}
+            <S.QuantidadeProdutosCarrinho>
+              <p>0</p>
+            </S.QuantidadeProdutosCarrinho>{' '}
             <span style={{ marginLeft: '5px' }}>Carrinho</span>
           </S.AIcons>
         </S.DivHeaderIcons>
