@@ -16,7 +16,8 @@ function CarouselItem({ ...props }) {
 
           <S.ItemName>{props.name}</S.ItemName>
 
-          <S.ItemPrice>
+          <S.ItemPrice style={{ color: 'green' }}>
+            {' '}
             R$ {props.price}
             <S.OldPrice>R$ {props.oldPrice}</S.OldPrice>
           </S.ItemPrice>
@@ -37,7 +38,7 @@ function CarouselItem({ ...props }) {
           <S.ItemInstallment>
             em até <b>12x</b> de{' '}
             <span style={{ color: 'green', fontWeight: 600 }}>
-              R$ {props.installment}{' '}
+              R$ {props.installment}
             </span>
           </S.ItemInstallment>
         </S.CarouselItem>

@@ -9,6 +9,7 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import Footer from '../../components/Footer'
 import Header from '../../components/Header'
+import CategoryItem from '../../components/CategoryItem'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -23,65 +24,29 @@ function Home() {
         <S.MainImage src={i('banner.png')} />
 
         <S.CategoriesWrapper>
-          <S.CategoryItem>
-            <S.CategoryImage
-              src={i('offerCategory.png')}
-              alt="offer-category-icon"
-              className="offerImage"
-            />
-            <S.CategoryDescription className="offerDescription">
-              Ofertas{' '}
-              <S.RightArrowCategory
-                src={i('rightArrow.png')}
-                alt="right-arrow-icon"
-              />
-            </S.CategoryDescription>
-          </S.CategoryItem>
+          <CategoryItem
+            image="offerCategory.png"
+            description="Ofertas"
+            arrow="rightArrow.png"
+          />
 
-          <S.CategoryItem>
-            <S.CategoryImage
-              src={i('feminineCategory.png')}
-              alt="feminine-category-icon"
-              className="feminineImage"
-            />
-            <S.CategoryDescription className="feminineDescription">
-              Feminino{' '}
-              <S.RightArrowCategory
-                src={i('rightArrow.png')}
-                alt="right-arrow-icon"
-              />
-            </S.CategoryDescription>
-          </S.CategoryItem>
+          <CategoryItem
+            image="feminineCategory.png"
+            description="Feminino"
+            arrow="rightArrow.png"
+          />
 
-          <S.CategoryItem>
-            <S.CategoryImage
-              src={i('masculineCategory.png')}
-              alt="masculine-category-icon"
-              className="masculineImage"
-            />
-            <S.CategoryDescription className="masculineDescription">
-              Masculino{' '}
-              <S.RightArrowCategory
-                src={i('rightArrow.png')}
-                alt="right-arrow-icon"
-              />
-            </S.CategoryDescription>
-          </S.CategoryItem>
+          <CategoryItem
+            image="masculineCategory.png"
+            description="Masculino"
+            arrow="rightArrow.png"
+          />
 
-          <S.CategoryItem>
-            <S.CategoryImage
-              src={i('ambientCategory.png')}
-              alt="ambient-category-icon"
-              className="ambientImage"
-            />
-            <S.CategoryDescription className="ambientDescription">
-              Ambiente{' '}
-              <S.RightArrowCategory
-                src={i('rightArrow.png')}
-                alt="right-arrow-icon"
-              />
-            </S.CategoryDescription>
-          </S.CategoryItem>
+          <CategoryItem
+            image="ambientCategory.png"
+            description="Ambiente"
+            arrow="rightArrow.png"
+          />
         </S.CategoriesWrapper>
 
         <CarouselWrapper
