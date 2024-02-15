@@ -27,7 +27,7 @@ export const QuantidadeProdutosCarrinho = styled.div`
   top: 0;
   right: 70px;
 
-  transition: all 300ms ease;
+  transition: all 200ms ease;
 `
 
 export const MainHeader = styled.div`
