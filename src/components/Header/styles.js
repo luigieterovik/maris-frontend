@@ -14,7 +14,7 @@ export const QuantidadeProdutosCarrinho = styled.div`
   border-radius: 10px;
 
   p {
-    padding-top: 3px;
+    transform: translateY(3px);
     text-align: center;
   }
 

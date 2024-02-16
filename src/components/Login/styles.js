@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.div`
   height: 100vh;
@@ -21,10 +21,31 @@ export const Description = styled.h3`
 
 export const Placeholder = styled.label`
   position: absolute;
-  top: 13px;
+  top: 12px;
+
   left: 20px;
   color: black;
   font-size: 15px;
+
+  transition: all 150ms ease;
+
+  ${props =>
+    props.isFocusedEmail &&
+    css`
+      &[id='email'] {
+        font-size: 12px;
+        top: 3px;
+      }
+    `}
+
+  ${props =>
+    props.isFocusedPassword &&
+    css`
+      &[id='password'] {
+        font-size: 12px;
+        top: 3px;
+      }
+    `}
 `
 
 export const InputWrapper = styled.div`
@@ -41,13 +62,16 @@ export const InputWrapper = styled.div`
 export const Input = styled.input`
   width: 100%;
   height: 100%;
-  padding-left: 20px;
+  padding: 10px 20px 0;
   border-radius: 100px;
   border: none;
   background-color: #ededed;
   outline: none;
-  padding-top: 10px;
   font-size: 16px;
+
+  &:focus {
+    outline: 1px solid #ae45eb;
+  }
 `
 
 export const Button = styled.button`
