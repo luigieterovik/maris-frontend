@@ -6,7 +6,7 @@ const i = name => {
   return require('../../assets/' + name)
 }
 
-function Footer() {
+export default function Footer() {
   return (
     <>
       <S.FooterBar></S.FooterBar>
@@ -51,5 +51,3 @@ function Footer() {
     </>
   )
 }
-
-export default Footer

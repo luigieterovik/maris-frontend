@@ -6,7 +6,7 @@ const i = name => {
   return require('../../assets/' + name)
 }
 
-function CategoryItem({ ...props }) {
+export default function CategoryItem({ ...props }) {
   return (
     <S.CategoryItem>
       <S.CategoryImage src={i(props.image)} alt="offer-category-icon" />
@@ -23,5 +23,3 @@ CategoryItem.propTypes = {
   description: PropTypes.string,
   arrow: PropTypes.string
 }
-
-export default CategoryItem

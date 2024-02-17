@@ -7,48 +7,66 @@ const i = name => {
   return require('../../assets/' + name)
 }
 
-function CarouselItem({ ...props }) {
+function RegularCarouselItem({ ...props }) {
+  return (
+    <S.CarouselItem>
+      <S.ItemImage src={i(props.image)} alt="perfume-image" />
+
+      <S.ItemName>{props.name}</S.ItemName>
+      <S.ItemPrice>R$ {props.price} </S.ItemPrice>
+
+      <S.ItemInstallment>
+        em até <b>12x</b> de{' '}
+        <span style={{ color: 'green', fontWeight: 600 }}>
+          R$ {props.installment}
+        </span>
+      </S.ItemInstallment>
+    </S.CarouselItem>
+  )
+}
+
+function OfferCarouselItem({ ...props }) {
+  return (
+    <S.CarouselItem>
+      <S.ItemImage src={i(props.image)} alt="perfume-image" />
+
+      <S.ItemName>{props.name}</S.ItemName>
+
+      <S.ItemPrice style={{ color: 'green' }}>
+        {' '}
+        R$ {props.price}
+        <S.OldPrice>R$ {props.oldPrice}</S.OldPrice>
+      </S.ItemPrice>
+      <S.ItemInstallment>
+        em até <b>12x</b> de{' '}
+        <span style={{ color: 'green', fontWeight: 600 }}>
+          R$ {props.installment}
+        </span>
+      </S.ItemInstallment>
+    </S.CarouselItem>
+  )
+}
+
+export default function CarouselItemSelector({ isOffer, ...props }) {
   return (
     <>
-      {props.isOffer ? (
-        <S.CarouselItem>
-          <S.ItemImage src={i(props.image)} alt="perfume-image" />
-
-          <S.ItemName>{props.name}</S.ItemName>
-
-          <S.ItemPrice style={{ color: 'green' }}>
-            {' '}
-            R$ {props.price}
-            <S.OldPrice>R$ {props.oldPrice}</S.OldPrice>
-          </S.ItemPrice>
-          <S.ItemInstallment>
-            em até <b>12x</b> de{' '}
-            <span style={{ color: 'green', fontWeight: 600 }}>
-              R$ {props.installment}
-            </span>
-          </S.ItemInstallment>
-        </S.CarouselItem>
+      {isOffer ? (
+        <OfferCarouselItem {...props} />
       ) : (
-        <S.CarouselItem>
-          <S.ItemImage src={i(props.image)} alt="perfume-image" />
-
-          <S.ItemName>{props.name}</S.ItemName>
-          <S.ItemPrice>R$ {props.price} </S.ItemPrice>
-
-          <S.ItemInstallment>
-            em até <b>12x</b> de{' '}
-            <span style={{ color: 'green', fontWeight: 600 }}>
-              R$ {props.installment}
-            </span>
-          </S.ItemInstallment>
-        </S.CarouselItem>
+        <RegularCarouselItem {...props} />
       )}
     </>
   )
 }
 
-CarouselItem.propTypes = {
-  isOffer: PropTypes.bool,
+RegularCarouselItem.propTypes = {
+  image: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  installment: PropTypes.string.isRequired
+}
+
+OfferCarouselItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
@@ -56,4 +74,6 @@ CarouselItem.propTypes = {
   installment: PropTypes.string.isRequired
 }
 
-export default CarouselItem
+CarouselItemSelector.propTypes = {
+  isOffer: PropTypes.bool
+}

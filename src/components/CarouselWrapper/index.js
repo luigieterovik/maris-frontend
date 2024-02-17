@@ -3,53 +3,78 @@ import React from 'react'
 import Button from '../Button'
 import * as S from './styles'
 
-function CarouselWrapper({ children, ...props }) {
-  const i = name => {
-    return require('../../assets/' + name)
-  }
+const i = name => {
+  return require('../../assets/' + name)
+}
 
+function RegularCarouselWrapper({ ...props }) {
   return (
     <>
-      {props.isSpecialCarousel ? (
-        <S.CarouselWrapper isSpecialCarousel={true}>
-          <S.SpecialCarouselInformations>
-            <S.SpecialCarouselTitle>{props.title}</S.SpecialCarouselTitle>
+      <S.CarouselWrapper>
+        <S.CarouselTitle>
+          {props.title}{' '}
+          <S.CarouselSeeAll>
+            {props.seeAll}{' '}
+            <S.RightArrowSeeAll src={i(props.arrow)} alt="right-arrow-icon" />{' '}
+          </S.CarouselSeeAll>{' '}
+        </S.CarouselTitle>
 
-            <S.SpecialCarouselDescription>
-              {props.description}
-            </S.SpecialCarouselDescription>
-            <Button isSpecialButton={true}>{props.button}</Button>
-          </S.SpecialCarouselInformations>
+        <S.CarouselBar></S.CarouselBar>
 
-          {children}
-        </S.CarouselWrapper>
+        {props.children}
+      </S.CarouselWrapper>
+    </>
+  )
+}
+
+function SpecialCarouselWrapper({ ...props }) {
+  return (
+    <>
+      <S.CarouselWrapper isSpecialCarousel>
+        <S.SpecialCarouselInformations>
+          <S.SpecialCarouselTitle>{props.title}</S.SpecialCarouselTitle>
+
+          <S.SpecialCarouselDescription>
+            {props.description}
+          </S.SpecialCarouselDescription>
+          <Button isSpecialButton={true}>{props.button}</Button>
+        </S.SpecialCarouselInformations>
+
+        {props.children}
+      </S.CarouselWrapper>
+    </>
+  )
+}
+
+export default function CarouselWrapperSelector({
+  isSpecialCarousel,
+  ...props
+}) {
+  return (
+    <>
+      {isSpecialCarousel ? (
+        <SpecialCarouselWrapper {...props} />
       ) : (
-        <S.CarouselWrapper>
-          <S.CarouselTitle>
-            {props.title}{' '}
-            <S.CarouselSeeAll>
-              {props.seeAll}{' '}
-              <S.RightArrowSeeAll src={i(props.arrow)} alt="right-arrow-icon" />{' '}
-            </S.CarouselSeeAll>{' '}
-          </S.CarouselTitle>
-
-          <S.CarouselBar></S.CarouselBar>
-
-          {children}
-        </S.CarouselWrapper>
+        <RegularCarouselWrapper {...props} />
       )}
     </>
   )
 }
 
-CarouselWrapper.propTypes = {
+RegularCarouselWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  isSpecialCarousel: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  button: PropTypes.string.isRequired,
   seeAll: PropTypes.string.isRequired,
   arrow: PropTypes.string.isRequired
 }
 
-export default CarouselWrapper
+SpecialCarouselWrapper.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  button: PropTypes.string.isRequired
+}
+
+CarouselWrapperSelector.propTypes = {
+  isSpecialCarousel: PropTypes.bool.isRequired
+}

@@ -5,7 +5,7 @@ const i = name => {
   return require('../../assets/' + name)
 }
 
-function Header() {
+export default function Header() {
   return (
     <S.Header>
       <S.MainHeader>
@@ -54,5 +54,3 @@ function Header() {
     </S.Header>
   )
 }
-
-export default Header

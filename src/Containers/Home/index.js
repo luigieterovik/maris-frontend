@@ -56,7 +56,7 @@ function Home() {
         >
           <Carousel className="Carousel" itemsToShow={5}>
             <CarouselItem
-              isOffer={true}
+              isOffer
               image="perfume.jpg"
               name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
               price="142,00"
@@ -65,7 +65,7 @@ function Home() {
             />
 
             <CarouselItem
-              isOffer={true}
+              isOffer
               image="perfume.jpg"
               name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
               price="142,00"
@@ -74,7 +74,7 @@ function Home() {
             />
 
             <CarouselItem
-              isOffer={true}
+              isOffer
               image="perfume.jpg"
               name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
               price="142,00"
@@ -83,7 +83,7 @@ function Home() {
             />
 
             <CarouselItem
-              isOffer={true}
+              isOffer
               image="perfume.jpg"
               name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
               price="142,00"
@@ -92,7 +92,7 @@ function Home() {
             />
 
             <CarouselItem
-              isOffer={true}
+              isOffer
               image="perfume.jpg"
               name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
               price="142,00"
@@ -101,7 +101,7 @@ function Home() {
             />
 
             <CarouselItem
-              isOffer={true}
+              isOffer
               image="perfume.jpg"
               name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
               price="142,00"
@@ -112,7 +112,7 @@ function Home() {
         </CarouselWrapper>
 
         <CarouselWrapper
-          isSpecialCarousel={true}
+          isSpecialCarousel
           title="Novidades"
           description="Veja outras novidades clicando no botão abaixo"
           button="Ver mais"

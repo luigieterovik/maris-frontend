@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-export const Wrapper = styled.div`
+export const Wrapper = styled.form`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -27,25 +27,7 @@ export const Placeholder = styled.label`
   color: black;
   font-size: 15px;
 
-  transition: all 150ms ease;
-
-  ${props =>
-    props.isFocusedEmail &&
-    css`
-      &[id='email'] {
-        font-size: 12px;
-        top: 3px;
-      }
-    `}
-
-  ${props =>
-    props.isFocusedPassword &&
-    css`
-      &[id='password'] {
-        font-size: 12px;
-        top: 3px;
-      }
-    `}
+  transition: all 100ms ease-in-out;
 `
 
 export const InputWrapper = styled.div`
@@ -57,6 +39,16 @@ export const InputWrapper = styled.div`
   margin-bottom: 10px;
   outline: none;
   position: relative;
+
+  input:focus {
+    border: 1px solid #ae45eb;
+  }
+
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label {
+    transform: translateY(-10px);
+    font-size: 12px;
+  }
 `
 
 export const Input = styled.input`
@@ -68,13 +60,9 @@ export const Input = styled.input`
   background-color: #ededed;
   outline: none;
   font-size: 16px;
-
-  &:focus {
-    outline: 1px solid #ae45eb;
-  }
 `
 
-export const Button = styled.button`
+export const Button = styled.input`
   width: 350px;
   height: 45px;
   border-radius: 100px;
@@ -99,6 +87,7 @@ export const Link = styled.p`
   a {
     color: blue;
     cursor: pointer;
+    transition: all 200ms ease-in-out;
 
     &:hover {
       color: #001a90;

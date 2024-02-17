@@ -20,6 +20,7 @@ module.exports = {
   },
   rules: {
     semi: ['off', 'never'],
-    'no-undef': 'warn'
+    'no-undef': 'warn',
+    'no-unused-vars': 'warn'
   }
 }
