@@ -1,31 +1,58 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles'
 
 function Login() {
+  const [isRecoverPassword, setIsRecoverPassword] = useState(false)
+
   return (
-    <S.Wrapper>
-      <S.Title>Entrar em minha conta</S.Title>
-      <S.Description>Insira seu e-mail e senha:</S.Description>
+    <>
+      {isRecoverPassword ? (
+        <S.Wrapper>
+          <S.Title>Recuperar senha</S.Title>
+          <S.Description>Insira seu e-mail:</S.Description>
 
-      <S.InputWrapper>
-        <S.Input required type="email" placeholder="" />
-        <S.Placeholder>E-mail</S.Placeholder>
-      </S.InputWrapper>
+          <S.InputWrapper>
+            <S.Input required type="email" placeholder="" />
+            <S.Placeholder>E-mail</S.Placeholder>
+          </S.InputWrapper>
 
-      <S.InputWrapper>
-        <S.Input required type="password" placeholder="" />
-        <S.Placeholder>Senha</S.Placeholder>
-      </S.InputWrapper>
+          <S.Button type="submit" value="Recuperar" />
+          <S.Link>
+            Lembrou sua senha?{' '}
+            <a onClick={() => setIsRecoverPassword(!isRecoverPassword)}>
+              Voltar para o login
+            </a>
+          </S.Link>
+        </S.Wrapper>
+      ) : (
+        <S.Wrapper>
+          <S.Title>Entrar em minha conta</S.Title>
+          <S.Description>Insira seu e-mail e senha:</S.Description>
 
-      <S.Button type="submit" value="Entrar" />
-      <S.Link>
-        Novo cliente? <a>Criar sua conta</a>
-      </S.Link>
-      <S.Link>
-        Esqueceu sua senha? <a>Recuperar senha</a>
-      </S.Link>
-    </S.Wrapper>
+          <S.InputWrapper>
+            <S.Input required type="email" placeholder="" />
+            <S.Placeholder>E-mail</S.Placeholder>
+          </S.InputWrapper>
+
+          <S.InputWrapper>
+            <S.Input required type="password" placeholder="" />
+            <S.Placeholder>Senha</S.Placeholder>
+          </S.InputWrapper>
+
+          <S.Button type="submit" value="Entrar" />
+          <S.Link>
+            Novo cliente? <a>Criar sua conta</a>
+          </S.Link>
+          <S.Link>
+            Esqueceu sua senha?{' '}
+            <a onClick={() => setIsRecoverPassword(!isRecoverPassword)}>
+              Recuperar senha
+            </a>
+          </S.Link>
+        </S.Wrapper>
+      )}
+    </>
   )
 }
 
