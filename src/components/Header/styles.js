@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Header = styled.header`
   height: 125px;
@@ -9,6 +9,11 @@ export const Header = styled.header`
 `
 
 export const LoginWrapper = styled.div`
+  opacity: 0;
+  transition: all 150ms;
+  visibility: hidden;
+  transform: scale(0.8);
+  cursor: auto;
   position: absolute;
   top: 50px;
   left: -40px;
@@ -18,6 +23,14 @@ export const LoginWrapper = styled.div`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  ${props =>
+    props.wasClicked &&
+    css`
+      transform: scale(1);
+      visibility: visible;
+      opacity: 1;
+    `}
 `
 
 export const QuantidadeProdutosCarrinho = styled.div`
@@ -154,6 +167,13 @@ export const ASections = styled.a`
   }
 `
 
+export const LabelLogin = styled.label`
+  font-weight: 400;
+  font-size: 13px;
+  color: blue;
+  user-select: none;
+`
+
 export const AIcons = styled.a`
   font-weight: 600;
   font-size: 14px;
@@ -167,12 +187,13 @@ export const AIcons = styled.a`
     position: relative;
     bottom: 7px;
   }
-`
 
-export const LabelLogin = styled.label`
-  font-weight: 400;
-  font-size: 13px;
-  color: blue;
+  .labelMinhaConta {
+    color: black;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+  }
 `
 
 export const HeaderSections = styled.div`

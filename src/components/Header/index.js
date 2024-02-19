@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import * as S from './styles'
 
 import Login from '../Login'
@@ -8,6 +8,13 @@ const i = name => {
 }
 
 export default function Header() {
+  const [wasLoginClicked, setWasLoginClicked] = useState(false)
+
+  const loginClickHandle = () => {
+    console.log('Fui ativo não sei como')
+    setWasLoginClicked(!wasLoginClicked)
+  }
+
   return (
     <S.Header>
       <S.MainHeader>
@@ -26,8 +33,15 @@ export default function Header() {
           <S.Icons src={i('person.png')} alt="icone-person" />
           <S.AIcons>
             <S.LabelLogin>Entrar / Cadastrar</S.LabelLogin>
-            <br /> Minha conta <S.DownArrow src={i('downArrow.png')} />
-            <S.LoginWrapper>
+            <br />
+            <S.LabelLogin
+              className="labelMinhaConta"
+              onClick={loginClickHandle}
+            >
+              Minha conta <S.DownArrow src={i('downArrow.png')} />
+            </S.LabelLogin>
+
+            <S.LoginWrapper wasClicked={wasLoginClicked}>
               <Login isLogin isPopup />
             </S.LoginWrapper>
           </S.AIcons>
