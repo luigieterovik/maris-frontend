@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
+import { useClickAway } from 'react-use'
 import * as S from './styles'
 
 import Login from '../Login'
@@ -10,10 +11,10 @@ const i = name => {
 export default function Header() {
   const [wasLoginClicked, setWasLoginClicked] = useState(false)
 
-  const loginClickHandle = () => {
-    console.log('Fui ativo não sei como')
-    setWasLoginClicked(!wasLoginClicked)
-  }
+  const ref = useRef(null)
+  useClickAway(ref, () => {
+    wasLoginClicked && setWasLoginClicked(false)
+  })
 
   return (
     <S.Header>
@@ -36,12 +37,12 @@ export default function Header() {
             <br />
             <S.LabelLogin
               className="labelMinhaConta"
-              onClick={loginClickHandle}
+              onClick={() => !wasLoginClicked && setWasLoginClicked(true)}
             >
               Minha conta <S.DownArrow src={i('downArrow.png')} />
             </S.LabelLogin>
 
-            <S.LoginWrapper wasClicked={wasLoginClicked}>
+            <S.LoginWrapper wasClicked={wasLoginClicked} ref={ref}>
               <Login isLogin isPopup />
             </S.LoginWrapper>
           </S.AIcons>
