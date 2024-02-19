@@ -1,6 +1,8 @@
 import React from 'react'
 import * as S from './styles'
 
+import Login from '../Login'
+
 const i = name => {
   return require('../../assets/' + name)
 }
@@ -25,6 +27,9 @@ export default function Header() {
           <S.AIcons>
             <S.LabelLogin>Entrar / Cadastrar</S.LabelLogin>
             <br /> Minha conta <S.DownArrow src={i('downArrow.png')} />
+            <S.LoginWrapper>
+              <Login isLogin isPopup />
+            </S.LoginWrapper>
           </S.AIcons>
 
           <S.AIcons>

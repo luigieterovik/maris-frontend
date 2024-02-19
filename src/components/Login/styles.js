@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Wrapper = styled.form`
   height: 100vh;
@@ -7,6 +7,43 @@ export const Wrapper = styled.form`
   align-items: center;
   justify-content: center;
   background-color: #f7f7f7;
+
+  ${props =>
+    props.isPopup &&
+    css`
+      width: 100%;
+      height: 100%;
+
+      background-color: white;
+      border-radius: 10px;
+
+      div {
+        width: 90%;
+      }
+
+      .button {
+        width: 90%;
+      }
+
+      label {
+        font-weight: 400;
+        font-size: 14px;
+      }
+
+      h2 {
+        font-size: 19px;
+      }
+
+      h3 {
+        margin-top: 15px;
+        font-size: 14px;
+      }
+
+      p {
+        font-weight: 400;
+      }
+      .
+    `}
 `
 
 export const Title = styled.h2`

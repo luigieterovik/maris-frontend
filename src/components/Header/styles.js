@@ -8,6 +8,18 @@ export const Header = styled.header`
   flex-direction: column;
 `
 
+export const LoginWrapper = styled.div`
+  position: absolute;
+  top: 50px;
+  left: -40px;
+  width: 300px;
+  height: fit-content;
+  padding: 30px 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`
+
 export const QuantidadeProdutosCarrinho = styled.div`
   width: 18px;
   height: 18px;
@@ -24,7 +36,7 @@ export const QuantidadeProdutosCarrinho = styled.div`
   font-weight: 700;
 
   position: absolute;
-  top: 0;
+  top: -5px;
   right: 70px;
 
   transition: all 200ms ease;
@@ -145,6 +157,7 @@ export const ASections = styled.a`
 export const AIcons = styled.a`
   font-weight: 600;
   font-size: 14px;
+  position: relative;
 
   &:hover {
     cursor: pointer;
