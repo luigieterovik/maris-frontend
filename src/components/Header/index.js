@@ -1,5 +1,4 @@
-import React, { useRef, useState } from 'react'
-import { useClickAway } from 'react-use'
+import React, { useRef, useState, useEffect } from 'react'
 import * as S from './styles'
 
 import Login from '../Login'
@@ -11,9 +10,13 @@ const i = name => {
 export default function Header() {
   const [wasLoginClicked, setWasLoginClicked] = useState(false)
 
-  const ref = useRef(null)
-  useClickAway(ref, () => {
-    wasLoginClicked && setWasLoginClicked(false)
+  const loginRef = useRef()
+  const labelLoginRef = useRef()
+
+  window.addEventListener('click', e => {
+    if (e.target !== loginRef.current && e.target !== labelLoginRef.current) {
+      setWasLoginClicked(false)
+    }
   })
 
   return (
@@ -36,13 +39,22 @@ export default function Header() {
             <S.LabelLogin>Entrar / Cadastrar</S.LabelLogin>
             <br />
             <S.LabelLogin
+              ref={labelLoginRef}
               className="labelMinhaConta"
-              onClick={() => !wasLoginClicked && setWasLoginClicked(true)}
+              onClick={() => {
+                setWasLoginClicked(!wasLoginClicked)
+              }}
             >
               Minha conta <S.DownArrow src={i('downArrow.png')} />
             </S.LabelLogin>
 
-            <S.LoginWrapper wasClicked={wasLoginClicked} ref={ref}>
+            <S.LoginWrapper
+              wasClicked={wasLoginClicked}
+              ref={loginRef}
+              onClick={e => {
+                e.stopPropagation()
+              }}
+            >
               <Login isLogin isPopup />
             </S.LoginWrapper>
           </S.AIcons>
