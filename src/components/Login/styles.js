@@ -65,6 +65,8 @@ export const Placeholder = styled.label`
   font-size: 15px;
 
   transition: all 100ms ease-in-out;
+
+  pointer-events: none;
 `
 
 export const InputWrapper = styled.div`
