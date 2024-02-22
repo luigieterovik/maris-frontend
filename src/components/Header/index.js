@@ -55,7 +55,7 @@ export default function Header() {
                 e.stopPropagation()
               }}
             >
-              <Login isLogin isPopup />
+              <Login accountComponent="login" isPopup />
             </S.LoginWrapper>
           </S.AIcons>
 
