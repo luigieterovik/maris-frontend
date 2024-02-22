@@ -167,6 +167,39 @@ export const ASections = styled.a`
   }
 `
 
+export const PopupCategories = styled.div`
+  position: absolute;
+  top: 35px;
+  right: 450px;
+  background-color: white;
+  width: 150px;
+
+  padding: 25px 15px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: all 200ms;
+
+  & li {
+    list-style-type: none;
+    transition: all 200ms;
+    margin-bottom: 10px;
+
+    &:hover {
+      color: #120fcc;
+    }
+  }
+`
+
+export const Triangle = styled.img`
+  position: absolute;
+  top: -10px;
+  left: 45%;
+  width: 35px;
+  height: 30px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+`
+
 export const LabelLogin = styled.label`
   font-weight: 400;
   font-size: 13px;
@@ -202,6 +235,7 @@ export const HeaderSections = styled.div`
   display: flex;
   justify-content: center;
   margin: 15px 0 20px;
+  position: relative;
 
   .ACategoriasHeader:hover {
     color: blue;

@@ -13,6 +13,8 @@ export const Button = styled.button`
   background-color: #9c19e8;
   color: white;
 
+  transition: all 300ms;
+
   &:hover {
     cursor: pointer;
     opacity: 0.8;
@@ -21,15 +23,13 @@ export const Button = styled.button`
   ${props =>
     props.isSpecialButton &&
     css`
-      transition:
-        background 300ms,
-        color 300ms;
+      border: 2px solid white;
+      transition: all 300ms;
       background-color: white;
       color: #8500dd;
 
       &:hover {
         background: transparent;
-        border: 2px solid white;
         color: white;
         opacity: 1;
       }

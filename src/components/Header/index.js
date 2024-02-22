@@ -19,6 +19,8 @@ export default function Header() {
     }
   })
 
+  const [activeCategories, setActiveCategories] = useState(false)
+
   return (
     <S.Header>
       <S.MainHeader>
@@ -80,6 +82,15 @@ export default function Header() {
         <S.ASections className="ACategoriasHeader">
           Categorias <S.DownArrow src={i('downArrow.png')} />
         </S.ASections>
+        <S.PopupCategories>
+          <S.Triangle src={i('triangle.png')} />
+          <ul>
+            <li>Ofertas</li>
+            <li>Feminino</li>
+            <li>Masculino</li>
+            <li>Ambiente</li>
+          </ul>
+        </S.PopupCategories>
       </S.HeaderSections>
 
       <S.HeaderBar src={i('bar.png')} />

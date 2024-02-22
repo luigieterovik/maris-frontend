@@ -79,6 +79,7 @@ export const CarouselTitle = styled.h3`
   margin-left: 15px;
   font-size: 20px;
   font-weight: 600;
+  position: relative;
 `
 
 export const RightArrowSeeAll = styled.img`
@@ -92,7 +93,8 @@ export const RightArrowSeeAll = styled.img`
 
 export const CarouselSeeAll = styled.label`
   position: absolute;
-  right: 0;
+  top: 10px;
+  right: 3px;
   font-weight: 600;
   font-size: 15px;
   color: blue;
