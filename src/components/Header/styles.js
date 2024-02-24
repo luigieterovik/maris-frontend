@@ -184,6 +184,12 @@ export const PopupCategories = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: all 200ms;
 
+  &:hover {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+
   & li {
     list-style-type: none;
     transition: all 200ms;
@@ -194,14 +200,6 @@ export const PopupCategories = styled.div`
       color: #120fcc;
     }
   }
-
-  ${props =>
-    props.isHovered &&
-    css`
-      transform: scale(1);
-      opacity: 1;
-      visibility: visible;
-    `}
 `
 
 export const Triangle = styled.img`
@@ -256,6 +254,12 @@ export const HeaderSections = styled.div`
     ${DownArrow} {
       filter: brightness(0) saturate(100%) invert(7%) sepia(100%)
         saturate(7214%) hue-rotate(245deg) brightness(112%) contrast(138%);
+    }
+
+    &:hover + ${PopupCategories} {
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
     }
   }
 `

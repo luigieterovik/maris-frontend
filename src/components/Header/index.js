@@ -19,22 +19,6 @@ export default function Header() {
     }
   })
 
-  const [isActiveCategories, setIsActiveCategories] = useState(false)
-
-  const categoriesRef = useRef()
-  const labelCategoriesRef = useRef()
-  console.log(categoriesRef)
-  console.log(labelCategoriesRef)
-
-  window.addEventListener('mouseover', e => {
-    if (
-      e.target !== categoriesRef.current &&
-      e.target !== labelCategoriesRef.current
-    ) {
-      setIsActiveCategories(false)
-    }
-  })
-
   return (
     <S.Header>
       <S.MainHeader>
@@ -93,18 +77,10 @@ export default function Header() {
       <S.HeaderSections>
         <S.ASections>Início</S.ASections>
         <S.ASections>Catálogo</S.ASections>
-        <S.ASections
-          className="ACategoriasHeader"
-          onMouseOver={() => setIsActiveCategories(true)}
-          ref={labelCategoriesRef}
-        >
+        <S.ASections className="ACategoriasHeader">
           Categorias <S.DownArrow src={i('downArrow.png')} />
         </S.ASections>
-        <S.PopupCategories
-          isHovered={isActiveCategories}
-          ref={categoriesRef}
-          onMouseOver={() => setIsActiveCategories(true)}
-        >
+        <S.PopupCategories>
           <ul>
             <li>Ofertas</li>
             <li>Feminino</li>
