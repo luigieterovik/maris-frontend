@@ -156,9 +156,10 @@ export const Magnifying = styled.img`
 `
 
 export const ASections = styled.a`
-  margin-left: 50px;
   font-size: 14px;
   font-weight: 500;
+  height: 100%;
+  margin: 20px 50px;
 
   &:hover {
     cursor: pointer;
@@ -169,10 +170,13 @@ export const ASections = styled.a`
 
 export const PopupCategories = styled.div`
   position: absolute;
-  top: 35px;
+  top: 55px;
   right: 450px;
   background-color: white;
   width: 150px;
+  transform: scale(0.8);
+  opacity: 0;
+  visibility: hidden;
 
   padding: 25px 15px;
   background-color: white;
@@ -184,11 +188,20 @@ export const PopupCategories = styled.div`
     list-style-type: none;
     transition: all 200ms;
     margin-bottom: 10px;
+    cursor: pointer;
 
     &:hover {
       color: #120fcc;
     }
   }
+
+  ${props =>
+    props.isHovered &&
+    css`
+      transform: scale(1);
+      opacity: 1;
+      visibility: visible;
+    `}
 `
 
 export const Triangle = styled.img`
@@ -230,11 +243,10 @@ export const AIcons = styled.a`
 `
 
 export const HeaderSections = styled.div`
-  height: 3vh;
+  height: fit-content;
   width: 100%;
   display: flex;
   justify-content: center;
-  margin: 15px 0 20px;
   position: relative;
 
   .ACategoriasHeader:hover {
