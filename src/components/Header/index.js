@@ -21,7 +21,7 @@ export default function Header() {
 
   return (
     <S.Header>
-      <S.MainHeader>
+      <S.HeaderTop>
         <S.Logo src={i('logo.png')} alt="logo" />
         <S.DivInput>
           <S.Input placeholder="O que está buscando?" />
@@ -72,9 +72,9 @@ export default function Header() {
             <span style={{ marginLeft: '5px' }}>Carrinho</span>
           </S.AIcons>
         </S.DivHeaderIcons>
-      </S.MainHeader>
+      </S.HeaderTop>
 
-      <S.HeaderSections>
+      <S.HeaderBottom>
         <S.ASections>Início</S.ASections>
         <S.ASections>Catálogo</S.ASections>
         <S.ASections className="ACategoriasHeader">
@@ -88,7 +88,7 @@ export default function Header() {
             <li>Ambiente</li>
           </ul>
         </S.PopupCategories>
-      </S.HeaderSections>
+      </S.HeaderBottom>
 
       <S.HeaderBar src={i('bar.png')} />
     </S.Header>

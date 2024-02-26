@@ -21,6 +21,7 @@ module.exports = {
   rules: {
     semi: ['off', 'never'],
     'no-undef': 'warn',
-    'no-unused-vars': 'warn'
+    'no-unused-vars': 'warn',
+    'prettier/prettier': 'off'
   }
 }

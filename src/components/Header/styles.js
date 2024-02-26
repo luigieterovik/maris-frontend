@@ -8,31 +8,6 @@ export const Header = styled.header`
   flex-direction: column;
 `
 
-export const LoginWrapper = styled.div`
-  opacity: 0;
-  transition: all 150ms;
-  visibility: hidden;
-  transform: scale(0.8);
-  cursor: auto;
-  position: absolute;
-  top: 50px;
-  left: -40px;
-  width: 300px;
-  height: fit-content;
-  padding: 30px 0;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-
-  ${props =>
-    props.wasClicked &&
-    css`
-      transform: scale(1);
-      visibility: visible;
-      opacity: 1;
-    `}
-`
-
 export const QuantidadeProdutosCarrinho = styled.div`
   width: 18px;
   height: 18px;
@@ -55,7 +30,7 @@ export const QuantidadeProdutosCarrinho = styled.div`
   transition: all 200ms ease;
 `
 
-export const MainHeader = styled.div`
+export const HeaderTop = styled.div`
   height: 90%;
   width: 100%;
 
@@ -159,7 +134,7 @@ export const ASections = styled.a`
   font-size: 14px;
   font-weight: 500;
   height: 100%;
-  margin: 20px 50px;
+  margin: 20px 30px;
 
   &:hover {
     cursor: pointer;
@@ -171,7 +146,7 @@ export const ASections = styled.a`
 export const PopupCategories = styled.div`
   position: absolute;
   top: 55px;
-  right: 450px;
+  right: 480px;
   background-color: white;
   width: 150px;
   transform: scale(0.8);
@@ -218,6 +193,31 @@ export const LabelLogin = styled.label`
   user-select: none;
 `
 
+export const LoginWrapper = styled.div`
+  opacity: 0;
+  transition: all 150ms;
+  visibility: hidden;
+  transform: scale(0.8);
+  cursor: auto;
+  position: absolute;
+  top: 50px;
+  left: -40px;
+  width: 300px;
+  height: fit-content;
+  padding: 30px 0;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+
+  ${props =>
+    props.wasClicked &&
+    css`
+      transform: scale(1);
+      visibility: visible;
+      opacity: 1;
+    `}
+`
+
 export const AIcons = styled.a`
   font-weight: 600;
   font-size: 14px;
@@ -240,7 +240,7 @@ export const AIcons = styled.a`
   }
 `
 
-export const HeaderSections = styled.div`
+export const HeaderBottom = styled.div`
   height: fit-content;
   width: 100%;
   display: flex;

@@ -98,7 +98,7 @@ export const Input = styled.input`
   border: none;
   background-color: #ededed;
   outline: none;
-  font-size: 16px;
+  font-size: 15px;
 `
 
 export const Button = styled.input`

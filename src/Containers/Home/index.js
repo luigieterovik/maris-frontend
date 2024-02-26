@@ -7,8 +7,6 @@ import * as S from './styles'
 import Button from '../../components/Button'
 import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
-import Footer from '../../components/Footer'
-import Header from '../../components/Header'
 import CategoryItem from '../../components/CategoryItem'
 
 const i = name => {
@@ -17,9 +15,6 @@ const i = name => {
 
 function Home() {
   return (
-    <S.Container>
-      <Header></Header>
-
       <S.Main>
         <S.MainImage src={i('banner.png')} />
 
@@ -165,10 +160,7 @@ function Home() {
             <Button>Nossos produtos</Button>
           </S.AboutInformation>
         </S.AboutWrapper>
-
-        <Footer></Footer>
       </S.Main>
-    </S.Container>
   )
 }
 
