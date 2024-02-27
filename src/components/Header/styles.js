@@ -11,7 +11,7 @@ export const Header = styled.header`
 export const QuantidadeProdutosCarrinho = styled.div`
   width: 18px;
   height: 18px;
-  border-radius: 10px;
+  border-radius: 100px;
 
   p {
     transform: translateY(3px);
@@ -113,6 +113,8 @@ export const SearchInputButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: all 200ms;
 
   &:hover {
     cursor: pointer;

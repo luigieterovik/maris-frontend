@@ -5,12 +5,13 @@ import * as S from './styles'
 export default function Catalog() {
   return (
     <S.Container>
-      <S.MenuWrapper>
-        <S.Title>Main menu</S.Title>
-        
-      </S.MenuWrapper>
+      <S.Wrapper>
+        <S.Title isMenu>Menu principal</S.Title>
+      </S.Wrapper>
 
-      <S.ProductsWrapper></S.ProductsWrapper>
+      <S.Wrapper isProducts>
+        <S.Title>Todos os produtos</S.Title>
+      </S.Wrapper>
     </S.Container>
   )
 }
