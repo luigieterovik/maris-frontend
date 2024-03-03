@@ -11,8 +11,7 @@ export const Wrapper = styled.div`
     display: inline-block;
     padding: 20px 0;
     background-color: white;
-    border-radius: 25px;    
-    box-shadow: rgba(90, 90, 90, 0.1) 0px 0px 10px 0px;
+    border-radius: 25px;
 
     ${props => props.isProducts && css`
         width: 70%;
@@ -28,5 +27,9 @@ export const Title = styled.h2`
         text-align: center;
         font-size: 19px;
         margin: 0;
+        display: flex;
+        flex-direction: column;
     `}
 `
+
+export const MenuLink = styled.a``

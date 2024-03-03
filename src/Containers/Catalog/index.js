@@ -7,6 +7,10 @@ export default function Catalog() {
     <S.Container>
       <S.Wrapper>
         <S.Title isMenu>Menu principal</S.Title>
+        
+        <S.MenuLink>Início</S.MenuLink>
+        <S.MenuLink>Catálogo</S.MenuLink>
+        <S.MenuLink>Todas as categorias</S.MenuLink>
       </S.Wrapper>
 
       <S.Wrapper isProducts>
