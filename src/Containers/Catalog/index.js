@@ -2,6 +2,10 @@ import React from 'react'
 
 import * as S from './styles'
 
+const i = name => {
+  return require('../../assets/' + name)
+}
+
 export default function Catalog() {
   return (
     <S.Container>
@@ -9,8 +13,8 @@ export default function Catalog() {
         <S.Title isMenu>Menu principal</S.Title>
         
         <S.MenuLink>Início</S.MenuLink>
-        <S.MenuLink>Catálogo</S.MenuLink>
-        <S.MenuLink>Todas as categorias</S.MenuLink>
+        <S.MenuLink catalogueLink>Catálogo</S.MenuLink>
+        <S.MenuLink>Todas as categorias <S.DownArrow src={i("downArrow.png")} /></S.MenuLink>
       </S.Wrapper>
 
       <S.Wrapper isProducts>

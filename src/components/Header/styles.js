@@ -252,6 +252,7 @@ export const HeaderBottom = styled.div`
   .ACategoriasHeader:hover {
     color: blue;
     opacity: 0.8;
+    transition: all 200ms;
 
     ${DownArrow} {
       filter: brightness(0) saturate(100%) invert(7%) sepia(100%)
