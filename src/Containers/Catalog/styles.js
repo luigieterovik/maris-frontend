@@ -41,26 +41,39 @@ export const Title = styled.h2`
     `}
 `
 
+export const DownArrow = styled.img`
+  height: 15px;
+  position: relative;
+  left: 5px;
+  top: 2px;
+  transform: rotate(0);
+  transition: all 200ms ease-out;
+`
+
 export const MenuLink = styled.a`
   margin-bottom: 10px;
   cursor: pointer;
-  transition: all 200ms;
+
+  &:hover {
+    color: #003999;
+  }
 
   ${props =>
     props.catalogueLink &&
     css`
       color: blue;
       font-weight: 600;
+
+      &:hover {
+        color: blue;
+      }
     `}
 
-  &:hover {
-    color: #000292;
-  }
-`
-
-export const DownArrow = styled.img`
-  height: 15px;
-  position: relative;
-  left: 5px;
-  top: 2px;
+  ${props =>
+    props.isCategoriesActive &&
+    css`
+      img {
+        transform: rotate(180deg);
+      }
+    `}
 `
