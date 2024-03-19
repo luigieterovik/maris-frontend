@@ -52,6 +52,7 @@ export const DownArrow = styled.img`
 
 export const MenuLink = styled.a`
   margin-bottom: 10px;
+  margin-left: 5px;
   cursor: pointer;
 
   &:hover {
@@ -79,7 +80,7 @@ export const MenuLink = styled.a`
 `
 
 export const Categories = styled.div`
-  padding-left: 15px;
+  padding-left: 20px;
   display: grid;
   gap: 7px;
   overflow: hidden;
@@ -91,8 +92,14 @@ export const Categories = styled.div`
   ${props =>
     props.isCategoriesActive &&
     css`
-      height: fit-content;
+      height: auto;
     `}
 `
 
-export const Category = styled.p``
+export const Category = styled.p`
+  cursor: pointer;
+
+  &:hover {
+    color: #003999;
+  }
+`
