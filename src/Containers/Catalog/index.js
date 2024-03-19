@@ -22,6 +22,13 @@ export default function Catalog() {
         >
           Todas as categorias <S.DownArrow src={i('downArrow.png')} />
         </S.MenuLink>
+
+        <S.Categories isCategoriesActive={isCategoriesActive}>
+          <S.Category>Masculino</S.Category>
+          <S.Category>Feminino</S.Category>
+          <S.Category>Ambiente</S.Category>
+          <S.Category>Infantil</S.Category>
+        </S.Categories>
       </S.Wrapper>
 
       <S.Wrapper isProducts>

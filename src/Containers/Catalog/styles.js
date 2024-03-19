@@ -77,3 +77,22 @@ export const MenuLink = styled.a`
       }
     `}
 `
+
+export const Categories = styled.div`
+  padding-left: 15px;
+  display: grid;
+  gap: 7px;
+  overflow: hidden;
+  transition: all 200ms;
+
+  width: 100%;
+  height: 0;
+
+  ${props =>
+    props.isCategoriesActive &&
+    css`
+      height: fit-content;
+    `}
+`
+
+export const Category = styled.p``
