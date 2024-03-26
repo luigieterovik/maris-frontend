@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import * as S from './styles'
-import { CarouselItem } from '../../components/CarouselItem/styles'
+import CarouselItem from '../../components/CarouselItem'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -11,7 +11,25 @@ const i = name => {
 export default function Catalog() {
   const [isCategoriesActive, setIsCategoriesActive] = useState(false)
 
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([
+    {
+      id: 1,
+      isOffer: false,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      installment: '11,83'
+    },
+    {
+      id: 2,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83'
+    }
+  ])
   const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(5)
@@ -23,16 +41,16 @@ export default function Catalog() {
     indexOfLastProduct
   )
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true)
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts')
-      setProducts(res.data)
-      setLoading(false)
-    }
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     setLoading(true)
+  //     const res = await axios.get('')
+  //     setProducts()
+  //     setLoading(false)
+  //   }
 
-    fetchProducts()
-  }, [])
+  //   fetchProducts()
+  // }, [])
 
   const paginate = pageNumber => setCurrentPage(pageNumber)
 
@@ -60,11 +78,17 @@ export default function Catalog() {
 
       <S.Wrapper isProducts>
         <S.Title>Todos os produtos</S.Title>
-        {
-          products.map(product => {
-            <CarouselItem isOffer={} image={} name={} price={} oldPrice={} installment={}/>
-          })
-        }
+        {products.map(product => (
+          <CarouselItem
+            key={product.id}
+            isOffer={product.isOffer}
+            image={product.image}
+            name={product.name}
+            price={product.price}
+            oldPrice={product.oldPrice}
+            installment={product.installment}
+          />
+        ))}
       </S.Wrapper>
     </S.Container>
   )

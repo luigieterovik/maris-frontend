@@ -70,7 +70,7 @@ OfferCarouselItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  oldPrice: PropTypes.string.isRequired,
+  oldPrice: PropTypes.string,
   installment: PropTypes.string.isRequired
 }
 
