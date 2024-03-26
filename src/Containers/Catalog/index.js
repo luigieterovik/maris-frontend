@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
 import * as S from './styles'
-
-import Product from '../../components/Product'
-import Pagination from '../../components/Pagination'
+import { CarouselItem } from '../../components/CarouselItem/styles'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -36,7 +34,7 @@ export default function Catalog() {
     fetchProducts()
   }, [])
 
-  const paginate = (pageNumber) => setCurrentPage(pageNumber)
+  const paginate = pageNumber => setCurrentPage(pageNumber)
 
   return (
     <S.Container>
@@ -62,14 +60,11 @@ export default function Catalog() {
 
       <S.Wrapper isProducts>
         <S.Title>Todos os produtos</S.Title>
-        <div>
-          <Product products={currentProducts} />
-          <Pagination
-            productsPerPage={productsPerPage}
-            totalProducts={products.length}
-            paginate={paginate}
-          />
-        </div>
+        {
+          products.map(product => {
+            <CarouselItem isOffer={} image={} name={} price={} oldPrice={} installment={}/>
+          })
+        }
       </S.Wrapper>
     </S.Container>
   )

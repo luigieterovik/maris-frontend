@@ -8,12 +8,11 @@ import Home from './Containers/Home'
 import Login from './components/Login'
 import Catalog from './Containers/Catalog'
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <>
     <RouteTemplate>
-      <Catalog />
+      <Home />
     </RouteTemplate>
 
     <GlobalStyles />
