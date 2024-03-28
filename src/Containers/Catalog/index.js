@@ -3,6 +3,7 @@ import axios from 'axios'
 
 import * as S from './styles'
 import CarouselItem from '../../components/CarouselItem'
+import Pagination from '../../components/Pagination'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -28,12 +29,63 @@ export default function Catalog() {
       price: '142,00',
       oldPrice: '20,00',
       installment: '11,83'
+    },
+    {
+      id: 3,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83'
+    },
+    {
+      id: 4,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83'
+    },
+    {
+      id: 5,
+      isOffer: false,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      installment: '11,83'
+    },
+    {
+      id: 6,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83'
+    },
+    {
+      id: 7,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83'
+    },
+    {
+      id: 8,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83'
     }
   ])
-  const [loading, setLoading] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [productsPerPage] = useState(5)
-
+  const [productsPerPage] = useState(4)
   const indexOfLastProduct = currentPage * productsPerPage
   const indexOfFirstProduct = indexOfLastProduct - productsPerPage
   const currentProducts = products.slice(
@@ -78,17 +130,27 @@ export default function Catalog() {
 
       <S.Wrapper isProducts>
         <S.Title>Todos os produtos</S.Title>
-        {products.map(product => (
-          <CarouselItem
-            key={product.id}
-            isOffer={product.isOffer}
-            image={product.image}
-            name={product.name}
-            price={product.price}
-            oldPrice={product.oldPrice}
-            installment={product.installment}
+        <S.WrapperProducts>
+          {currentProducts.map(product => (
+            <CarouselItem
+              key={product.id}
+              isOffer={product.isOffer}
+              image={product.image}
+              name={product.name}
+              price={product.price}
+              oldPrice={product.oldPrice}
+              installment={product.installment}
+              isCatalogue
+            />
+          ))}
+
+          <Pagination
+            totalProducts={products.length}
+            productsPerPage={productsPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
           />
-        ))}
+        </S.WrapperProducts>
       </S.Wrapper>
     </S.Container>
   )

@@ -9,7 +9,7 @@ const i = name => {
 
 function RegularCarouselItem({ ...props }) {
   return (
-    <S.CarouselItem>
+    <S.CarouselItem {...props}>
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
 
       <S.ItemName>{props.name}</S.ItemName>
@@ -27,7 +27,7 @@ function RegularCarouselItem({ ...props }) {
 
 function OfferCarouselItem({ ...props }) {
   return (
-    <S.CarouselItem>
+    <S.CarouselItem {...props}>
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
 
       <S.ItemName>{props.name}</S.ItemName>
@@ -60,6 +60,7 @@ export default function CarouselItemSelector({ isOffer, ...props }) {
 }
 
 RegularCarouselItem.propTypes = {
+  isCatalogue: PropTypes.bool,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
@@ -67,6 +68,7 @@ RegularCarouselItem.propTypes = {
 }
 
 OfferCarouselItem.propTypes = {
+  isCatalogue: PropTypes.bool,
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,

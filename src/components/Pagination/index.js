@@ -1,25 +1,50 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-const index = ({ productsPerPage, totalProducts, paginate }) => {
-  const pageNumbers = []
+import * as S from './styles'
+import arrow from '../../assets/downArrow.png'
+
+export default function Pagination({
+  productsPerPage,
+  totalProducts,
+  setCurrentPage,
+  currentPage
+}) {
+  let pageNumbers = []
 
   for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
     pageNumbers.push(i)
   }
 
   return (
-    <nav>
-      <ul className="pagination">
-        {pageNumbers.map(number => (
-          <li key={number} className="page-item">
-            <a onClick={() => paginate(number)} href="!#" className="page-link">
-              {number}
-            </a>
-          </li>
+    <S.Wrapper>
+      <S.PageNavigator>
+        <S.Arrow src={arrow} left />
+        Anterior
+      </S.PageNavigator>
+
+      <S.PagesWrapper>
+        {pageNumbers.map((page, index) => (
+          <S.Pages
+            key={index}
+            onClick={() => setCurrentPage(page)}
+            isSamePage={page == currentPage && true}
+          >
+            {page}
+          </S.Pages>
         ))}
-      </ul>
-    </nav>
+      </S.PagesWrapper>
+
+      <S.PageNavigator right>
+        Próxima <S.Arrow src={arrow} />
+      </S.PageNavigator>
+    </S.Wrapper>
   )
 }
 
-export default index
+Pagination.propTypes = {
+  productsPerPage: PropTypes.number,
+  totalProducts: PropTypes.number,
+  setCurrentPage: PropTypes.number,
+  currentPage: PropTypes.number
+}

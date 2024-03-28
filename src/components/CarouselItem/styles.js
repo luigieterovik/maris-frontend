@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const CarouselItem = styled.div`
   width: 230px;
@@ -23,6 +23,28 @@ export const CarouselItem = styled.div`
   &:not(:hover) {
     transition: transform 0.3s ease-in-out;
   }
+
+  ${props =>
+    props.isCatalogue &&
+    css`
+      width: 23%;
+
+      ${ItemName} {
+        font-size: 14px;
+      }
+
+      ${ItemPrice} {
+        font-size: 18px;
+      }
+
+      ${OldPrice} {
+        font-size: 12px;
+      }
+
+      ${ItemInstallment} {
+        font-size: 14px;
+      }
+    `}
 `
 
 export const ItemPrice = styled.p`

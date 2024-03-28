@@ -20,8 +20,8 @@ export const Wrapper = styled.div`
   ${props =>
     props.isProducts &&
     css`
-      width: 70%;
-      margin-left: 50px;
+      width: 80%;
+      margin-left: 20px;
     `}
 `
 
@@ -102,4 +102,12 @@ export const Category = styled.p`
   &:hover {
     color: #003999;
   }
+`
+
+export const WrapperProducts = styled.div`
+  width: 100%;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-left: 15px;
 `
