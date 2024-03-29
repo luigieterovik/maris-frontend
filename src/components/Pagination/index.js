@@ -18,7 +18,7 @@ export default function Pagination({
 
   return (
     <S.Wrapper>
-      <S.PageNavigator>
+      <S.PageNavigator isFirstPage={currentPage == 1} currentPage onClick={() => setCurrentPage(currentPage - 1)}>
         <S.Arrow src={arrow} left />
         Anterior
       </S.PageNavigator>
@@ -28,14 +28,14 @@ export default function Pagination({
           <S.Pages
             key={index}
             onClick={() => setCurrentPage(page)}
-            isSamePage={page == currentPage && true}
+            isSamePage={page == currentPage}
           >
             {page}
           </S.Pages>
         ))}
       </S.PagesWrapper>
 
-      <S.PageNavigator right>
+      <S.PageNavigator isLastPage={currentPage == pageNumbers.length} onClick={() => setCurrentPage(currentPage + 1)}>
         Próxima <S.Arrow src={arrow} />
       </S.PageNavigator>
     </S.Wrapper>

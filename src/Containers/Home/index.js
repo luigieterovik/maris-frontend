@@ -15,152 +15,152 @@ const i = name => {
 
 function Home() {
   return (
-      <S.Main>
-        <S.MainImage src={i('banner.png')} />
+    <S.Main>
+      <S.MainImage src={i('banner.png')} />
 
-        <S.CategoriesWrapper>
-          <CategoryItem
-            image="offerCategory.png"
-            description="Ofertas"
-            arrow="rightArrow.png"
-          />
-
-          <CategoryItem
-            image="feminineCategory.png"
-            description="Feminino"
-            arrow="rightArrow.png"
-          />
-
-          <CategoryItem
-            image="masculineCategory.png"
-            description="Masculino"
-            arrow="rightArrow.png"
-          />
-
-          <CategoryItem
-            image="ambientCategory.png"
-            description="Ambiente"
-            arrow="rightArrow.png"
-          />
-        </S.CategoriesWrapper>
-
-        <CarouselWrapper
-          title="Ofertas da semana"
-          seeAll="Ver todos"
+      <S.CategoriesWrapper>
+        <CategoryItem
+          image="offerCategory.png"
+          description="Ofertas"
           arrow="rightArrow.png"
-        >
-          <Carousel className="Carousel" itemsToShow={5}>
-            <CarouselItem
-              isOffer
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="142,00"
-              oldPrice="183,00"
-              installment="11,83"
-            />
+        />
 
-            <CarouselItem
-              isOffer
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="142,00"
-              oldPrice="183,00"
-              installment="11,83"
-            />
+        <CategoryItem
+          image="feminineCategory.png"
+          description="Feminino"
+          arrow="rightArrow.png"
+        />
 
-            <CarouselItem
-              isOffer
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="142,00"
-              oldPrice="183,00"
-              installment="11,83"
-            />
+        <CategoryItem
+          image="masculineCategory.png"
+          description="Masculino"
+          arrow="rightArrow.png"
+        />
 
-            <CarouselItem
-              isOffer
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="142,00"
-              oldPrice="183,00"
-              installment="11,83"
-            />
+        <CategoryItem
+          image="ambientCategory.png"
+          description="Ambiente"
+          arrow="rightArrow.png"
+        />
+      </S.CategoriesWrapper>
 
-            <CarouselItem
-              isOffer
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="142,00"
-              oldPrice="183,00"
-              installment="11,83"
-            />
+      <CarouselWrapper
+        title="Ofertas da semana"
+        seeAll="Ver todos"
+        arrow="rightArrow.png"
+      >
+        <Carousel className="Carousel" itemsToShow={5}>
+          <CarouselItem
+            isOffer
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="142,00"
+            oldPrice="183,00"
+            installment="11,83"
+          />
 
-            <CarouselItem
-              isOffer
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="142,00"
-              oldPrice="183,00"
-              installment="11,83"
-            />
-          </Carousel>
-        </CarouselWrapper>
+          <CarouselItem
+            isOffer
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="142,00"
+            oldPrice="183,00"
+            installment="11,83"
+          />
 
-        <CarouselWrapper
-          isSpecialCarousel
-          title="Novidades"
-          description="Veja outras novidades clicando no botão abaixo"
-          button="Ver mais"
-        >
-          <Carousel className="Carousel" itemsToShow={3}>
-            <CarouselItem
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="183,00"
-              installment="15,25"
-            />
+          <CarouselItem
+            isOffer
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="142,00"
+            oldPrice="183,00"
+            installment="11,83"
+          />
 
-            <CarouselItem
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="183,00"
-              installment="15,25"
-            />
+          <CarouselItem
+            isOffer
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="142,00"
+            oldPrice="183,00"
+            installment="11,83"
+          />
 
-            <CarouselItem
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="183,00"
-              installment="15,25"
-            />
+          <CarouselItem
+            isOffer
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="142,00"
+            oldPrice="183,00"
+            installment="11,83"
+          />
 
-            <CarouselItem
-              image="perfume.jpg"
-              name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-              price="183,00"
-              installment="15,25"
-            />
-          </Carousel>
-        </CarouselWrapper>
+          <CarouselItem
+            isOffer
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="142,00"
+            oldPrice="183,00"
+            installment="11,83"
+          />
+        </Carousel>
+      </CarouselWrapper>
 
-        <S.AboutWrapper>
-          <S.AboutImage src={i('about.png')} alt="about-image" />
-          <S.AboutInformation>
-            <S.AboutTitle>Um pouco sobre nós</S.AboutTitle>
-            <S.AboutDescription>
-              Mari&apos;s Boutik&apos;s surgiu com o propósito de oferecer
-              perfumes de qualidade com preços acessíveis. Cada produto é único,
-              com fórmulas inovadoras que proporcionam ao usuário uma
-              experiência especial.
-            </S.AboutDescription>
-            <S.AboutDescription className="SecondAboutDescription">
-              Gostaria de conhecer melhor nossos produtos? <br /> Clique no
-              botão abaixo
-            </S.AboutDescription>
-            <Button>Nossos produtos</Button>
-          </S.AboutInformation>
-        </S.AboutWrapper>
-      </S.Main>
+      <CarouselWrapper
+        isSpecialCarousel
+        title="Novidades"
+        description="Veja outras novidades clicando no botão abaixo"
+        button="Ver mais"
+      >
+        <Carousel className="Carousel" itemsToShow={3}>
+          <CarouselItem
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="183,00"
+            installment="15,25"
+          />
+
+          <CarouselItem
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="183,00"
+            installment="15,25"
+          />
+
+          <CarouselItem
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="183,00"
+            installment="15,25"
+          />
+
+          <CarouselItem
+            image="perfume.jpg"
+            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
+            price="183,00"
+            installment="15,25"
+          />
+        </Carousel>
+      </CarouselWrapper>
+
+      <S.AboutWrapper>
+        <S.AboutImage src={i('about.png')} alt="about-image" />
+        <S.AboutInformation>
+          <S.AboutTitle>Um pouco sobre nós</S.AboutTitle>
+          <S.AboutDescription>
+            Mari&apos;s Boutik&apos;s surgiu com o propósito de oferecer
+            perfumes de qualidade com preços acessíveis. Cada produto é único,
+            com fórmulas inovadoras que proporcionam ao usuário uma experiência
+            especial.
+          </S.AboutDescription>
+          <S.AboutDescription className="SecondAboutDescription">
+            Gostaria de conhecer melhor nossos produtos? <br /> Clique no botão
+            abaixo
+          </S.AboutDescription>
+          <Button>Nossos produtos</Button>
+        </S.AboutInformation>
+      </S.AboutWrapper>
+    </S.Main>
   )
 }
 

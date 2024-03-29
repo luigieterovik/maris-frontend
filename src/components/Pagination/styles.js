@@ -46,8 +46,21 @@ export const PageNavigator = styled.button`
   cursor: pointer;
 
   &:hover {
-    opacity: 0.8;
+    filter: invert(12%) sepia(100%) saturate(5351%) hue-rotate(243deg)
+      brightness(70%) contrast(140%);
   }
+
+  ${props =>
+    props.isFirstPage &&
+    css`
+      visibility: hidden;
+    `}
+
+  ${props =>
+    props.isLastPage &&
+    css`
+      visibility: hidden;
+    `}
 `
 
 export const Arrow = styled.img`

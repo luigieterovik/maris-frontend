@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+
 import * as S from './styles'
 
 import Login from '../Login'
@@ -76,7 +77,9 @@ export default function Header() {
 
       <S.HeaderBottom>
         <S.ASections>Início</S.ASections>
-        <S.ASections>Catálogo</S.ASections>
+        <S.ASections onClick={() => history.push('/catalogo')}>
+          Catálogo
+        </S.ASections>
         <S.ASections className="ACategoriasHeader">
           Categorias <S.DownArrow src={i('downArrow.png')} />
         </S.ASections>
