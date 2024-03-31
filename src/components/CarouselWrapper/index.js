@@ -76,5 +76,5 @@ SpecialCarouselWrapper.propTypes = {
 }
 
 CarouselWrapperSelector.propTypes = {
-  isSpecialCarousel: PropTypes.bool.isRequired
+  isSpecialCarousel: PropTypes.bool
 }

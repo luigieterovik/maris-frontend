@@ -1,18 +1,19 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
+
+import { BrowserRouter } from 'react-router-dom'
 
 import GlobalStyles from './styles/GlobalStyles'
 import RouteTemplate from './components/RouteTemplate'
 
-import Routes from './routes/routes'
+import AllRoutes from './routes/routes'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <>
     <RouteTemplate>
-      <Routes />
+      <AllRoutes />
     </RouteTemplate>
-
     <GlobalStyles />
   </>
 )

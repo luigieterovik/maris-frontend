@@ -138,7 +138,7 @@ export default function Catalog() {
               image={product.image}
               name={product.name}
               price={product.price}
-              oldPrice={product.oldPrice}
+              oldPrice={product.isOffer && product.oldPrice}
               installment={product.installment}
               isCatalogue
             />

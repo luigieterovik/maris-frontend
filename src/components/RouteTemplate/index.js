@@ -5,16 +5,20 @@ import Footer from '../Footer'
 
 import * as S from './styles'
 
+import { BrowserRouter } from 'react-router-dom'
+
 export default function RouteTemplate({ children }) {
   return (
     <S.Container>
+      <BrowserRouter>
         <Header />
-        {children}
-        <Footer />
+      </BrowserRouter>
+      {children}
+      <Footer />
     </S.Container>
   )
 }
 
 RouteTemplate.propTypes = {
-    children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired
 }

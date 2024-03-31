@@ -1,7 +1,6 @@
 import React, { useRef, useState } from 'react'
-
+import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
-
 import Login from '../Login'
 
 const i = name => {
@@ -9,8 +8,8 @@ const i = name => {
 }
 
 export default function Header() {
+  const navigate = useNavigate()
   const [wasLoginClicked, setWasLoginClicked] = useState(false)
-
   const loginRef = useRef()
   const labelLoginRef = useRef()
 
@@ -77,9 +76,11 @@ export default function Header() {
 
       <S.HeaderBottom>
         <S.ASections>Início</S.ASections>
-        <S.ASections onClick={() => history.push('/catalogo')}>
+
+        <S.ASections onClick={() => navigate('/catalogo')}>
           Catálogo
         </S.ASections>
+
         <S.ASections className="ACategoriasHeader">
           Categorias <S.DownArrow src={i('downArrow.png')} />
         </S.ASections>
