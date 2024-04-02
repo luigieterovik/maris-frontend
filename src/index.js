@@ -10,10 +10,10 @@ import AllRoutes from './routes/routes'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <>
+  <BrowserRouter>
     <RouteTemplate>
       <AllRoutes />
     </RouteTemplate>
     <GlobalStyles />
-  </>
+  </BrowserRouter>
 )

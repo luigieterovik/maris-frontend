@@ -10,9 +10,7 @@ import { BrowserRouter } from 'react-router-dom'
 export default function RouteTemplate({ children }) {
   return (
     <S.Container>
-      <BrowserRouter>
-        <Header />
-      </BrowserRouter>
+      <Header />
       {children}
       <Footer />
     </S.Container>
