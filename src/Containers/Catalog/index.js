@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 
+import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
+
 import * as S from './styles'
 import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
@@ -93,18 +95,25 @@ export default function Catalog() {
     indexOfLastProduct
   )
 
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     setLoading(true)
-  //     const res = await axios.get('')
-  //     setProducts()
-  //     setLoading(false)
-  //   }
+  const navigate = useNavigate()
+  const [category, setCategory] = useState('all')
 
-  //   fetchProducts()
-  // }, [])
+  const [queryParameters] = useSearchParams()
 
-  const paginate = pageNumber => setCurrentPage(pageNumber)
+  const handlePageChange = pageNumber => {
+    setCurrentPage(pageNumber)
+    navigate(`/products/?category=${category}&page=${pageNumber}`)
+  }
+
+  const handleCategoryChange = newCategory => {
+    setCurrentPage(1)
+    setCurrentPage(newCategory)
+    navigate(`/products/?category=${newCategory}`)
+  }
+
+  useEffect(() => {
+    setCurrentPage(queryParameters.get('page'))
+  }, [])
 
   return (
     <S.Container>
@@ -121,10 +130,10 @@ export default function Catalog() {
         </S.MenuLink>
 
         <S.Categories isCategoriesActive={isCategoriesActive}>
-          <S.Category>Masculino</S.Category>
-          <S.Category>Feminino</S.Category>
-          <S.Category>Ambiente</S.Category>
-          <S.Category>Infantil</S.Category>
+          <S.Category onClick={() => handleCategoryChange('masculino')}>Masculino</S.Category>
+          <S.Category onClick={() => handleCategoryChange('feminino')}>Feminino</S.Category>
+          <S.Category onClick={() => handleCategoryChange('ambiente')}>Ambiente</S.Category>
+          <S.Category onClick={() => handleCategoryChange('infantil')}>Infantil</S.Category>
         </S.Categories>
       </S.Wrapper>
 
@@ -149,6 +158,7 @@ export default function Catalog() {
             productsPerPage={productsPerPage}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
+            handlePageChange={handlePageChange}
           />
         </S.WrapperProducts>
       </S.Wrapper>

@@ -77,7 +77,7 @@ export default function Header() {
       <S.HeaderBottom>
         <S.ASections onClick={() => navigate('/')}>Início</S.ASections>
 
-        <S.ASections onClick={() => navigate('/catalogo')}>
+        <S.ASections onClick={() => navigate('/products')}>
           Catálogo
         </S.ASections>
 

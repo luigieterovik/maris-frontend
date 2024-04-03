@@ -8,7 +8,8 @@ export default function Pagination({
   productsPerPage,
   totalProducts,
   setCurrentPage,
-  currentPage
+  currentPage,
+  handlePageChange
 }) {
   let pageNumbers = []
 
@@ -16,9 +17,18 @@ export default function Pagination({
     pageNumbers.push(i)
   }
 
+  const handleClick = page => {
+    setCurrentPage(page)
+    handlePageChange(page)
+  }
+
   return (
     <S.Wrapper>
-      <S.PageNavigator isFirstPage={currentPage == 1} currentPage onClick={() => setCurrentPage(currentPage - 1)}>
+      <S.PageNavigator
+        isFirstPage={currentPage == 1}
+        currentPage
+        onClick={() => setCurrentPage(currentPage - 1)}
+      >
         <S.Arrow src={arrow} left />
         Anterior
       </S.PageNavigator>
@@ -27,7 +37,7 @@ export default function Pagination({
         {pageNumbers.map((page, index) => (
           <S.Pages
             key={index}
-            onClick={() => setCurrentPage(page)}
+            onClick={() => handleClick(page)}
             isSamePage={page == currentPage}
           >
             {page}
@@ -35,7 +45,10 @@ export default function Pagination({
         ))}
       </S.PagesWrapper>
 
-      <S.PageNavigator isLastPage={currentPage == pageNumbers.length} onClick={() => setCurrentPage(currentPage + 1)}>
+      <S.PageNavigator
+        isLastPage={currentPage == pageNumbers.length}
+        onClick={() => setCurrentPage(currentPage + 1)}
+      >
         Próxima <S.Arrow src={arrow} />
       </S.PageNavigator>
     </S.Wrapper>
@@ -46,5 +59,6 @@ Pagination.propTypes = {
   productsPerPage: PropTypes.number,
   totalProducts: PropTypes.number,
   setCurrentPage: PropTypes.number,
-  currentPage: PropTypes.number
+  currentPage: PropTypes.number,
+  handlePageChange: PropTypes.func
 }
