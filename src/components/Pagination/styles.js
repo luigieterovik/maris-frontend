@@ -5,6 +5,14 @@ export const Wrapper = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
+
+  ${props =>
+    props.pageNumbers == 0 ||
+    (props.pageNumbers == 1 &&
+      css`
+        visibility: hidden;
+        height: 0;
+      `)}
 `
 
 export const Pages = styled.button`
@@ -25,6 +33,13 @@ export const Pages = styled.button`
       background-color: #9c19e8;
       color: white;
     `}
+
+  ${props =>
+    props.pageNumbers == 0 ||
+    (props.pageNumbers == 1 &&
+      css`
+        visibility: hidden;
+      `)}
 `
 
 export const PagesWrapper = styled.div`

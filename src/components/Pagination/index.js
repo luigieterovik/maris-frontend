@@ -6,17 +6,11 @@ import arrow from '../../assets/downArrow.png'
 
 export default function Pagination({
   productsPerPage,
-  totalProducts,
+  totalFilteredProducts,
   setCurrentPage,
   currentPage,
   handlePageChange
 }) {
-  let pageNumbers = []
-
-  for (let i = 1; i <= Math.ceil(totalProducts / productsPerPage); i++) {
-    pageNumbers.push(i)
-  }
-
   const handleClick = page => {
     setCurrentPage(page)
     handlePageChange(page)
@@ -26,17 +20,19 @@ export default function Pagination({
     <S.Wrapper>
       <S.PageNavigator
         isFirstPage={currentPage == 1}
-        currentPage
-        onClick={() => setCurrentPage(currentPage - 1)}
+        onClick={() => handlePageChange(parseInt(currentPage) - 1)}
       >
         <S.Arrow src={arrow} left />
         Anterior
       </S.PageNavigator>
 
       <S.PagesWrapper>
-        {pageNumbers.map((page, index) => (
+        {Array.from(
+          { length: Math.ceil(totalFilteredProducts / productsPerPage) },
+          (_, index) => index + 1
+        ).map(page => (
           <S.Pages
-            key={index}
+            key={page}
             onClick={() => handleClick(page)}
             isSamePage={page == currentPage}
           >
@@ -46,8 +42,10 @@ export default function Pagination({
       </S.PagesWrapper>
 
       <S.PageNavigator
-        isLastPage={currentPage == pageNumbers.length}
-        onClick={() => setCurrentPage(currentPage + 1)}
+        isLastPage={
+          currentPage == Math.ceil(totalFilteredProducts / productsPerPage)
+        }
+        onClick={() => handlePageChange(parseInt(currentPage) + 1)}
       >
         Próxima <S.Arrow src={arrow} />
       </S.PageNavigator>
@@ -57,7 +55,7 @@ export default function Pagination({
 
 Pagination.propTypes = {
   productsPerPage: PropTypes.number,
-  totalProducts: PropTypes.number,
+  totalFilteredProducts: PropTypes.number,
   setCurrentPage: PropTypes.number,
   currentPage: PropTypes.number,
   handlePageChange: PropTypes.func

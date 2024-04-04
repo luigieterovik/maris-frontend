@@ -13,90 +13,125 @@ const i = name => {
 
 export default function Catalog() {
   const [isCategoriesActive, setIsCategoriesActive] = useState(false)
+  const [category, setCategory] = useState('all')
 
   const [products, setProducts] = useState([
     {
       id: 1,
       isOffer: false,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 1',
       price: '142,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'masculino'
     },
     {
       id: 2,
       isOffer: true,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 2',
       price: '142,00',
       oldPrice: '20,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'feminino'
     },
     {
       id: 3,
-      isOffer: true,
+      isOffer: false,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 3',
       price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'ambiente'
     },
     {
       id: 4,
       isOffer: true,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 4',
       price: '142,00',
       oldPrice: '20,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'infantil'
     },
     {
       id: 5,
       isOffer: false,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 5',
       price: '142,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'masculino'
     },
     {
       id: 6,
       isOffer: true,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 6',
       price: '142,00',
       oldPrice: '20,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'masculino'
     },
     {
       id: 7,
-      isOffer: true,
+      isOffer: false,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 7',
       price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'feminino'
     },
     {
       id: 8,
       isOffer: true,
       image: 'perfume.jpg',
-      name: 'Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino',
+      name: 'Perfume 8',
       price: '142,00',
       oldPrice: '20,00',
-      installment: '11,83'
+      installment: '11,83',
+      category: 'ambiente'
+    },
+    {
+      id: 9,
+      isOffer: false,
+      image: 'perfume.jpg',
+      name: 'Perfume 9',
+      price: '142,00',
+      installment: '11,83',
+      category: 'ambiente'
+    },
+    {
+      id: 10,
+      isOffer: true,
+      image: 'perfume.jpg',
+      name: 'Perfume 10',
+      price: '142,00',
+      oldPrice: '20,00',
+      installment: '11,83',
+      category: 'infantil'
     }
   ])
+
+  const filteredProducts =
+    category === 'all'
+      ? products
+      : products.filter(product => product.category === category)
+
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(4)
-  const indexOfLastProduct = currentPage * productsPerPage
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage
-  const currentProducts = products.slice(
+  const indexOfLastProduct = Math.min(
+    currentPage * productsPerPage,
+    filteredProducts.length
+  )
+  const indexOfFirstProduct = Math.max(0, indexOfLastProduct - productsPerPage)
+
+  const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   )
 
   const navigate = useNavigate()
-  const [category, setCategory] = useState('all')
 
   const [queryParameters] = useSearchParams()
 
@@ -107,12 +142,13 @@ export default function Catalog() {
 
   const handleCategoryChange = newCategory => {
     setCurrentPage(1)
-    setCurrentPage(newCategory)
+    setCategory(newCategory)
     navigate(`/products/?category=${newCategory}`)
   }
 
   useEffect(() => {
-    setCurrentPage(queryParameters.get('page'))
+    const path = window.location.pathname
+    if (path === '/products') navigate(`/products/?category=all&page=1`)
   }, [])
 
   return (
@@ -120,8 +156,10 @@ export default function Catalog() {
       <S.Wrapper>
         <S.Title isMenu>Menu principal</S.Title>
 
-        <S.MenuLink>Início</S.MenuLink>
-        <S.MenuLink catalogueLink>Catálogo</S.MenuLink>
+        <S.MenuLink onClick={() => navigate('/')}>Início</S.MenuLink>
+        <S.MenuLink catalogueLink onClick={() => handleCategoryChange('all')}>
+          Catálogo
+        </S.MenuLink>
         <S.MenuLink
           onClick={() => setIsCategoriesActive(!isCategoriesActive)}
           isCategoriesActive={isCategoriesActive}
@@ -130,10 +168,18 @@ export default function Catalog() {
         </S.MenuLink>
 
         <S.Categories isCategoriesActive={isCategoriesActive}>
-          <S.Category onClick={() => handleCategoryChange('masculino')}>Masculino</S.Category>
-          <S.Category onClick={() => handleCategoryChange('feminino')}>Feminino</S.Category>
-          <S.Category onClick={() => handleCategoryChange('ambiente')}>Ambiente</S.Category>
-          <S.Category onClick={() => handleCategoryChange('infantil')}>Infantil</S.Category>
+          <S.Category onClick={() => handleCategoryChange('masculino')}>
+            Masculino
+          </S.Category>
+          <S.Category onClick={() => handleCategoryChange('feminino')}>
+            Feminino
+          </S.Category>
+          <S.Category onClick={() => handleCategoryChange('ambiente')}>
+            Ambiente
+          </S.Category>
+          <S.Category onClick={() => handleCategoryChange('infantil')}>
+            Infantil
+          </S.Category>
         </S.Categories>
       </S.Wrapper>
 
@@ -159,6 +205,7 @@ export default function Catalog() {
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             handlePageChange={handlePageChange}
+            totalFilteredProducts={filteredProducts.length}
           />
         </S.WrapperProducts>
       </S.Wrapper>
