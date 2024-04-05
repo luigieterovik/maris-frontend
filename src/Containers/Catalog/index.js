@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-
-import { useParams, useNavigate, useSearchParams } from 'react-router-dom'
-
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import * as S from './styles'
 import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
@@ -14,7 +12,6 @@ const i = name => {
 export default function Catalog() {
   const [isCategoriesActive, setIsCategoriesActive] = useState(false)
   const [category, setCategory] = useState('all')
-
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -113,27 +110,32 @@ export default function Catalog() {
     }
   ])
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [productsPerPage] = useState(4)
+
+  const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    if (categoryParam && categoryParam !== category) {
+      setCategory(categoryParam)
+    }
+  }, [searchParams, category])
+
   const filteredProducts =
     category === 'all'
       ? products
       : products.filter(product => product.category === category)
-
-  const [currentPage, setCurrentPage] = useState(1)
-  const [productsPerPage] = useState(4)
   const indexOfLastProduct = Math.min(
     currentPage * productsPerPage,
     filteredProducts.length
   )
   const indexOfFirstProduct = Math.max(0, indexOfLastProduct - productsPerPage)
-
   const currentProducts = filteredProducts.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   )
-
-  const navigate = useNavigate()
-
-  const [queryParameters] = useSearchParams()
 
   const handlePageChange = pageNumber => {
     setCurrentPage(pageNumber)
@@ -145,11 +147,6 @@ export default function Catalog() {
     setCategory(newCategory)
     navigate(`/products/?category=${newCategory}`)
   }
-
-  useEffect(() => {
-    const path = window.location.pathname
-    if (path === '/products') navigate(`/products/?category=all&page=1`)
-  }, [])
 
   return (
     <S.Container>

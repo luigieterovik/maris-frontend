@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import Carousel from 'react-elastic-carousel'
 
@@ -37,6 +38,16 @@ export default function Home() {
     }
   ])
 
+  function stringToUrl (string) {
+    const toLowerCase = string.toLowerCase()
+    const removeAccentuation = toLowerCase.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    const spaceToHyphen = removeAccentuation.replace(/\s+/g, '-')
+
+    console.log(spaceToHyphen)
+
+    return spaceToHyphen
+  }
+
   return (
     <S.Main>
       <S.MainImage src={i('banner.png')} />
@@ -47,6 +58,7 @@ export default function Home() {
             key={category.id}
             image={category.image}
             description={category.description}
+            navigate={stringToUrl(category.description)}
           />
         ))}
       </S.CategoriesWrapper>

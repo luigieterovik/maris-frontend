@@ -2,13 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import * as S from './styles'
 
+import { useNavigate } from 'react-router-dom'
+
 const i = name => {
   return require('../../assets/' + name)
 }
 
 export default function CategoryItem({ ...props }) {
+  const navigate = useNavigate()
+
   return (
-    <S.CategoryItem>
+    <S.CategoryItem onClick={() => navigate(`/products/?category=${props.navigate}`)}>
       <S.CategoryImage src={i(props.image)} alt="offer-category-icon" />
       <S.CategoryDescription>
         {props.description}{' '}
@@ -23,5 +27,6 @@ export default function CategoryItem({ ...props }) {
 
 CategoryItem.propTypes = {
   image: PropTypes.string,
-  description: PropTypes.string
+  description: PropTypes.string,
+  navigate: PropTypes.string
 }
