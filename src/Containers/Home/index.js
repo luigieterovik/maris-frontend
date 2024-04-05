@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 
 import Carousel from 'react-elastic-carousel'
 
@@ -13,35 +13,42 @@ const i = name => {
   return require('../../assets/' + name)
 }
 
-function Home() {
+export default function Home() {
+  const [categories, setCategories] = useState([
+    {
+      id: 1,
+      image: 'offerCategory.png',
+      description: 'Ofertas'
+    },
+    {
+      id: 2,
+      image: 'feminineCategory.png',
+      description: 'Feminino'
+    },
+    {
+      id: 3,
+      image: 'masculineCategory.png',
+      description: 'Masculino'
+    },
+    {
+      id: 4,
+      image: 'ambientCategory.png',
+      description: 'Ambiente'
+    }
+  ])
+
   return (
     <S.Main>
       <S.MainImage src={i('banner.png')} />
 
       <S.CategoriesWrapper>
-        <CategoryItem
-          image="offerCategory.png"
-          description="Ofertas"
-          arrow="rightArrow.png"
-        />
-
-        <CategoryItem
-          image="feminineCategory.png"
-          description="Feminino"
-          arrow="rightArrow.png"
-        />
-
-        <CategoryItem
-          image="masculineCategory.png"
-          description="Masculino"
-          arrow="rightArrow.png"
-        />
-
-        <CategoryItem
-          image="ambientCategory.png"
-          description="Ambiente"
-          arrow="rightArrow.png"
-        />
+        {categories.map(category => (
+          <CategoryItem
+            key={category.id}
+            image={category.image}
+            description={category.description}
+          />
+        ))}
       </S.CategoriesWrapper>
 
       <CarouselWrapper
@@ -163,5 +170,3 @@ function Home() {
     </S.Main>
   )
 }
-
-export default Home

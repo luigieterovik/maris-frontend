@@ -10,12 +10,14 @@ export const Container = styled.div`
 
 export const Wrapper = styled.div`
   width: 25%;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   padding: 20px 0;
   background-color: white;
   border-radius: 25px;
   padding: 20px;
+  transition: all 200ms;
 
   ${props =>
     props.isProducts &&
@@ -56,7 +58,7 @@ export const MenuLink = styled.a`
   cursor: pointer;
 
   &:hover {
-    color: #003999;
+    color: #000FCB;
   }
 
   ${props =>
@@ -100,7 +102,7 @@ export const Category = styled.p`
   cursor: pointer;
 
   &:hover {
-    color: #003999;
+    color: #000FCB;
   }
 `
 

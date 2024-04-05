@@ -12,7 +12,10 @@ export default function CategoryItem({ ...props }) {
       <S.CategoryImage src={i(props.image)} alt="offer-category-icon" />
       <S.CategoryDescription>
         {props.description}{' '}
-        <S.RightArrowCategory src={i(props.arrow)} alt="right-arrow-icon" />
+        <S.RightArrowCategory
+          src={i('rightArrow.png')}
+          alt="right-arrow-icon"
+        />
       </S.CategoryDescription>
     </S.CategoryItem>
   )
@@ -20,6 +23,5 @@ export default function CategoryItem({ ...props }) {
 
 CategoryItem.propTypes = {
   image: PropTypes.string,
-  description: PropTypes.string,
-  arrow: PropTypes.string
+  description: PropTypes.string
 }
