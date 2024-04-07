@@ -10,6 +10,8 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import CategoryItem from '../../components/CategoryItem'
 
+import { stringToUrl } from '../../utils'
+
 const i = name => {
   return require('../../assets/' + name)
 }
@@ -37,16 +39,6 @@ export default function Home() {
       description: 'Ambiente'
     }
   ])
-
-  function stringToUrl (string) {
-    const toLowerCase = string.toLowerCase()
-    const removeAccentuation = toLowerCase.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    const spaceToHyphen = removeAccentuation.replace(/\s+/g, '-')
-
-    console.log(spaceToHyphen)
-
-    return spaceToHyphen
-  }
 
   return (
     <S.Main>
