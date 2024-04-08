@@ -10,35 +10,14 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import CategoryItem from '../../components/CategoryItem'
 
-import { stringToUrl } from '../../utils'
+import { stringToUrl, categoriesState } from '../../utils'
 
 const i = name => {
   return require('../../assets/' + name)
 }
 
 export default function Home() {
-  const [categories, setCategories] = useState([
-    {
-      id: 1,
-      image: 'offerCategory.png',
-      description: 'Ofertas'
-    },
-    {
-      id: 2,
-      image: 'feminineCategory.png',
-      description: 'Feminino'
-    },
-    {
-      id: 3,
-      image: 'masculineCategory.png',
-      description: 'Masculino'
-    },
-    {
-      id: 4,
-      image: 'ambientCategory.png',
-      description: 'Ambiente'
-    }
-  ])
+  const { categories } = categoriesState()
 
   return (
     <S.Main>

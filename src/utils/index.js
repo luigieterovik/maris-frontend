@@ -10,25 +10,29 @@ export function stringToUrl(string) {
   return spaceToHyphen
 }
 
-export const [categories, setCategories] = useState([
-  {
-    id: 1,
-    image: 'offerCategory.png',
-    description: 'Ofertas'
-  },
-  {
-    id: 2,
-    image: 'feminineCategory.png',
-    description: 'Feminino'
-  },
-  {
-    id: 3,
-    image: 'masculineCategory.png',
-    description: 'Masculino'
-  },
-  {
-    id: 4,
-    image: 'ambientCategory.png',
-    description: 'Ambiente'
-  }
-]) // estudar contexts
+export function categoriesState() {
+  const [categories, setCategories] = useState([
+    {
+      id: 1,
+      image: 'offerCategory.png',
+      description: 'Ofertas'
+    },
+    {
+      id: 2,
+      image: 'feminineCategory.png',
+      description: 'Feminino'
+    },
+    {
+      id: 3,
+      image: 'masculineCategory.png',
+      description: 'Masculino'
+    },
+    {
+      id: 4,
+      image: 'ambientCategory.png',
+      description: 'Ambiente'
+    }
+  ])
+
+  return { categories, setCategories }
+}
