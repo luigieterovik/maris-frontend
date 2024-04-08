@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 import Login from '../Login'
 
-import { stringToUrl } from '../../utils'
+import { stringToUrl } from '../../utils/functions'
 
 const i = name => {
   return require('../../assets/' + name)

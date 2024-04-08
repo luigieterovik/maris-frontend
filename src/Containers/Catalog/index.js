@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+
 import { useNavigate, useSearchParams } from 'react-router-dom'
+
 import * as S from './styles'
+
 import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
+
+import { categoriesState, productsState } from '../../utils/states'
+import { stringToUrl } from '../../utils/functions'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -12,103 +18,9 @@ const i = name => {
 export default function Catalog() {
   const [isCategoriesActive, setIsCategoriesActive] = useState(false)
   const [category, setCategory] = useState('all')
-  const [products, setProducts] = useState([
-    {
-      id: 1,
-      isOffer: false,
-      image: 'perfume.jpg',
-      name: 'Perfume 1',
-      price: '142,00',
-      installment: '11,83',
-      category: 'masculino'
-    },
-    {
-      id: 2,
-      isOffer: true,
-      image: 'perfume.jpg',
-      name: 'Perfume 2',
-      price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83',
-      category: 'feminino'
-    },
-    {
-      id: 3,
-      isOffer: false,
-      image: 'perfume.jpg',
-      name: 'Perfume 3',
-      price: '142,00',
-      installment: '11,83',
-      category: 'ambiente'
-    },
-    {
-      id: 4,
-      isOffer: true,
-      image: 'perfume.jpg',
-      name: 'Perfume 4',
-      price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83',
-      category: 'infantil'
-    },
-    {
-      id: 5,
-      isOffer: false,
-      image: 'perfume.jpg',
-      name: 'Perfume 5',
-      price: '142,00',
-      installment: '11,83',
-      category: 'masculino'
-    },
-    {
-      id: 6,
-      isOffer: true,
-      image: 'perfume.jpg',
-      name: 'Perfume 6',
-      price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83',
-      category: 'masculino'
-    },
-    {
-      id: 7,
-      isOffer: false,
-      image: 'perfume.jpg',
-      name: 'Perfume 7',
-      price: '142,00',
-      installment: '11,83',
-      category: 'feminino'
-    },
-    {
-      id: 8,
-      isOffer: true,
-      image: 'perfume.jpg',
-      name: 'Perfume 8',
-      price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83',
-      category: 'ambiente'
-    },
-    {
-      id: 9,
-      isOffer: false,
-      image: 'perfume.jpg',
-      name: 'Perfume 9',
-      price: '142,00',
-      installment: '11,83',
-      category: 'ambiente'
-    },
-    {
-      id: 10,
-      isOffer: true,
-      image: 'perfume.jpg',
-      name: 'Perfume 10',
-      price: '142,00',
-      oldPrice: '20,00',
-      installment: '11,83',
-      category: 'infantil'
-    }
-  ])
+  const { categories } = categoriesState()
+
+  const { products } = productsState()
 
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(4)
@@ -165,18 +77,14 @@ export default function Catalog() {
         </S.MenuLink>
 
         <S.Categories isCategoriesActive={isCategoriesActive}>
-          <S.Category onClick={() => handleCategoryChange('masculino')}>
-            Masculino
-          </S.Category>
-          <S.Category onClick={() => handleCategoryChange('feminino')}>
-            Feminino
-          </S.Category>
-          <S.Category onClick={() => handleCategoryChange('ambiente')}>
-            Ambiente
-          </S.Category>
-          <S.Category onClick={() => handleCategoryChange('infantil')}>
-            Infantil
-          </S.Category>
+          {categories.map(category => (
+            <S.Category
+              key={category.id}
+              onClick={() => handleCategoryChange(stringToUrl(category.name))}
+            >
+              {category.name}
+            </S.Category>
+          ))}
         </S.Categories>
       </S.Wrapper>
 

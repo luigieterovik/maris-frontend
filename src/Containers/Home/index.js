@@ -10,7 +10,8 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import CategoryItem from '../../components/CategoryItem'
 
-import { stringToUrl, categoriesState } from '../../utils'
+import { stringToUrl } from '../../utils/functions'
+import { categoriesState, productsState } from '../../utils/states'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -18,6 +19,7 @@ const i = name => {
 
 export default function Home() {
   const { categories } = categoriesState()
+  const { products } = productsState()
 
   return (
     <S.Main>
@@ -28,8 +30,8 @@ export default function Home() {
           <CategoryItem
             key={category.id}
             image={category.image}
-            description={category.description}
-            navigate={stringToUrl(category.description)}
+            description={category.name}
+            navigate={stringToUrl(category.name)}
           />
         ))}
       </S.CategoriesWrapper>
@@ -40,59 +42,11 @@ export default function Home() {
         arrow="rightArrow.png"
       >
         <Carousel className="Carousel" itemsToShow={5}>
-          <CarouselItem
-            isOffer
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="142,00"
-            oldPrice="183,00"
-            installment="11,83"
-          />
-
-          <CarouselItem
-            isOffer
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="142,00"
-            oldPrice="183,00"
-            installment="11,83"
-          />
-
-          <CarouselItem
-            isOffer
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="142,00"
-            oldPrice="183,00"
-            installment="11,83"
-          />
-
-          <CarouselItem
-            isOffer
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="142,00"
-            oldPrice="183,00"
-            installment="11,83"
-          />
-
-          <CarouselItem
-            isOffer
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="142,00"
-            oldPrice="183,00"
-            installment="11,83"
-          />
-
-          <CarouselItem
-            isOffer
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="142,00"
-            oldPrice="183,00"
-            installment="11,83"
-          />
+          {products.map(product => (
+            product.isOffer && (
+              <CarouselItem key={product.id} image={product.image} name={product.name} price={product.price} oldPrice={product.oldPrice} installment={product.installment}/>
+            )
+          ))}
         </Carousel>
       </CarouselWrapper>
 
@@ -103,33 +57,11 @@ export default function Home() {
         button="Ver mais"
       >
         <Carousel className="Carousel" itemsToShow={3}>
-          <CarouselItem
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="183,00"
-            installment="15,25"
-          />
-
-          <CarouselItem
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="183,00"
-            installment="15,25"
-          />
-
-          <CarouselItem
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="183,00"
-            installment="15,25"
-          />
-
-          <CarouselItem
-            image="perfume.jpg"
-            name="Perfume Pascal Morabito Purple Lady - Eau de Parfum Feminino"
-            price="183,00"
-            installment="15,25"
-          />
+          {products.map(product => (
+            product.isOffer || (
+              <CarouselItem key={product.id} image={product.image} name={product.name} price={product.price} installment={product.installment} />
+            )
+          ))}
         </Carousel>
       </CarouselWrapper>
 
