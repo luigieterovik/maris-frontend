@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
@@ -67,23 +66,32 @@ export default function Catalog() {
         <S.Title isMenu>Menu principal</S.Title>
 
         <S.MenuLink onClick={() => navigate('/')}>Início</S.MenuLink>
-        <S.MenuLink catalogueLink onClick={() => handleCategoryChange('all')}>
+        <S.MenuLink
+          category={category}
+          catalogueLink
+          onClick={() => handleCategoryChange('all')}
+        >
           Catálogo
         </S.MenuLink>
         <S.MenuLink
           onClick={() => setIsCategoriesActive(!isCategoriesActive)}
           isCategoriesActive={isCategoriesActive}
+          category={category}
+          allCategories
         >
           Todas as categorias <S.DownArrow src={i('downArrow.png')} />
         </S.MenuLink>
 
         <S.Categories isCategoriesActive={isCategoriesActive}>
-          {categories.map(category => (
+          {categories.map(categoryItem => (
             <S.Category
-              key={category.id}
-              onClick={() => handleCategoryChange(stringToUrl(category.name))}
+              key={categoryItem.id}
+              onClick={() =>
+                handleCategoryChange(stringToUrl(categoryItem.name))
+              }
+              isCategoryActive={stringToUrl(categoryItem.name) == category}
             >
-              {category.name}
+              {categoryItem.name}
             </S.Category>
           ))}
         </S.Categories>

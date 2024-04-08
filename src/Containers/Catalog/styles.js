@@ -58,11 +58,12 @@ export const MenuLink = styled.a`
   cursor: pointer;
 
   &:hover {
-    color: #000FCB;
+    color: #000fcb;
   }
 
   ${props =>
     props.catalogueLink &&
+    props.category == 'all' &&
     css`
       color: blue;
       font-weight: 600;
@@ -70,6 +71,14 @@ export const MenuLink = styled.a`
       &:hover {
         color: blue;
       }
+    `}
+
+  ${props =>
+    props.category != 'all' &&
+    props.allCategories &&
+    css`
+      color: blue;
+      font-weight: 600;
     `}
 
   ${props =>
@@ -102,8 +111,15 @@ export const Category = styled.p`
   cursor: pointer;
 
   &:hover {
-    color: #000FCB;
+    color: #000fcb;
   }
+
+  ${props =>
+    props.isCategoryActive &&
+    css`
+      color: blue;
+      font-weight: 600;
+    `}
 `
 
 export const WrapperProducts = styled.div`
