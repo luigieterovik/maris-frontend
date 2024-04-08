@@ -4,6 +4,7 @@ import * as S from './styles'
 import Login from '../Login'
 
 import { stringToUrl } from '../../utils/functions'
+import { categoriesState } from '../../utils/states'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -14,6 +15,8 @@ export default function Header() {
   const [wasLoginClicked, setWasLoginClicked] = useState(false)
   const loginRef = useRef()
   const labelLoginRef = useRef()
+
+  const { categories } = categoriesState()
 
   window.addEventListener('click', e => {
     if (e.target !== loginRef.current && e.target !== labelLoginRef.current) {
@@ -88,10 +91,16 @@ export default function Header() {
         </S.ASections>
         <S.PopupCategories>
           <ul>
-            <li>Ofertas</li>
-            <li>Feminino</li>
-            <li>Masculino</li>
-            <li>Ambiente</li>
+            {categories.map(category => (
+              <li
+                key={category.id}
+                onClick={() =>
+                  navigate(`/products/?category=${stringToUrl(category.name)}`)
+                }
+              >
+                {category.name}
+              </li>
+            ))}
           </ul>
         </S.PopupCategories>
       </S.HeaderBottom>

@@ -28,7 +28,7 @@ export default function Home() {
       <S.CategoriesWrapper>
         {categories.map(category => (
           <CategoryItem
-            key={category.id}
+            key={category.id} 
             image={category.image}
             description={category.name}
             navigate={stringToUrl(category.name)}
