@@ -16,14 +16,29 @@ const i = name => {
 }
 
 export default function Catalog() {
+  const { categories } = categoriesState()
+  const { products } = productsState()
+
   const [isCategoriesActive, setIsCategoriesActive] = useState(false)
   const [category, setCategory] = useState('all')
-  const { categories } = categoriesState()
-
-  const { products } = productsState()
 
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(4)
+  let filteredProducts =
+    category === 'all'
+      ? products
+      : products.filter(product => product.category === category)
+  if (category == 'ofertas')
+    filteredProducts = products.filter(product => product.isOffer)
+  const indexOfLastProduct = Math.min(
+    currentPage * productsPerPage,
+    filteredProducts.length
+  )
+  const indexOfFirstProduct = Math.max(0, indexOfLastProduct - productsPerPage)
+  const currentProducts = filteredProducts.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  )
 
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
@@ -34,20 +49,6 @@ export default function Catalog() {
       setCategory(categoryParam)
     }
   }, [searchParams, category])
-
-  const filteredProducts =
-    category === 'all'
-      ? products
-      : products.filter(product => product.category === category)
-  const indexOfLastProduct = Math.min(
-    currentPage * productsPerPage,
-    filteredProducts.length
-  )
-  const indexOfFirstProduct = Math.max(0, indexOfLastProduct - productsPerPage)
-  const currentProducts = filteredProducts.slice(
-    indexOfFirstProduct,
-    indexOfLastProduct
-  )
 
   const handlePageChange = pageNumber => {
     setCurrentPage(pageNumber)
