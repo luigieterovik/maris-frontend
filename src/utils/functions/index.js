@@ -14,3 +14,11 @@ export function priceToFloat(priceString) {
 
   return stringToFloat
 }
+
+export function offerPercentageCalculate(value, offerPercentage) {
+  const valueDivision = value / 100
+  const discount = valueDivision * offerPercentage
+  const finalValue = value - discount
+
+  return finalValue
+}

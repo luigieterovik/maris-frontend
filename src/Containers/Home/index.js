@@ -44,7 +44,7 @@ export default function Home() {
         <Carousel className="Carousel" itemsToShow={5}>
           {products.map(product => (
             product.isOffer && (
-              <CarouselItem key={product.id} image={product.image} name={product.name} price={product.price} oldPrice={product.oldPrice} installment={product.installment}/>
+              <CarouselItem isOffer key={product.id} image={product.image} name={product.name} price={product.price} oldPrice={product.oldPrice} installment={product.installment}/>
             )
           ))}
         </Carousel>

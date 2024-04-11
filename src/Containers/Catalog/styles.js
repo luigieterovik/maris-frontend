@@ -29,6 +29,7 @@ export const Wrapper = styled.div`
 
 export const Title = styled.h2`
   margin-left: 30px;
+  margin-bottom: 10px;
   font-size: 21px;
 
   ${props =>
