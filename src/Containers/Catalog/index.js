@@ -99,6 +99,9 @@ export default function Catalog() {
 
       <S.Wrapper isProducts>
         <S.Title>Todos os produtos</S.Title>
+          <S.DivOrderBy>
+            <label>Ordenar por: </label>
+          </S.DivOrderBy>
         <S.WrapperProducts>
           {currentProducts.map(product => (
             <CarouselItem

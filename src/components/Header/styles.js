@@ -155,7 +155,7 @@ export const PopupCategories = styled.div`
   opacity: 0;
   visibility: hidden;
 
-  padding: 25px 15px;
+  padding: 15px 15px;
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -271,3 +271,4 @@ export const HeaderBar = styled.img`
   width: 100%;
   height: 6px;
 `
+

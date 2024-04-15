@@ -130,3 +130,11 @@ export const WrapperProducts = styled.div`
   flex-wrap: wrap;
   margin-left: 15px;
 `
+
+export const DivOrderBy = styled.div`
+  width: fit-content;
+  
+  margin: 5px 0 10px 25px;
+  & label {
+  }
+`

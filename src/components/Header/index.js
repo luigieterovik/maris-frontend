@@ -93,6 +93,7 @@ export default function Header() {
           <ul>
             {categories.map(category => (
               <li
+                style={{ fontSize: '14px' }}
                 key={category.id}
                 onClick={() =>
                   navigate(`/products/?category=${stringToUrl(category.name)}`)
