@@ -18,6 +18,7 @@ export const Wrapper = styled.div`
   border-radius: 25px;
   padding: 20px;
   transition: all 200ms;
+  position: relative;
 
   ${props =>
     props.isProducts &&
@@ -131,10 +132,55 @@ export const WrapperProducts = styled.div`
   margin-left: 15px;
 `
 
+export const DivLabelsOrderBy = styled.div`
+  width: fit-content;
+  position: absolute;
+  top: 90px;
+  left: 80px;
+  padding: 15px;
+  z-index: 0;
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  visibility: hidden;
+
+  ${props =>
+    props.isOrderByActive &&
+    css`
+      visibility: visible;
+      z-index: 1;
+    `}
+`
+
 export const DivOrderBy = styled.div`
   width: fit-content;
-  
-  margin: 5px 0 10px 25px;
+
+  margin: 5px 0 10px 32px;
   & label {
+    font-size: 14px;
+    cursor: pointer;
   }
+
+  ${props =>
+    props.isOrderByActive &&
+    css`
+      img {
+        transform: rotate(180deg);
+      }
+    `}
+`
+
+export const LabelOrderBy = styled.label`
+  font-size: 14px;
+  color: #565656;
+  cursor: pointer;
+  margin-right: 10px;
+  display: block;
+  margin-bottom: 10px;
+
+  ${props =>
+    props.isSelected &&
+    css`
+      color: blue;
+    `}
 `

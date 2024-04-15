@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Button from '../Button'
 import * as S from './styles'
+import { useNavigate } from 'react-router-dom'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -28,6 +29,13 @@ function RegularCarouselWrapper({ ...props }) {
 }
 
 function SpecialCarouselWrapper({ ...props }) {
+  const navigate = useNavigate()
+
+  const navigateToProducts = () => {
+    window.scrollTo(0, 0)
+    navigate('/products')
+  }
+
   return (
     <>
       <S.CarouselWrapper isSpecialCarousel>
@@ -37,7 +45,7 @@ function SpecialCarouselWrapper({ ...props }) {
           <S.SpecialCarouselDescription>
             {props.description}
           </S.SpecialCarouselDescription>
-          <Button isSpecialButton={true}>{props.button}</Button>
+          <Button isSpecialButton={true} onClick={() => navigateToProducts('/products')}>{props.button}</Button>
         </S.SpecialCarouselInformations>
 
         {props.children}

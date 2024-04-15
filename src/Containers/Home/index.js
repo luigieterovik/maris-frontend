@@ -21,6 +21,13 @@ export default function Home() {
   const { categories } = categoriesState()
   const { products } = productsState()
 
+  const navigate = useNavigate()
+
+  const navigateToProducts = () => {
+    window.scrollTo(0, 0)
+    navigate('/products')
+  }
+
   return (
     <S.Main>
       <S.MainImage src={i('banner.png')} />
@@ -28,7 +35,7 @@ export default function Home() {
       <S.CategoriesWrapper>
         {categories.map(category => (
           <CategoryItem
-            key={category.id} 
+            key={category.id}
             image={category.image}
             description={category.name}
             navigate={stringToUrl(category.name)}
@@ -42,11 +49,20 @@ export default function Home() {
         arrow="rightArrow.png"
       >
         <Carousel className="Carousel" itemsToShow={5}>
-          {products.map(product => (
-            product.isOffer && (
-              <CarouselItem isOffer key={product.id} image={product.image} name={product.name} price={product.price} oldPrice={product.oldPrice} installment={product.installment}/>
-            )
-          ))}
+          {products.map(
+            product =>
+              product.isOffer && (
+                <CarouselItem
+                  isOffer
+                  key={product.id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                  oldPrice={product.oldPrice}
+                  installment={product.installment}
+                />
+              )
+          )}
         </Carousel>
       </CarouselWrapper>
 
@@ -57,11 +73,18 @@ export default function Home() {
         button="Ver mais"
       >
         <Carousel className="Carousel" itemsToShow={3}>
-          {products.map(product => (
-            product.isOffer || (
-              <CarouselItem key={product.id} image={product.image} name={product.name} price={product.price} installment={product.installment} />
-            )
-          ))}
+          {products.map(
+            product =>
+              product.isOffer || (
+                <CarouselItem
+                  key={product.id}
+                  image={product.image}
+                  name={product.name}
+                  price={product.price}
+                  installment={product.installment}
+                />
+              )
+          )}
         </Carousel>
       </CarouselWrapper>
 
@@ -79,7 +102,7 @@ export default function Home() {
             Gostaria de conhecer melhor nossos produtos? <br /> Clique no botão
             abaixo
           </S.AboutDescription>
-          <Button>Nossos produtos</Button>
+          <Button onClick={() => navigateToProducts()}>Nossos produtos</Button>
         </S.AboutInformation>
       </S.AboutWrapper>
     </S.Main>

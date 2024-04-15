@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react'
-
 import { useNavigate, useSearchParams } from 'react-router-dom'
-
-import * as S from './styles'
 
 import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
 
 import { categoriesState, productsState } from '../../utils/states'
 import { stringToUrl } from '../../utils/functions'
+
+import * as S from './styles'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -39,6 +38,18 @@ export default function Catalog() {
     indexOfLastProduct
   )
 
+  const labelsOrderBy = [
+    'Ordem alfabética, A-Z',
+    'Ordem alfabética, Z-A',
+    'Preço, ordem crescente',
+    'Preço, ordem decrescente',
+    'Data, mais antiga primeiro',
+    'Data, mais recente primeiro'
+  ]
+  const [currentOrderBy, setCurrentOrderBy] = useState(labelsOrderBy[0])
+
+  const [isOrderByActive, setIsOrderByActive] = useState(false)
+
   const navigate = useNavigate()
   const [searchParams] = useSearchParams()
 
@@ -58,6 +69,11 @@ export default function Catalog() {
     setCurrentPage(1)
     setCategory(newCategory)
     navigate(`/products/?category=${newCategory}`)
+  }
+
+  const setTitle = () => {
+    if (category == 'all') return 'Todos os produtos'
+    else return category.charAt(0).toUpperCase() + category.slice(1)
   }
 
   return (
@@ -98,10 +114,30 @@ export default function Catalog() {
       </S.Wrapper>
 
       <S.Wrapper isProducts>
-        <S.Title>Todos os produtos</S.Title>
-          <S.DivOrderBy>
-            <label>Ordenar por: </label>
-          </S.DivOrderBy>
+        <S.Title>{setTitle()}</S.Title>
+
+        <S.DivOrderBy
+          onClick={() => setIsOrderByActive(!isOrderByActive)}
+          isOrderByActive={isOrderByActive}
+        >
+          <label>Ordenar por: {currentOrderBy}</label>{' '}
+          <S.DownArrow src={i('downArrow.png')} />
+        </S.DivOrderBy>
+
+        <S.DivLabelsOrderBy isOrderByActive={isOrderByActive}>
+          {labelsOrderBy.map((orderBy, index) => (
+            <S.LabelOrderBy
+              key={index}
+              isSelected={
+                index ===
+                labelsOrderBy.findIndex(element => element === currentOrderBy)
+              }
+            >
+              {orderBy}
+            </S.LabelOrderBy>
+          ))}
+        </S.DivLabelsOrderBy>
+
         <S.WrapperProducts>
           {currentProducts.map(product => (
             <CarouselItem

@@ -3,7 +3,6 @@ import styled, { css } from 'styled-components'
 export const Header = styled.header`
   height: 125px;
   width: auto;
-
   display: flex;
   flex-direction: column;
 `
@@ -160,6 +159,7 @@ export const PopupCategories = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   transition: all 200ms;
+  z-index: 1;
 
   &:hover {
     visibility: visible;
@@ -210,6 +210,7 @@ export const LoginWrapper = styled.div`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  z-index: 1;
 
   ${props =>
     props.wasClicked &&
@@ -271,4 +272,3 @@ export const HeaderBar = styled.img`
   width: 100%;
   height: 6px;
 `
-
