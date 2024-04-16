@@ -79,6 +79,12 @@ export default function Catalog() {
   const handleClickOrderBy = orderBy => {
     setCurrentOrderBy(orderBy)
     setIsOrderByActive(false)
+
+    if (orderBy === labelsOrderBy[0])
+      products.sort((a, b) => a.name.localeCompare(b.name))
+
+    if (orderBy == labelsOrderBy[1])
+      products.sort((a, b) => b.name.localeCompare(a.name))
   }
 
   const labelOrderByRef = useRef()
