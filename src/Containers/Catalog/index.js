@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import CarouselItem from '../../components/CarouselItem'
@@ -76,6 +76,23 @@ export default function Catalog() {
     else return category.charAt(0).toUpperCase() + category.slice(1)
   }
 
+  const handleClickOrderBy = orderBy => {
+    setCurrentOrderBy(orderBy)
+    setIsOrderByActive(false)
+  }
+
+  const labelOrderByRef = useRef()
+  const divLabelsOrderByRef = useRef()
+
+  window.addEventListener('click', e => {
+    if (
+      e.target !== labelOrderByRef.current &&
+      e.target !== divLabelsOrderByRef.current
+    ) {
+      setIsOrderByActive(false)
+    }
+  })
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -120,11 +137,17 @@ export default function Catalog() {
           onClick={() => setIsOrderByActive(!isOrderByActive)}
           isOrderByActive={isOrderByActive}
         >
-          <label>Ordenar por: {currentOrderBy}</label>{' '}
+          <label ref={labelOrderByRef}>Ordenar por: {currentOrderBy}</label>{' '}
           <S.DownArrow src={i('downArrow.png')} />
         </S.DivOrderBy>
 
-        <S.DivLabelsOrderBy isOrderByActive={isOrderByActive}>
+        <S.DivLabelsOrderBy
+          isOrderByActive={isOrderByActive}
+          ref={divLabelsOrderByRef}
+          onClick={e => {
+            e.stopPropagation()
+          }}
+        >
           {labelsOrderBy.map((orderBy, index) => (
             <S.LabelOrderBy
               key={index}
@@ -132,6 +155,7 @@ export default function Catalog() {
                 index ===
                 labelsOrderBy.findIndex(element => element === currentOrderBy)
               }
+              onClick={() => handleClickOrderBy(orderBy)}
             >
               {orderBy}
             </S.LabelOrderBy>
