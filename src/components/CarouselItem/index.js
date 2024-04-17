@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+import { installmentCalculation, offerPercentageCalculate, priceToCurrency } from '../../utils/functions'
+
 import * as S from './styles'
 
 const i = name => {
@@ -13,12 +15,12 @@ function RegularCarouselItem({ ...props }) {
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
 
       <S.ItemName>{props.name}</S.ItemName>
-      <S.ItemPrice>R$ {props.price} </S.ItemPrice>
+      <S.ItemPrice>{priceToCurrency(props.price)} </S.ItemPrice>
 
       <S.ItemInstallment>
         em até <b>12x</b> de{' '}
         <span style={{ color: 'green', fontWeight: 600 }}>
-          R$ {props.installment}
+          {priceToCurrency(installmentCalculation(props.price))}
         </span>
       </S.ItemInstallment>
     </S.CarouselItem>
@@ -34,13 +36,13 @@ function OfferCarouselItem({ ...props }) {
 
       <S.ItemPrice style={{ color: 'green' }}>
         {' '}
-        R$ {props.price}
-        <S.OldPrice>R$ {props.oldPrice}</S.OldPrice>
+        {priceToCurrency(offerPercentageCalculate(props.price, props.offerPercentage))}
+        <S.OldPrice>{props.price}</S.OldPrice>
       </S.ItemPrice>
       <S.ItemInstallment>
         em até <b>12x</b> de{' '}
         <span style={{ color: 'green', fontWeight: 600 }}>
-          R$ {props.installment}
+          {priceToCurrency(installmentCalculation(props.price))}
         </span>
       </S.ItemInstallment>
     </S.CarouselItem>
@@ -72,7 +74,7 @@ OfferCarouselItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  oldPrice: PropTypes.string,
+  offerPercentage: PropTypes.number,
   installment: PropTypes.string.isRequired
 }
 

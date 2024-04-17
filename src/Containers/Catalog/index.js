@@ -5,7 +5,7 @@ import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
 
 import { categoriesState, productsState } from '../../utils/states'
-import { stringToUrl } from '../../utils/functions'
+import { stringToUrl, offerPercentageCalculate } from '../../utils/functions'
 
 import * as S from './styles'
 
@@ -85,6 +85,48 @@ export default function Catalog() {
 
     if (orderBy == labelsOrderBy[1])
       products.sort((a, b) => b.name.localeCompare(a.name))
+
+    if (orderBy === labelsOrderBy[2]) {
+      products.sort((a, b) => {
+        const precoA = a.offerPercentage
+          ? offerPercentageCalculate(a.price, a.offerPercentage)
+          : a.price
+
+        const precoB = b.offerPercentage
+          ? offerPercentageCalculate(b.price, b.offerPercentage)
+          : b.price
+
+        return precoA - precoB
+      })
+    }
+
+    if (orderBy === labelsOrderBy[3]) {
+      products.sort((a, b) => {
+        const precoA = a.offerPercentage
+          ? offerPercentageCalculate(a.price, a.offerPercentage)
+          : a.price
+        const precoB = b.offerPercentage
+          ? offerPercentageCalculate(b.price, b.offerPercentage)
+          : b.price
+        return precoB - precoA
+      })
+    }
+
+    if (orderBy === labelsOrderBy[4]) {
+      products.sort((a, b) => {
+        const dateA = new Date(a.createdAt)
+        const dateB = new Date(b.createdAt)
+        return dateA - dateB
+      })
+    }
+
+    if (orderBy === labelsOrderBy[5]) {
+      products.sort((a, b) => {
+        const dateA = new Date(a.createdAt)
+        const dateB = new Date(b.createdAt)
+        return dateB - dateA
+      })
+    }
   }
 
   const labelOrderByRef = useRef()
@@ -176,7 +218,7 @@ export default function Catalog() {
               image={product.image}
               name={product.name}
               price={product.price}
-              oldPrice={product.isOffer && product.oldPrice}
+              offerPercentage={product.isOffer && product.offerPercentage}
               installment={product.installment}
               isCatalogue
             />
