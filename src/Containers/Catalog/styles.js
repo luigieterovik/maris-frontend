@@ -98,6 +98,7 @@ export const Categories = styled.div`
   gap: 7px;
   overflow: hidden;
   transition: all 200ms;
+  font-size: 15px;
 
   width: 100%;
   height: 0;

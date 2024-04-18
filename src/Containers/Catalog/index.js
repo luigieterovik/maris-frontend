@@ -14,12 +14,15 @@ const i = name => {
 }
 
 export default function Catalog() {
+  const navigate = useNavigate()
+
   const { categories } = categoriesState()
   const { products } = productsState()
 
   const [isCategoriesActive, setIsCategoriesActive] = useState(false)
   const [category, setCategory] = useState('all')
 
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(4)
   let filteredProducts =
@@ -38,6 +41,7 @@ export default function Catalog() {
     indexOfLastProduct
   )
 
+  // Order by
   const labelsOrderBy = [
     'Ordem alfabética, A-Z',
     'Ordem alfabética, Z-A',
@@ -47,38 +51,15 @@ export default function Catalog() {
     'Data, mais recente primeiro'
   ]
   const [currentOrderBy, setCurrentOrderBy] = useState(labelsOrderBy[0])
-
   const [isOrderByActive, setIsOrderByActive] = useState(false)
-
-  const navigate = useNavigate()
-  const [searchParams] = useSearchParams()
-
-  useEffect(() => {
-    const categoryParam = searchParams.get('category')
-    if (categoryParam && categoryParam !== category) {
-      setCategory(categoryParam)
-    }
-  }, [searchParams, category])
-
-  const handlePageChange = pageNumber => {
-    setCurrentPage(pageNumber)
-    navigate(`/products/?category=${category}&page=${pageNumber}`)
-  }
-
-  const handleCategoryChange = newCategory => {
-    setCurrentPage(1)
-    setCategory(newCategory)
-    navigate(`/products/?category=${newCategory}`)
-  }
-
-  const setTitle = () => {
-    if (category == 'all') return 'Todos os produtos'
-    else return category.charAt(0).toUpperCase() + category.slice(1)
-  }
 
   const handleClickOrderBy = orderBy => {
     setCurrentOrderBy(orderBy)
     setIsOrderByActive(false)
+    navigate(
+      `/products/?category=${category}&page=${currentPage}&orderBy=${orderBy}`
+    )
+    console.log(currentOrderBy)
 
     if (orderBy === labelsOrderBy[0])
       products.sort((a, b) => a.name.localeCompare(b.name))
@@ -129,6 +110,38 @@ export default function Catalog() {
     }
   }
 
+  // Params
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    if (categoryParam) setCategory(categoryParam)
+
+    const pageParam = searchParams.get('page')
+    if (pageParam) setCurrentPage(pageParam)
+    
+    const orderByParam = searchParams.get('orderBy')
+    if (orderByParam) setCurrentOrderBy(orderByParam)
+  }, [])
+
+  const handleCategoryChange = newCategory => {
+    setCurrentPage(1)
+    setCategory(newCategory)
+    navigate(`/products/?category=${newCategory}`)
+  }
+
+  const handlePageChange = pageNumber => {
+    setCurrentPage(pageNumber)
+    navigate(`/products/?category=${category}&page=${pageNumber}`)
+  }
+
+  // Title by category
+  const setTitle = () => {
+    if (category == 'all') return 'Todos os produtos'
+    else return category.charAt(0).toUpperCase() + category.slice(1)
+  }
+
+  // Animation
   const labelOrderByRef = useRef()
   const divLabelsOrderByRef = useRef()
 
