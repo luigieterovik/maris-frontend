@@ -14,6 +14,8 @@ const i = name => {
 }
 
 export default function Catalog() {
+  window.scrollTo(0, 0)
+
   const navigate = useNavigate()
 
   const { categories } = categoriesState()
@@ -126,13 +128,14 @@ export default function Catalog() {
 
   const handleCategoryChange = newCategory => {
     setCurrentPage(1)
+    setCurrentOrderBy(labelsOrderBy[0])
     setCategory(newCategory)
     navigate(`/products/?category=${newCategory}`)
   }
 
   const handlePageChange = pageNumber => {
     setCurrentPage(pageNumber)
-    navigate(`/products/?category=${category}&page=${pageNumber}`)
+    navigate(`/products/?category=${category}&page=${pageNumber}&orderBy=${currentOrderBy}`)
   }
 
   // Title by category

@@ -18,15 +18,12 @@ const i = name => {
 }
 
 export default function Home() {
+  window.scrollTo(0, 0)
+
   const { categories } = categoriesState()
   const { products } = productsState()
 
   const navigate = useNavigate()
-
-  const navigateToProducts = () => {
-    window.scrollTo(0, 0)
-    navigate('/products')
-  }
 
   return (
     <S.Main>
@@ -58,7 +55,7 @@ export default function Home() {
                   image={product.image}
                   name={product.name}
                   price={product.price}
-                  oldPrice={product.oldPrice}
+                  offerPercentage={product.offerPercentage}
                   installment={product.installment}
                 />
               )
@@ -102,7 +99,7 @@ export default function Home() {
             Gostaria de conhecer melhor nossos produtos? <br /> Clique no botão
             abaixo
           </S.AboutDescription>
-          <Button onClick={() => navigateToProducts()}>Nossos produtos</Button>
+          <Button onClick={() => navigate('/products')}>Nossos produtos</Button>
         </S.AboutInformation>
       </S.AboutWrapper>
     </S.Main>
