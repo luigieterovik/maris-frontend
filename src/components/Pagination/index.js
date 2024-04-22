@@ -6,7 +6,7 @@ import arrow from '../../assets/downArrow.png'
 
 export default function Pagination({
   productsPerPage,
-  totalFilteredProducts,
+  totalProducts,
   setCurrentPage,
   currentPage,
   handlePageChange
@@ -28,7 +28,7 @@ export default function Pagination({
 
       <S.PagesWrapper>
         {Array.from(
-          { length: Math.ceil(totalFilteredProducts / productsPerPage) },
+          { length: Math.ceil(totalProducts / productsPerPage) },
           (_, index) => index + 1
         ).map(page => (
           <S.Pages
@@ -43,7 +43,7 @@ export default function Pagination({
 
       <S.PageNavigator
         isLastPage={
-          currentPage == Math.ceil(totalFilteredProducts / productsPerPage)
+          currentPage == Math.ceil(totalProducts / productsPerPage)
         }
         onClick={() => handlePageChange(parseInt(currentPage) + 1)}
       >
@@ -55,7 +55,7 @@ export default function Pagination({
 
 Pagination.propTypes = {
   productsPerPage: PropTypes.number,
-  totalFilteredProducts: PropTypes.number,
+  totalProducts: PropTypes.number,
   setCurrentPage: PropTypes.number,
   currentPage: PropTypes.number,
   handlePageChange: PropTypes.func

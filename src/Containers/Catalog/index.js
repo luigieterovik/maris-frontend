@@ -241,12 +241,11 @@ export default function Catalog() {
           ))}
 
           <Pagination
-            totalProducts={products.length}
             productsPerPage={productsPerPage}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
             handlePageChange={handlePageChange}
-            totalFilteredProducts={filteredProducts.length}
+            totalProducts={filteredProducts.length}
           />
         </S.WrapperProducts>
       </S.Wrapper>
