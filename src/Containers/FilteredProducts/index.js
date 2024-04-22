@@ -13,7 +13,7 @@ export default function FilteredProducts() {
   const { products } = productsState()
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [productsPerPage] = useState(4)
+  const [productsPerPage] = useState(12)
 
   const indexOfLastProduct = Math.min(
     currentPage * productsPerPage,
