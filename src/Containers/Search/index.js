@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
@@ -7,7 +7,7 @@ import Pagination from '../../components/Pagination'
 import { productsState } from '../../utils/states'
 
 import * as S from './styles'
-export default function FilteredProducts() {
+export function Search() {
   const navigate = useNavigate()
   
   const { products } = productsState()
@@ -30,10 +30,19 @@ export default function FilteredProducts() {
     navigate(`/search/?page=${pageNumber}`)
   }
 
+  const [searchBy, setSearchBy] = useState('')
+
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const searchParam = searchParams.get('q')
+    if(searchParam) setSearchBy(searchParam)
+  }, [searchParams])
+
   return (
     <S.Wrapper>
       <S.ProductsWrapper>
-        <S.Title>Produtos com &quot;&quot;</S.Title>
+        <S.Title>Produtos com &quot;{searchBy}&quot;</S.Title>
         <S.WrapperProducts>
           {currentProducts.map(product => (
             <CarouselItem
@@ -59,4 +68,8 @@ export default function FilteredProducts() {
       </S.ProductsWrapper>
     </S.Wrapper>
   )
+}
+
+export function SearchIsNull() {
+  return (<></>)
 }
