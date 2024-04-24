@@ -89,7 +89,7 @@ export const DivInput = styled.div`
 export const Input = styled.input`
   height: 100%;
   width: 87%;
-
+  padding-right: 15px;
   border: none;
   outline: none;
 

@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import PropTypes from 'prop-types'
+
 import { useNavigate, useSearchParams } from 'react-router-dom'
 
 import CarouselItem from '../../components/CarouselItem'
@@ -6,10 +8,14 @@ import Pagination from '../../components/Pagination'
 
 import { productsState } from '../../utils/states'
 
+const i = name => {
+  return require('../../assets/' + name)
+}
+
 import * as S from './styles'
-export function Search() {
+export function Search({ searchBy }) {
   const navigate = useNavigate()
-  
+
   const { products } = productsState()
 
   const [currentPage, setCurrentPage] = useState(1)
@@ -29,15 +35,6 @@ export function Search() {
     setCurrentPage(pageNumber)
     navigate(`/search/?page=${pageNumber}`)
   }
-
-  const [searchBy, setSearchBy] = useState('')
-
-  const [searchParams] = useSearchParams()
-
-  useEffect(() => {
-    const searchParam = searchParams.get('q')
-    if(searchParam) setSearchBy(searchParam)
-  }, [searchParams])
 
   return (
     <S.Wrapper>
@@ -70,6 +67,40 @@ export function Search() {
   )
 }
 
+Search.propTypes = {
+  searchBy: PropTypes.string.isRequired
+}
+
 export function SearchIsNull() {
-  return (<></>)
+  return (
+    <S.NullWrapper>
+      <S.Title>Buscar</S.Title>
+      <S.Description>
+        Use a barra de busca para encontrar produtos:
+      </S.Description>
+      <S.InputWrapper>
+        <S.Input placeholder="" />
+        <S.InputPlaceholder>Buscar...</S.InputPlaceholder>
+        <S.InputButton>
+          <S.Magnifying src={i('magnifying.png')} alt="magnifying-glass-icon" />
+        </S.InputButton>
+      </S.InputWrapper>
+      <S.LinkBackHome>ou clique aqui para voltar à página inicial</S.LinkBackHome>
+    </S.NullWrapper>
+  )
+}
+
+export function SearchSelector() {
+  const [searchBy, setSearchBy] = useState('')
+
+  const [searchParams] = useSearchParams()
+
+  useEffect(() => {
+    const searchParam = searchParams.get('q')
+    if (searchParam) setSearchBy(searchParam.trim())
+  }, [searchParams])
+
+  return (
+    <>{searchBy === '' ? <SearchIsNull /> : <Search searchBy={searchBy} />}</>
+  )
 }
