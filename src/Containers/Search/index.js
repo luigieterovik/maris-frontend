@@ -92,12 +92,11 @@ export function SearchIsNull() {
 
 export function SearchSelector() {
   const [searchBy, setSearchBy] = useState('')
-
   const [searchParams] = useSearchParams()
-
   useEffect(() => {
     const searchParam = searchParams.get('q')
     if (searchParam) setSearchBy(searchParam.trim())
+    else setSearchBy('')
   }, [searchParams])
 
   return (

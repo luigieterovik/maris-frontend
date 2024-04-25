@@ -50,7 +50,7 @@ export const InputWrapper = styled.div`
   border-radius: 100px;
 
   input:focus {
-    border: 2px solid #ae45eb;
+    border: 1px solid #ae45eb;
   }
 
   input:focus ~ label,
