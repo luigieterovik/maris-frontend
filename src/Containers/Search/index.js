@@ -41,6 +41,7 @@ export function Search({ searchBy, foundProducts }) {
     <S.Wrapper>
       <S.ProductsWrapper>
         <S.Title>Produtos com &quot;{searchBy}&quot;</S.Title>
+        <S.Division />
         <S.WrapperProducts>
           {currentProducts.map(product => (
             <CarouselItem

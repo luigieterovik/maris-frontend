@@ -25,6 +25,7 @@ export const Wrapper = styled.div`
     css`
       width: 80%;
       margin-left: 20px;
+      padding: 20px 0;
     `}
 `
 
@@ -130,7 +131,8 @@ export const WrapperProducts = styled.div`
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-  margin-left: 15px;
+  justify-content: center;
+  padding: 0 10px;
 `
 
 export const DivLabelsOrderBy = styled.div`
@@ -184,4 +186,11 @@ export const LabelOrderBy = styled.label`
     css`
       color: blue;
     `}
+`
+
+export const Division = styled.div`
+  height: 1px;
+  border-bottom: 2px solid #E7E7E7;
+  width: 100%;
+  margin: 15px 0;
 `

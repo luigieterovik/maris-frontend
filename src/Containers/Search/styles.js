@@ -12,11 +12,11 @@ export const ProductsWrapper = styled.div`
   width: 90%;
   border-radius: 20px;
   margin: 20px 0;
-  padding: 15px 0 15px 20px;
+  padding: 20px 0 15px 0px;
 `
 
 export const Title = styled.h2`
-  margin-left: 20px;
+  margin-left: 30px;
 `
 
 export const WrapperProducts = styled.div`
@@ -25,6 +25,7 @@ export const WrapperProducts = styled.div`
   gap: 15px;
   flex-wrap: wrap;
   margin-left: 15px;
+  padding-left: 20px;
 `
 
 export const Description = styled.p`
@@ -115,4 +116,11 @@ export const LinkBackHome = styled.p`
     color: #00337E;
     text-decoration: underline;
   }
+`
+
+export const Division = styled.div`
+  height: 1px;
+  border-bottom: 2px solid #E7E7E7;
+  width: 100%;
+  margin: 20px 0;
 `

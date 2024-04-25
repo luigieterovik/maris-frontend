@@ -11,6 +11,10 @@ export default function Pagination({
   currentPage,
   handlePageChange
 }) {
+  if (totalProducts <= productsPerPage) {
+    return null // Não renderizar a paginação se houver apenas uma página
+  }
+
   const handleClick = page => {
     setCurrentPage(page)
     handlePageChange(page)
@@ -42,9 +46,7 @@ export default function Pagination({
       </S.PagesWrapper>
 
       <S.PageNavigator
-        isLastPage={
-          currentPage == Math.ceil(totalProducts / productsPerPage)
-        }
+        isLastPage={currentPage == Math.ceil(totalProducts / productsPerPage)}
         onClick={() => handlePageChange(parseInt(currentPage) + 1)}
       >
         Próxima <S.Arrow src={arrow} />

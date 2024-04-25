@@ -231,6 +231,8 @@ export default function Catalog() {
             </S.LabelOrderBy>
           ))}
         </S.DivLabelsOrderBy>
+        
+        <S.Division />
 
         <S.WrapperProducts>
           {currentProducts.map(product => (
