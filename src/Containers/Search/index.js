@@ -7,27 +7,27 @@ import CarouselItem from '../../components/CarouselItem'
 import Pagination from '../../components/Pagination'
 
 import { productsState } from '../../utils/states'
-import { navigateToSearch } from '../../utils/functions'
+import { navigateToSearch, searchOnProducts } from '../../utils/functions'
 
 const i = name => {
   return require('../../assets/' + name)
 }
 
 import * as S from './styles'
-export function Search({ searchBy }) {
+export function Search({ searchBy, foundProducts }) {
   const navigate = useNavigate()
 
-  const { products } = productsState()
+  const productsFoundBySearch = foundProducts
 
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(12)
 
   const indexOfLastProduct = Math.min(
     currentPage * productsPerPage,
-    products.length
+    productsFoundBySearch.length
   )
   const indexOfFirstProduct = Math.max(0, indexOfLastProduct - productsPerPage)
-  const currentProducts = products.slice(
+  const currentProducts = productsFoundBySearch.slice(
     indexOfFirstProduct,
     indexOfLastProduct
   )
@@ -45,18 +45,17 @@ export function Search({ searchBy }) {
           {currentProducts.map(product => (
             <CarouselItem
               key={product.id}
-              isOffer={product.isOffer}
               image={product.image}
               name={product.name}
               price={product.price}
-              offerPercentage={product.isOffer && product.offerPercentage}
+              offerPercentage={product.offerPercentage}
               installment={product.installment}
               isCatalogue
             />
           ))}
 
           <Pagination
-            totalProducts={products.length}
+            totalProducts={foundProducts.length}
             productsPerPage={productsPerPage}
             setCurrentPage={setCurrentPage}
             currentPage={currentPage}
@@ -69,10 +68,11 @@ export function Search({ searchBy }) {
 }
 
 Search.propTypes = {
-  searchBy: PropTypes.string.isRequired
+  searchBy: PropTypes.string.isRequired,
+  foundProducts: PropTypes.array.isRequired
 }
 
-export function SearchIsNull() {
+export function SearchIsNull({ ...props }) {
   const navigate = useNavigate()
   const inputRef = useRef(null)
 
@@ -80,13 +80,18 @@ export function SearchIsNull() {
     <S.NullWrapper>
       <S.Title>Buscar</S.Title>
       <S.Description>
-        Use a barra de busca para encontrar produtos:
+        {props.searchByTerm
+          ? `Nenhum resultado com "${props.searchByTerm}" encontrado`
+          : 'Use a barra de busca para encontrar produtos'}
       </S.Description>
+
       <S.InputWrapper>
         <S.Input
           placeholder=""
           ref={inputRef}
-          onKeyPress={event => event.key === 'Enter' && navigateToSearch(navigate, inputRef)}
+          onKeyPress={event =>
+            event.key === 'Enter' && navigateToSearch(navigate, inputRef)
+          }
         />
         <S.InputPlaceholder>Buscar...</S.InputPlaceholder>
         <S.InputButton onClick={() => navigateToSearch(navigate, inputRef)}>
@@ -100,17 +105,35 @@ export function SearchIsNull() {
   )
 }
 
+SearchIsNull.propTypes = {
+  searchByTerm: PropTypes.string.isRequired
+}
+
 export function SearchSelector() {
+  const { products } = productsState()
+
   const [searchBy, setSearchBy] = useState('')
-  const [searchParams, setSearchParams] = useSearchParams()
-  
+  const [searchParams] = useSearchParams()
+  const [foundProducts, setFoundProducts] = useState([])
+
   useEffect(() => {
     const searchParam = searchParams.get('q')
     if (searchParam) setSearchBy(searchParam.trim())
     else setSearchBy('')
   }, [searchParams])
 
+  useEffect(() => {
+    // Atualize os produtos encontrados no estado
+    setFoundProducts(searchOnProducts(searchBy, products))
+  }, [searchBy, products])
+
   return (
-    <>{searchBy === '' ? <SearchIsNull setSearchParams={setSearchParams}/> : <Search searchBy={searchBy} />}</>
+    <>
+      {searchBy === '' || foundProducts.length === 0 ? (
+        <SearchIsNull searchByTerm={searchBy} />
+      ) : (
+        <Search searchBy={searchBy} foundProducts={foundProducts} />
+      )}
+    </>
   )
 }
