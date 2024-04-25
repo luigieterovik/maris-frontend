@@ -20,12 +20,15 @@ export function priceToCurrency(price) {
 }
 
 export function offerPercentageCalculate(value, offerPercentage) {
-  const valueDivision = value / 100
-  const discount = valueDivision * offerPercentage
-  const finalValue = value - discount
+  const parsedValue = parseFloat(value);
+  
+  const valueDivision = parsedValue / 100;
+  const discount = valueDivision * offerPercentage;
+  const finalValue = parsedValue - discount;
 
-  return finalValue
+  return finalValue;
 }
+
 
 export function installmentCalculation(price) {
   return Number((price / 12).toFixed(2))
@@ -34,4 +37,15 @@ export function installmentCalculation(price) {
 export function navigateToSearch(navigate, inputRef) {
   navigate(`/search/?q=${inputRef.current.value.trim()}`)
   inputRef.current.value = ''
+}
+
+export function searchOnProducts(string, productsArray) {
+  const stringLowerCase = string.toLowerCase()
+
+  const produtosSimilares = productsArray.filter(product => {
+      const nomeLowerCase = product.name.toLowerCase();
+      return nomeLowerCase.includes(stringLowerCase);
+  })
+
+  return produtosSimilares;
 }

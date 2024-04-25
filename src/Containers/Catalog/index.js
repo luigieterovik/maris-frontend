@@ -27,12 +27,17 @@ export default function Catalog() {
   // Pagination
   const [currentPage, setCurrentPage] = useState(1)
   const [productsPerPage] = useState(4)
-  let filteredProducts =
-    category === 'all'
-      ? products
-      : products.filter(product => product.category === category)
-  if (category == 'ofertas')
-    filteredProducts = products.filter(product => product.isOffer)
+  // Pagination
+  let filteredProducts = []
+  if (category === 'all') {
+    filteredProducts = products
+  } else if (category === 'ofertas') {
+    filteredProducts = products.filter(
+      product => product.offerPercentage !== null
+    )
+  } else {
+    filteredProducts = products.filter(product => product.category === category)
+  }
   const indexOfLastProduct = Math.min(
     currentPage * productsPerPage,
     filteredProducts.length
@@ -61,7 +66,6 @@ export default function Catalog() {
     navigate(
       `/products/?category=${category}&page=${currentPage}&orderBy=${orderBy}`
     )
-    console.log(currentOrderBy)
 
     if (orderBy === labelsOrderBy[0])
       products.sort((a, b) => a.name.localeCompare(b.name))
@@ -121,7 +125,7 @@ export default function Catalog() {
 
     const pageParam = searchParams.get('page')
     if (pageParam) setCurrentPage(pageParam)
-    
+
     const orderByParam = searchParams.get('orderBy')
     if (orderByParam) setCurrentOrderBy(orderByParam)
   }, [])
@@ -135,7 +139,9 @@ export default function Catalog() {
 
   const handlePageChange = pageNumber => {
     setCurrentPage(pageNumber)
-    navigate(`/products/?category=${category}&page=${pageNumber}&orderBy=${currentOrderBy}`)
+    navigate(
+      `/products/?category=${category}&page=${pageNumber}&orderBy=${currentOrderBy}`
+    )
   }
 
   // Title by category
@@ -230,11 +236,10 @@ export default function Catalog() {
           {currentProducts.map(product => (
             <CarouselItem
               key={product.id}
-              isOffer={product.isOffer}
+              offerPercentage={product.offerPercentage}
               image={product.image}
               name={product.name}
               price={product.price}
-              offerPercentage={product.isOffer && product.offerPercentage}
               installment={product.installment}
               isCatalogue
             />

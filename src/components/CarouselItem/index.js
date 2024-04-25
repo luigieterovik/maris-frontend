@@ -49,10 +49,10 @@ function OfferCarouselItem({ ...props }) {
   )
 }
 
-export default function CarouselItemSelector({ isOffer, ...props }) {
+export default function CarouselItemSelector({ ...props }) {
   return (
     <>
-      {isOffer ? (
+      {props.offerPercentage !== null ? (
         <OfferCarouselItem {...props} />
       ) : (
         <RegularCarouselItem {...props} />
@@ -79,5 +79,5 @@ OfferCarouselItem.propTypes = {
 }
 
 CarouselItemSelector.propTypes = {
-  isOffer: PropTypes.bool
+  offerPercentage: PropTypes.bool
 }
