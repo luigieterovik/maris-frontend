@@ -30,3 +30,8 @@ export function offerPercentageCalculate(value, offerPercentage) {
 export function installmentCalculation(price) {
   return Number((price / 12).toFixed(2))
 }
+
+export function navigateToSearch(navigate, inputRef) {
+  navigate(`/search/?q=${inputRef.current.value.trim()}`)
+  inputRef.current.value = ''
+}

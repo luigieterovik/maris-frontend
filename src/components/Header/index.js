@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 import Login from '../Login'
 
-import { stringToUrl } from '../../utils/functions'
+import { stringToUrl, navigateToSearch } from '../../utils/functions'
 import { categoriesState } from '../../utils/states'
 
 const i = name => {
@@ -26,18 +26,13 @@ export default function Header() {
 
   const inputRef = useRef(null)
 
-  const navigateToSearch = () => {
-    navigate(`/search/?q=${inputRef.current.value.trim()}`)
-    inputRef.current.value = ''
-  }
-
   return (
     <S.Header>
       <S.HeaderTop>
         <S.Logo src={i('logo.png')} alt="logo" />
         <S.DivInput>
-          <S.Input placeholder="O que está buscando?" ref={inputRef} onKeyPress={(event) => event.key === 'Enter' && navigateToSearch()} />
-          <S.SearchInputButton onClick={() => navigateToSearch()}>
+          <S.Input placeholder="O que está buscando?" ref={inputRef} onKeyPress={(event) => event.key === 'Enter' && navigateToSearch(navigate, inputRef)} />
+          <S.SearchInputButton onClick={() => navigateToSearch(navigate, inputRef)}>
             <S.Magnifying
               src={i('magnifying.png')}
               alt="magnifying-glass-icon"
