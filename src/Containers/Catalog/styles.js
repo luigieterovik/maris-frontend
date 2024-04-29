@@ -131,8 +131,8 @@ export const WrapperProducts = styled.div`
   display: flex;
   gap: 15px;
   flex-wrap: wrap;
-  justify-content: center;
-  padding: 0 10px;
+  justify-content: left;
+  padding: 0 10px 0 30px;
 `
 
 export const DivLabelsOrderBy = styled.div`
