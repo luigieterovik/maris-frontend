@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import { installmentCalculation, offerPercentageCalculate, priceToCurrency } from '../../utils/functions'
+import {
+  installmentCalculation,
+  offerPercentageCalculate,
+  priceToCurrency
+} from '../../utils/functions'
 
 import * as S from './styles'
 
@@ -9,14 +13,13 @@ const i = name => {
   return require('../../assets/' + name)
 }
 
-function RegularCarouselItem({ ...props }) {
+function RegularCarouselItem(props) {
+  console.log(props)
   return (
     <S.CarouselItem {...props}>
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
-
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice>{priceToCurrency(props.price)} </S.ItemPrice>
-
       <S.ItemInstallment>
         em até <b>12x</b> de{' '}
         <span style={{ color: 'green', fontWeight: 600 }}>
@@ -27,16 +30,16 @@ function RegularCarouselItem({ ...props }) {
   )
 }
 
-function OfferCarouselItem({ ...props }) {
+function OfferCarouselItem(props) {
   return (
     <S.CarouselItem {...props}>
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
-
       <S.ItemName>{props.name}</S.ItemName>
-
       <S.ItemPrice style={{ color: 'green' }}>
         {' '}
-        {priceToCurrency(offerPercentageCalculate(props.price, props.offerPercentage))}
+        {priceToCurrency(
+          offerPercentageCalculate(props.price, props.offerPercentage)
+        )}
         <S.OldPrice>{props.price}</S.OldPrice>
       </S.ItemPrice>
       <S.ItemInstallment>
@@ -49,10 +52,10 @@ function OfferCarouselItem({ ...props }) {
   )
 }
 
-export default function CarouselItemSelector({ ...props }) {
+export default function CarouselItemSelector(props) {
   return (
     <>
-      {props.offerPercentage !== null ? (
+      {props.offerPercentage ? (
         <OfferCarouselItem {...props} />
       ) : (
         <RegularCarouselItem {...props} />

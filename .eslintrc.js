@@ -22,6 +22,7 @@ module.exports = {
     semi: ['off', 'never'],
     'no-undef': 'warn',
     'no-unused-vars': 'warn',
-    'prettier/prettier': 'off'
+    'prettier/prettier': 'off',
+    'react/prop-types': 'off'
   }
 }

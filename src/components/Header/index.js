@@ -62,7 +62,7 @@ export default function Header() {
                 e.stopPropagation()
               }}
             >
-              <Login accountComponent="login" isPopup />
+              <Login renderComponent="login" isPopup />
             </S.LoginWrapper>
           </S.AIcons>
 

@@ -48,7 +48,7 @@ export default function Home() {
         <Carousel className="Carousel" itemsToShow={5}>
           {products.map(
             product =>
-              product.isOffer && (
+              product.offerPercentage !== null && (
                 <CarouselItem
                   isOffer
                   key={product.id}
@@ -72,7 +72,7 @@ export default function Home() {
         <Carousel className="Carousel" itemsToShow={3}>
           {products.map(
             product =>
-              product.isOffer || (
+              product.offerPercentage == null && (
                 <CarouselItem
                   key={product.id}
                   image={product.image}
