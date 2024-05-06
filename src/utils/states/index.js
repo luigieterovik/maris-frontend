@@ -123,3 +123,7 @@ export function productsState() {
 
   return { products, setProducts }
 }
+
+export function productImagesState() {
+  const [productImages, setProductImages] = useState()
+}
