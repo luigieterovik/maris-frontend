@@ -5,6 +5,7 @@ import { productImagesState, productsState } from '../../utils/states'
 import { useParams } from 'react-router-dom'
 
 import * as S from './styles'
+import { priceToCurrency } from '../../utils/functions'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -31,39 +32,90 @@ export default function Product() {
 
   const { id } = useParams()
 
-  const [product, setProduct] = useState({})
-  const [images, setImages] = useState([])
+  const [product, setProduct] = useState()
+  const [images, setImages] = useState()
+  const [displayImage, setDisplayImage] = useState()
 
   useEffect(() => {
-    if (id) {
-      const parsedId = parseInt(id)
-      const filteredProduct = products.find(product => product.id === parsedId)
-      setProduct(filteredProduct)
-      setImages(prevState => {
-        return [
-          filteredProduct.image,
-          ...(productImages.find(item => item.productId === parsedId)?.images ||
-            [])
-        ]
-      })
-    }
+    const parsedId = parseInt(id)
+    const filteredProduct = products.find(product => product.id === parsedId)
+    setProduct(filteredProduct)
+    setDisplayImage(filteredProduct.image)
+    setImages(prevState => {
+      return [
+        filteredProduct.image,
+        ...(productImages.find(item => item.productId === parsedId)?.images ||
+          [])
+      ]
+    })
   }, [id])
 
+  const [quantity, setQuantity] = useState(1)
+
   return (
-    <S.Container>
-      <S.LeftWrapper>
-        <S.ImageWrapper>
-          <S.AllImages ref={allImagesRef}>
-            {images.map((image, index) => (
-              <S.MiniImage key={index} src={i(image)} />
-            ))}
-          </S.AllImages>
+    <>
+      {product && images && (
+        <S.Container>
+          <S.LeftWrapper>
+            <S.ImageWrapper>
+              <S.AllMiniImages ref={allImagesRef}>
+                {images.map((image, index) => (
+                  <S.MiniImage
+                    key={index}
+                    src={i(image)}
+                    alt="mini-image"
+                    onClick={() => setDisplayImage(image)}
+                  />
+                ))}
+              </S.AllMiniImages>
 
-          <S.MainImage />
-        </S.ImageWrapper>
-      </S.LeftWrapper>
+              <S.MainImage src={i(displayImage)} alt="product" />
+            </S.ImageWrapper>
 
-      <S.RightWrapper></S.RightWrapper>
-    </S.Container>
+            <S.Division />
+
+            <S.DescriptionWrapper>
+              <h4 style={{ textAlign: 'center' }}>
+                <b>Descrição</b>
+              </h4>
+
+              <S.ProductDescription>{product.description}</S.ProductDescription>
+            </S.DescriptionWrapper>
+          </S.LeftWrapper>
+
+          <S.RightWrapper>
+            <S.ProductTitle>
+              {product.name} <img src={i('check.png')} />
+            </S.ProductTitle>
+            <S.PriceWrapper>
+              <p>Preço: </p>
+              <S.PriceDescriptionWrapper>
+                <S.Price>{priceToCurrency(product.price)}</S.Price>
+                <label>
+                  Em até 12x de <b>{priceToCurrency(product.price / 12)}</b>
+                </label>
+              </S.PriceDescriptionWrapper>
+            </S.PriceWrapper>
+
+            <S.QuantityWrapper>
+              <S.ChangeQuantity
+                quantity={quantity}
+                onClick={() => setQuantity(prevState => prevState - 1)}
+              >
+                -
+              </S.ChangeQuantity>
+              <label>{quantity}</label>
+              <S.ChangeQuantity
+                onClick={() => setQuantity(prevState => prevState + 1)}
+              >
+                +
+              </S.ChangeQuantity>
+            </S.QuantityWrapper>
+
+            <S.BuyButton>Comprar agora</S.BuyButton>
+          </S.RightWrapper>
+        </S.Container>
+      )}
+    </>
   )
 }
