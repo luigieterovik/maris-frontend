@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import {
   installmentCalculation,
@@ -14,9 +15,13 @@ const i = name => {
 }
 
 function RegularCarouselItem(props) {
-  console.log(props)
+  const navigate = useNavigate()
+
   return (
-    <S.CarouselItem {...props}>
+    <S.CarouselItem
+      {...props}
+      onClick={() => navigate(`/products/id/${props.id}`)}
+    >
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice>{priceToCurrency(props.price)} </S.ItemPrice>
@@ -31,8 +36,13 @@ function RegularCarouselItem(props) {
 }
 
 function OfferCarouselItem(props) {
+  const navigate = useNavigate()
+
   return (
-    <S.CarouselItem {...props}>
+    <S.CarouselItem
+      {...props}
+      onClick={() => navigate(`/products/id/${props.id}`)}
+    >
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice style={{ color: 'green' }}>
@@ -69,7 +79,8 @@ RegularCarouselItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  installment: PropTypes.string.isRequired
+  installment: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired // Adicione a prop id
 }
 
 OfferCarouselItem.propTypes = {
@@ -78,7 +89,8 @@ OfferCarouselItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   offerPercentage: PropTypes.number,
-  installment: PropTypes.string.isRequired
+  installment: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired // Adicione a prop id
 }
 
 CarouselItemSelector.propTypes = {

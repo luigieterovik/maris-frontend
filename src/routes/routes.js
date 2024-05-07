@@ -4,7 +4,8 @@ import { Routes, Route } from 'react-router-dom'
 import Home from '../Containers/Home'
 import Catalog from '../Containers/Catalog'
 import Login from '../components/Login'
-import { Search, SearchIsNull, SearchSelector } from '../Containers/Search'
+import { SearchSelector } from '../Containers/Search'
+import Product from '../Containers/Product'
 
 export default function AllRoutes() {
   return (
@@ -12,6 +13,7 @@ export default function AllRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/products" element={<Catalog />} />
       <Route path="/products/*" element={<Catalog />} />
+      <Route path="/products/id/:id" element={<Product />} />
       <Route path="/account/login" element={<Login login />} />
       <Route path="/account/register" element={<Login register />} />
       <Route path="/account/recover" element={<Login recover />} />

@@ -52,6 +52,7 @@ export default function Home() {
                 <CarouselItem
                   isOffer
                   key={product.id}
+                  id={product.id}
                   image={product.image}
                   name={product.name}
                   price={product.price}
@@ -75,6 +76,7 @@ export default function Home() {
               product.offerPercentage == null && (
                 <CarouselItem
                   key={product.id}
+                  id={product.id}
                   image={product.image}
                   name={product.name}
                   price={product.price}

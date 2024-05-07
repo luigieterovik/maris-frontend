@@ -8,25 +8,32 @@ export const Container = styled.div`
   flex-direction: row;
 `
 
-export const Wrapper = styled.div`
-  width: 25%;
-  height: fit-content;
+export const LeftWrapper = styled.div`
+  width: 55%;
   display: flex;
-  flex-direction: column;
-  padding: 20px 0;
+  padding: 20px;
   background-color: white;
   border-radius: 25px;
-  padding: 20px;
   transition: all 200ms;
   position: relative;
+`
 
-  ${props =>
-    props.isProducts &&
-    css`
-      width: 80%;
-      margin-left: 20px;
-      padding: 20px 0;
-    `}
+export const ImageWrapper = styled.div``
+
+export const MainImage = styled.img``
+
+export const RightWrapper = styled.div``
+
+export const AllImages = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: hidden;
+  max-height: 200px;
+`
+
+export const MiniImage = styled.img`
+  width: 50px;
 `
 
 export const Title = styled.h2`

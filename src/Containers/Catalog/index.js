@@ -238,6 +238,7 @@ export default function Catalog() {
           {currentProducts.map(product => (
             <CarouselItem
               key={product.id}
+              id={product.id}
               offerPercentage={product.offerPercentage}
               image={product.image}
               name={product.name}

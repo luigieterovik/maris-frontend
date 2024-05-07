@@ -46,6 +46,7 @@ export function Search({ searchBy, foundProducts }) {
           {currentProducts.map(product => (
             <CarouselItem
               key={product.id}
+              id={product.id}
               image={product.image}
               name={product.name}
               price={product.price}

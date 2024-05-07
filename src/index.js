@@ -6,6 +6,8 @@ import { BrowserRouter } from 'react-router-dom'
 import GlobalStyles from './styles/GlobalStyles'
 import RouteTemplate from './components/RouteTemplate'
 
+import Product from './Containers/Product'
+
 import AllRoutes from './routes/routes'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
