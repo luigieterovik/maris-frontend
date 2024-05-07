@@ -50,7 +50,7 @@ export const CarouselItem = styled.div`
 export const ItemPrice = styled.p`
   font-weight: 600;
   font-size: 19px;
-  color: ${props => (props.isOffer ? 'green' : 'black')};
+  color: ${props => (props.isOffer ? '#0DB100' : 'black')};
 `
 
 export const ItemImage = styled.img`
@@ -72,8 +72,9 @@ export const OldPrice = styled.span`
   color: gray;
   font-size: 13px;
   text-decoration: line-through;
-  font-weight: 500;
+  font-weight: 400;
   margin-left: 5px;
+  opacity: 0.8;
 `
 
 export const ItemInstallment = styled.label`

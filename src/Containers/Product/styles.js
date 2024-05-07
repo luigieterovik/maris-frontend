@@ -93,9 +93,34 @@ export const PriceDescriptionWrapper = styled.div`
 `
 
 export const Price = styled.label`
-  color: green;
+  color: #0db100;
   font-size: 24px;
   font-weight: 700;
+
+  display: flex;
+  align-items: center;
+
+  div {
+    img {
+      filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(6572%) hue-rotate(347deg) brightness(107%) contrast(101%);
+      height: 10px;
+      margin-right: 5px;
+      transform: rotate(-90deg);
+    }
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    background-color: #0db100;
+    border-radius: 100px;
+    height: 20px;
+    width: fit-content;
+    padding: 0 8px;
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+  }
 `
 
 export const QuantityWrapper = styled.div`
@@ -105,7 +130,7 @@ export const QuantityWrapper = styled.div`
   height: 40px;
   width: 100%;
   border-radius: 100px;
-  background-color: #E8E9EF;
+  background-color: #e8e9ef;
   margin: 30px 0 10px;
 `
 
@@ -118,18 +143,44 @@ export const ChangeQuantity = styled.button`
   cursor: pointer;
   opacity: 0.6;
 
-  ${props => props.quantity === 1 && css`
-    visibility: hidden;
-  ` }
+  ${props =>
+    props.quantity === 1 &&
+    css`
+      visibility: hidden;
+    `}
 `
 
 export const BuyButton = styled.button`
   height: 50px;
   width: 100%;
   color: white;
-  background-color: #9C19E8;
+  background-color: #9c19e8;
   border-radius: 100px;
   border: none;
   font-size: 16px;
   font-weight: 500;
+`
+
+export const OldPrice = styled.label`
+  color: gray;
+  font-size: 14px;
+  opacity: 0.8;
+  font-weight: 400;
+
+  span {
+    text-decoration: line-through;
+  }
+`
+
+export const DiscountTag = styled.button`
+  color: white;
+  height: 20px;
+  width: fit-content;
+  padding: 0 8px;
+  border-radius: 100px;
+  background-color: #0db100;
+  font-weight: 600;
+  font-size: 12px;
+  border: none;
+  margin-top: 5px;
 `

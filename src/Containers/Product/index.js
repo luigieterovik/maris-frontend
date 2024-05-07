@@ -5,7 +5,10 @@ import { productImagesState, productsState } from '../../utils/states'
 import { useParams } from 'react-router-dom'
 
 import * as S from './styles'
-import { priceToCurrency } from '../../utils/functions'
+import {
+  offerPercentageCalculate,
+  priceToCurrency
+} from '../../utils/functions'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -15,6 +18,7 @@ export default function Product() {
   const { products } = productsState()
   const { productImages } = productImagesState()
 
+  // Scroll on images
   const allImagesRef = useRef(null)
 
   useEffect(() => {
@@ -30,6 +34,7 @@ export default function Product() {
     }
   }, [])
 
+  // Get params and set states
   const { id } = useParams()
 
   const [product, setProduct] = useState()
@@ -50,6 +55,17 @@ export default function Product() {
     })
   }, [id])
 
+  const [offerPrice, setOfferPrice] = useState()
+
+  useEffect(() => {
+    if (product && product.offerPercentage) {
+      setOfferPrice(
+        offerPercentageCalculate(product.price, product.offerPercentage)
+      )
+    }
+  }, [product])
+
+  // quantity
   const [quantity, setQuantity] = useState(1)
 
   return (
@@ -87,13 +103,37 @@ export default function Product() {
             <S.ProductTitle>
               {product.name} <img src={i('check.png')} />
             </S.ProductTitle>
+
             <S.PriceWrapper>
               <p>Preço: </p>
               <S.PriceDescriptionWrapper>
-                <S.Price>{priceToCurrency(product.price)}</S.Price>
-                <label>
-                  Em até 12x de <b>{priceToCurrency(product.price / 12)}</b>
-                </label>
+                {offerPrice ? (
+                  <>
+                    <S.OldPrice>
+                      De <span>{priceToCurrency(product.price)}</span>
+                    </S.OldPrice>
+                    <S.Price>
+                      {priceToCurrency(offerPrice)}{' '}
+                      <div>
+                        <img src={i('leftArrow.png')} />{' '}
+                        {product.offerPercentage}%
+                      </div>
+                    </S.Price>
+                    <label>
+                      Em até 12x de <b>{priceToCurrency(offerPrice / 12)}</b>
+                    </label>
+                    <S.DiscountTag>
+                      {priceToCurrency(product.price - offerPrice)} de desconto
+                    </S.DiscountTag>
+                  </>
+                ) : (
+                  <>
+                    <S.Price>{priceToCurrency(product.price)}</S.Price>
+                    <label>
+                      Em até 12x de <b>{priceToCurrency(product.price / 12)}</b>
+                    </label>
+                  </>
+                )}
               </S.PriceDescriptionWrapper>
             </S.PriceWrapper>
 
