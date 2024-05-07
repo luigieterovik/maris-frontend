@@ -102,7 +102,8 @@ export const Price = styled.label`
 
   div {
     img {
-      filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(6572%) hue-rotate(347deg) brightness(107%) contrast(101%);
+      filter: brightness(0) saturate(100%) invert(100%) sepia(0%)
+        saturate(6572%) hue-rotate(347deg) brightness(107%) contrast(101%);
       height: 10px;
       margin-right: 5px;
       transform: rotate(-90deg);
@@ -159,6 +160,12 @@ export const BuyButton = styled.button`
   border: none;
   font-size: 16px;
   font-weight: 500;
+  cursor: pointer;
+  transition: 200ms;
+
+  &:hover {
+    opacity: 0.8;
+  }
 `
 
 export const OldPrice = styled.label`
