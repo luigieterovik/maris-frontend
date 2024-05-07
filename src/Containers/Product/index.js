@@ -37,11 +37,15 @@ export default function Product() {
   useEffect(() => {
     if (id) {
       const parsedId = parseInt(id)
-      setProduct(products.filter(product => product.id === parsedId))
-      setImages(productImages.filter(image => image.productId === parsedId))
-      setImages(
-        productImages.find(item => item.productId === parsedId)?.images || []
-      )
+      const filteredProduct = products.find(product => product.id === parsedId)
+      setProduct(filteredProduct)
+      setImages(prevState => {
+        return [
+          filteredProduct.image,
+          ...(productImages.find(item => item.productId === parsedId)?.images ||
+            [])
+        ]
+      })
     }
   }, [id])
 
@@ -49,7 +53,11 @@ export default function Product() {
     <S.Container>
       <S.LeftWrapper>
         <S.ImageWrapper>
-          <S.AllImages ref={allImagesRef}></S.AllImages>
+          <S.AllImages ref={allImagesRef}>
+            {images.map((image, index) => (
+              <S.MiniImage key={index} src={i(image)} />
+            ))}
+          </S.AllImages>
 
           <S.MainImage />
         </S.ImageWrapper>
