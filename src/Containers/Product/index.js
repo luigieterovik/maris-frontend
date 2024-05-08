@@ -1,14 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 
 import { productImagesState, productsState } from '../../utils/states'
 
 import { useParams, useNavigate } from 'react-router-dom'
 
 import * as S from './styles'
+
 import {
   offerPercentageCalculate,
   priceToCurrency
 } from '../../utils/functions'
+
+import { CartContext } from '../../contexts/Cart'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -58,17 +61,33 @@ export default function Product() {
   }, [id])
 
   const [offerPrice, setOfferPrice] = useState()
+  const [offerEconomy, setOfferEconomy] = useState()
 
   useEffect(() => {
     if (product && product.offerPercentage) {
-      setOfferPrice(
-        offerPercentageCalculate(product.price, product.offerPercentage)
+      const calculatedOfferPrice = offerPercentageCalculate(
+        product.price,
+        product.offerPercentage
       )
+      setOfferPrice(calculatedOfferPrice)
+      setOfferEconomy(product.price - calculatedOfferPrice)
     }
   }, [product])
 
   // quantity
   const [quantity, setQuantity] = useState(1)
+
+  const { cartProducts, addProductToCart } = useContext(CartContext)
+
+  const navigateToCart = () => {
+    addProductToCart({
+      ...product,
+      quantity,
+      offerPrice,
+      offerEconomy
+    })
+    navigate('/cart')
+  }
 
   return (
     <>
@@ -125,7 +144,7 @@ export default function Product() {
                       Em até 12x de <b>{priceToCurrency(offerPrice / 12)}</b>
                     </label>
                     <S.DiscountTag>
-                      {priceToCurrency(product.price - offerPrice)} de desconto
+                      {priceToCurrency(offerEconomy)} de desconto
                     </S.DiscountTag>
                   </>
                 ) : (
@@ -154,7 +173,9 @@ export default function Product() {
               </S.ChangeQuantity>
             </S.QuantityWrapper>
 
-            <S.BuyButton onClick={() => navigate('/cart')}>Comprar agora</S.BuyButton>
+            <S.BuyButton onClick={() => navigateToCart()}>
+              Comprar agora
+            </S.BuyButton>
           </S.RightWrapper>
         </S.Container>
       )}

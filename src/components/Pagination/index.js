@@ -12,7 +12,7 @@ export default function Pagination({
   handlePageChange
 }) {
   if (totalProducts <= productsPerPage) {
-    return null // Não renderizar a paginação se houver apenas uma página
+    return null
   }
 
   const handleClick = page => {
