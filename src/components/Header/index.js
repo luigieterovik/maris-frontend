@@ -31,8 +31,16 @@ export default function Header() {
       <S.HeaderTop>
         <S.Logo src={i('logo.png')} alt="logo" />
         <S.DivInput>
-          <S.Input placeholder="O que está buscando?" ref={inputRef} onKeyPress={(event) => event.key === 'Enter' && navigateToSearch(navigate, inputRef)} />
-          <S.SearchInputButton onClick={() => navigateToSearch(navigate, inputRef)}>
+          <S.Input
+            placeholder="O que está buscando?"
+            ref={inputRef}
+            onKeyPress={event =>
+              event.key === 'Enter' && navigateToSearch(navigate, inputRef)
+            }
+          />
+          <S.SearchInputButton
+            onClick={() => navigateToSearch(navigate, inputRef)}
+          >
             <S.Magnifying
               src={i('magnifying.png')}
               alt="magnifying-glass-icon"
@@ -71,7 +79,10 @@ export default function Header() {
             <span>Meus pedidos</span>
           </S.AIcons>
 
-          <S.AIcons className="carrinhoHeaderDiv">
+          <S.AIcons
+            className="carrinhoHeaderDiv"
+            onClick={() => navigate('/cart')}
+          >
             <S.Icons src={i('cart.svg')} alt="icone-carrinho" />
             <S.QuantidadeProdutosCarrinho>
               <p>0</p>

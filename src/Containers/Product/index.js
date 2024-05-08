@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 import { productImagesState, productsState } from '../../utils/states'
 
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 
 import * as S from './styles'
 import {
@@ -17,6 +17,8 @@ const i = name => {
 export default function Product() {
   const { products } = productsState()
   const { productImages } = productImagesState()
+
+  const navigate = useNavigate()
 
   // Scroll on images
   const allImagesRef = useRef(null)
@@ -46,7 +48,7 @@ export default function Product() {
     const filteredProduct = products.find(product => product.id === parsedId)
     setProduct(filteredProduct)
     setDisplayImage(filteredProduct.image)
-    setImages(prevState => {
+    setImages(() => {
       return [
         filteredProduct.image,
         ...(productImages.find(item => item.productId === parsedId)?.images ||
@@ -152,7 +154,7 @@ export default function Product() {
               </S.ChangeQuantity>
             </S.QuantityWrapper>
 
-            <S.BuyButton>Comprar agora</S.BuyButton>
+            <S.BuyButton onClick={() => navigate('/cart')}>Comprar agora</S.BuyButton>
           </S.RightWrapper>
         </S.Container>
       )}

@@ -80,7 +80,7 @@ RegularCarouselItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   installment: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired // Adicione a prop id
+  id: PropTypes.string.isRequired
 }
 
 OfferCarouselItem.propTypes = {
@@ -90,7 +90,7 @@ OfferCarouselItem.propTypes = {
   price: PropTypes.string.isRequired,
   offerPercentage: PropTypes.number,
   installment: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired // Adicione a prop id
+  id: PropTypes.string.isRequired
 }
 
 CarouselItemSelector.propTypes = {

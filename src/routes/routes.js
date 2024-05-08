@@ -6,6 +6,7 @@ import Catalog from '../Containers/Catalog'
 import Login from '../components/Login'
 import { SearchSelector } from '../Containers/Search'
 import Product from '../Containers/Product'
+import { Cart } from '../Containers/Cart'
 
 export default function AllRoutes() {
   return (
@@ -14,10 +15,11 @@ export default function AllRoutes() {
       <Route path="/products" element={<Catalog />} />
       <Route path="/products/*" element={<Catalog />} />
       <Route path="/products/id/:id" element={<Product />} />
+      <Route path="/search/*" element={<SearchSelector />} />
+      <Route path="/cart" element={<Cart />} />
       <Route path="/account/login" element={<Login login />} />
       <Route path="/account/register" element={<Login register />} />
       <Route path="/account/recover" element={<Login recover />} />
-      <Route path="/search/*" element={<SearchSelector />} />
     </Routes>
   )
 }
