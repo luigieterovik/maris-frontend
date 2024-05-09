@@ -38,41 +38,49 @@ export function Cart() {
             <S.Column>Quantidade</S.Column>
             <S.Column>Total</S.Column>
           </S.LayoutDiv>
-          {cartProducts.map((product, index) => (
-            <>
-              {' '}
-              <S.Division />
-              <S.LayoutDiv key={index} isProduct>
-                <S.ProductColumn>
-                  <S.ProductImage src={i(product.image)} alt="product" />
-                  <S.ProductInformatiosDiv>
-                    <S.ProductName>{product.name}</S.ProductName>
-                    <S.ProductPrice hasOffer={product.offerPrice}>
+          {Array.isArray(cartProducts) &&
+            cartProducts.map((product, index) => (
+              <>
+                {' '}
+                <S.Division />
+                <S.LayoutDiv key={index} isProduct>
+                  <S.ProductColumn>
+                    <S.ProductImage src={i(product.image)} alt="product" />
+                    <S.ProductInformatiosDiv>
+                      <S.ProductName>{product.name}</S.ProductName>
+                      <S.ProductPrice hasOffer={product.offerPrice}>
+                        {priceToCurrency(
+                          product.offerPrice
+                            ? product.offerPrice
+                            : product.price
+                        )}
+                        {product.offerPrice && (
+                          <label>{priceToCurrency(product.price)}</label>
+                        )}
+                      </S.ProductPrice>
+                    </S.ProductInformatiosDiv>
+                  </S.ProductColumn>
+
+                  <S.QuantityColumn>
+                    <QuantityChanger isCart quantity={product.quantity} />
+                    <label
+                      className="labelRemove"
+                      onClick={() => console.log('removi')}
+                    >
+                      Remover
+                    </label>
+                  </S.QuantityColumn>
+
+                  <S.TotalColumn>
+                    <label>
                       {priceToCurrency(
                         product.offerPrice ? product.offerPrice : product.price
                       )}
-                      {product.offerPrice && (
-                        <label>{priceToCurrency(product.price)}</label>
-                      )}
-                    </S.ProductPrice>
-                  </S.ProductInformatiosDiv>
-                </S.ProductColumn>
-
-                <S.QuantityColumn>
-                  <QuantityChanger isCart quantity={product.quantity} />
-                  <label className="labelRemove" onClick={() => console.log('removi')}>Remover</label>
-                </S.QuantityColumn>
-
-                <S.TotalColumn>
-                  <label>
-                    {priceToCurrency(
-                      product.offerPrice ? product.offerPrice : product.price
-                    )}
-                  </label>
-                </S.TotalColumn>
-              </S.LayoutDiv>
-            </>
-          ))}
+                    </label>
+                  </S.TotalColumn>
+                </S.LayoutDiv>
+              </>
+            ))}
         </S.LeftContainer>
 
         <S.RightContainer></S.RightContainer>

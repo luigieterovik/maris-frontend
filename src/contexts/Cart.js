@@ -6,22 +6,26 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([])
 
   const addProductToCart = product => {
-    setCartProducts([...cartProducts, product])
+    setCartProducts([product, ...cartProducts])
   }
 
   const incrementQuantity = (idProduct, quantity) => {
-    const updatedProducts = cartProducts.map(product =>
-      product.id === idProduct
-        ? { ...product, quantity: product.quantity + quantity }
-        : product
+    let foundProduct = cartProducts.find(
+      product => product.id === idProduct
     )
 
-    if (cartProducts.length === 0) setCartProducts(updatedProducts)
+    foundProduct.quantity += quantity
+
+    if (cartProducts.length === 0 || cartProducts.length === 1)
+      setCartProducts([foundProduct])
     else {
       const allOtherProducts = cartProducts.filter(
         product => product.id !== idProduct
       )
-      setCartProducts(...allOtherProducts, updatedProducts)
+
+      const updatedArray = [foundProduct, ...allOtherProducts]
+
+      setCartProducts(updatedArray)
     }
   }
 
