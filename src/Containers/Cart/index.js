@@ -17,7 +17,7 @@ export function Cart() {
   const navigate = useNavigate()
 
   const { cartProducts, removeProductToCart } = useContext(CartContext)
-
+  
   const [total, setTotal] = useState()
   const [economy, setEconomy] = useState()
 
