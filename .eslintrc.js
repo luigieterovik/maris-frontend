@@ -16,7 +16,8 @@ module.exports = {
   globals: {
     document: true,
     window: true,
-    navigator: true
+    navigator: true,
+    localStorage: true
   },
   rules: {
     semi: ['off', 'never'],

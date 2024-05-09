@@ -43,6 +43,9 @@ function OfferCarouselItem(props) {
       {...props}
       onClick={() => navigate(`/products/id/${props.id}`)}
     >
+      <S.OfferTag>
+        <img src={i('leftArrow.png')} /> {props.offerPercentage}%
+      </S.OfferTag>
       <S.ItemImage src={i(props.image)} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice style={{ color: '#0DB100' }}>

@@ -11,6 +11,8 @@ export const CarouselItem = styled.div`
   border-radius: 15px;
   box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 
+  position: relative;
+
   padding: 20px;
   margin: 10px 0;
 
@@ -70,7 +72,7 @@ export const ItemName = styled.p`
 
 export const OldPrice = styled.span`
   color: gray;
-  font-size: 13px;
+  font-size: 12px;
   text-decoration: line-through;
   font-weight: 400;
   margin-left: 5px;
@@ -79,4 +81,30 @@ export const OldPrice = styled.span`
 
 export const ItemInstallment = styled.label`
   font-size: 15px;
+`
+
+export const OfferTag = styled.div`
+  img {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(6572%)
+      hue-rotate(347deg) brightness(107%) contrast(101%);
+    height: 8px;
+    margin-right: 3px;
+    transform: rotate(-90deg);
+  }
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+  background-color: #0db100;
+  border-radius: 100px;
+  height: 18px;
+  width: fit-content;
+  padding: 0 8px;
+  color: white;
+  font-weight: 600;
+  font-size: 10px;
+  position: absolute;
+  top: 10px;
+  left: 5px;
 `
