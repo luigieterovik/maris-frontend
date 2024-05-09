@@ -11,7 +11,7 @@ export default function QuantityChanger({ id, quantity, setQuantity, isCart }) {
     <S.QuantityWrapper isCart>
       <S.ChangeQuantity
         quantity={quantity}
-        onClick={() => decrementQuantity(id, 1)}
+        onClick={() => decrementQuantity(id)}
       >
         -
       </S.ChangeQuantity>
