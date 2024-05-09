@@ -5,7 +5,6 @@ export const Container = styled.div`
   background-color: #f7f7f7;
   padding: 50px 60px;
   display: flex;
-  flex-direction: row;
 `
 
 export const LeftWrapper = styled.div`
@@ -122,33 +121,6 @@ export const Price = styled.label`
     font-weight: 600;
     font-size: 12px;
   }
-`
-
-export const QuantityWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 40px;
-  width: 100%;
-  border-radius: 100px;
-  background-color: #e8e9ef;
-  margin: 30px 0 10px;
-`
-
-export const ChangeQuantity = styled.button`
-  background: transparent;
-  border: none;
-  font-size: 20px;
-  font-weight: 600;
-  width: 80px;
-  cursor: pointer;
-  opacity: 0.6;
-
-  ${props =>
-    props.quantity === 1 &&
-    css`
-      visibility: hidden;
-    `}
 `
 
 export const BuyButton = styled.button`

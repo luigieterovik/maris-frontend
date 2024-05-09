@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef, useContext } from 'react'
 
 import { productImagesState, productsState } from '../../utils/states'
 
+import QuantityChanger from '../../components/QuantityChanger'
+
 import { useParams, useNavigate } from 'react-router-dom'
 
 import * as S from './styles'
@@ -77,15 +79,22 @@ export default function Product() {
   // quantity
   const [quantity, setQuantity] = useState(1)
 
-  const { cartProducts, addProductToCart } = useContext(CartContext)
+  const { cartProducts, addProductToCart, incrementQuantity } =
+    useContext(CartContext)
 
   const navigateToCart = () => {
-    addProductToCart({
-      ...product,
-      quantity,
-      offerPrice,
-      offerEconomy
-    })
+    if (cartProducts.some(object => object.id === product.id)) {
+      incrementQuantity(product.id, quantity)
+    } else {
+      addProductToCart({
+        ...product,
+        offerPrice,
+        offerEconomy,
+        quantity
+      })
+
+      setQuantity(1)
+    }
     navigate('/cart')
   }
 
@@ -158,20 +167,7 @@ export default function Product() {
               </S.PriceDescriptionWrapper>
             </S.PriceWrapper>
 
-            <S.QuantityWrapper>
-              <S.ChangeQuantity
-                quantity={quantity}
-                onClick={() => setQuantity(prevState => prevState - 1)}
-              >
-                -
-              </S.ChangeQuantity>
-              <label>{quantity}</label>
-              <S.ChangeQuantity
-                onClick={() => setQuantity(prevState => prevState + 1)}
-              >
-                +
-              </S.ChangeQuantity>
-            </S.QuantityWrapper>
+            <QuantityChanger quantity={quantity} setQuantity={setQuantity} />
 
             <S.BuyButton onClick={() => navigateToCart()}>
               Comprar agora

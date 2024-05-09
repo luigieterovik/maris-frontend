@@ -9,8 +9,47 @@ export const CartProvider = ({ children }) => {
     setCartProducts([...cartProducts, product])
   }
 
+  const incrementQuantity = (idProduct, quantity) => {
+    const updatedProducts = cartProducts.map(product =>
+      product.id === idProduct
+        ? { ...product, quantity: product.quantity + quantity }
+        : product
+    )
+
+    if (cartProducts.length === 0) setCartProducts(updatedProducts)
+    else {
+      const allOtherProducts = cartProducts.filter(
+        product => product.id !== idProduct
+      )
+      setCartProducts(...allOtherProducts, updatedProducts)
+    }
+  }
+
+  const removeQuantity = (idProduct, quantity) => {
+    const updatedProducts = cartProducts.map(product =>
+      product.id === idProduct
+        ? { ...product, quantity: product.quantity - quantity }
+        : product
+    )
+
+    if (cartProducts.length === 0) setCartProducts(updatedProducts)
+    else {
+      const allOtherProducts = cartProducts.filter(
+        product => product.id !== idProduct
+      )
+      setCartProducts(...allOtherProducts, updatedProducts)
+    }
+  }
+
   return (
-    <CartContext.Provider value={{ cartProducts, addProductToCart }}>
+    <CartContext.Provider
+      value={{
+        cartProducts,
+        addProductToCart,
+        incrementQuantity,
+        removeQuantity
+      }}
+    >
       {children}
     </CartContext.Provider>
   )
