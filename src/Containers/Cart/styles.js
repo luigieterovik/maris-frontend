@@ -81,6 +81,7 @@ export const LayoutDiv = styled.div`
 
 export const Column = styled.label`
   font-size: 12px;
+  font-weight: 500;
 `
 
 export const ProductColumn = styled.div`
@@ -132,13 +133,13 @@ export const ProductName = styled.label`
 `
 
 export const ProductPrice = styled.label`
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
 
   label {
     color: black;
     margin-left: 10px;
-    font-weight: 500;
+    font-weight: 400;
     text-decoration: line-through;
     font-size: 11px;
   }

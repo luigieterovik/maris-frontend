@@ -1,10 +1,12 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import * as S from './styles'
 import Login from '../Login'
 
 import { stringToUrl, navigateToSearch } from '../../utils/functions'
 import { categoriesState } from '../../utils/states'
+
+import { CartContext } from '../../contexts/Cart'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -25,6 +27,8 @@ export default function Header() {
   })
 
   const inputRef = useRef(null)
+
+  const { cartProducts } = useContext(CartContext) 
 
   return (
     <S.Header>
@@ -85,7 +89,7 @@ export default function Header() {
           >
             <S.Icons src={i('cart.svg')} alt="icone-carrinho" />
             <S.QuantidadeProdutosCarrinho>
-              <p>0</p>
+              <p>{cartProducts.length}</p>
             </S.QuantidadeProdutosCarrinho>{' '}
             <span style={{ marginLeft: '5px' }}>Carrinho</span>
           </S.AIcons>

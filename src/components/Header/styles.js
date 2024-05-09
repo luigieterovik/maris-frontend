@@ -13,6 +13,7 @@ export const QuantidadeProdutosCarrinho = styled.div`
   border-radius: 100px;
 
   p {
+    font-size: 9px;
     transform: translateY(3px);
     text-align: center;
   }

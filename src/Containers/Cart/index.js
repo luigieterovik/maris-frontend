@@ -16,8 +16,17 @@ const i = name => {
 export function Cart() {
   const navigate = useNavigate()
 
-  const { cartProducts, addProductToCart, incrementQuantity, removeQuantity } =
-    useContext(CartContext)
+  const {
+    cartProducts,
+    addProductToCart,
+    removeProductToCart,
+    incrementQuantity,
+    removeQuantity
+  } = useContext(CartContext)
+
+  const setQuantity = (productId, quantity) => {
+    incrementQuantity(productId, quantity)
+  }
 
   return cartProducts.length === 0 ? (
     <S.EmptyCartContainer>
@@ -62,10 +71,14 @@ export function Cart() {
                   </S.ProductColumn>
 
                   <S.QuantityColumn>
-                    <QuantityChanger isCart quantity={product.quantity} />
+                    <QuantityChanger
+                      isCart
+                      quantity={product.quantity}
+                      id={product.id}
+                    />
                     <label
                       className="labelRemove"
-                      onClick={() => console.log('removi')}
+                      onClick={() => removeProductToCart(product.id)}
                     >
                       Remover
                     </label>

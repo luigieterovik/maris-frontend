@@ -9,6 +9,12 @@ export const CartProvider = ({ children }) => {
     setCartProducts(prevProducts => [product, ...prevProducts])
   }
 
+  const removeProductToCart = idProduct => {
+    setCartProducts(prevProducts =>
+      prevProducts.filter(product => product.id !== idProduct)
+    )
+  }
+
   const incrementQuantity = (idProduct, quantity) => {
     setCartProducts(prevProducts =>
       prevProducts.map(product =>
@@ -19,20 +25,14 @@ export const CartProvider = ({ children }) => {
     )
   }
 
-  const removeQuantity = (idProduct, quantity) => {
-    const updatedProducts = cartProducts.map(product =>
-      product.id === idProduct
-        ? { ...product, quantity: product.quantity - quantity }
-        : product
-    )
-
-    if (cartProducts.length === 0) setCartProducts(updatedProducts)
-    else {
-      const allOtherProducts = cartProducts.filter(
-        product => product.id !== idProduct
+  const decrementQuantity = (idProduct, quantity) => {
+    setCartProducts(prevProducts =>
+      prevProducts.map(product =>
+        product.id === idProduct
+          ? { ...product, quantity: product.quantity - quantity }
+          : product
       )
-      setCartProducts(...allOtherProducts, updatedProducts)
-    }
+    )
   }
 
   return (
@@ -40,8 +40,9 @@ export const CartProvider = ({ children }) => {
       value={{
         cartProducts,
         addProductToCart,
+        removeProductToCart,
         incrementQuantity,
-        removeQuantity
+        decrementQuantity
       }}
     >
       {children}
