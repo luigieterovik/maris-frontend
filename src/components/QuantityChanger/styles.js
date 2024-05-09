@@ -16,15 +16,17 @@ export const QuantityWrapper = styled.div`
     cursor: auto;
   }
 
-  ${props => props.isCart && css`
-    margin: 0;
+  ${props =>
+    props.isCart &&
+    css`
+      margin: 0;
 
-    button {
-      width: 30%;
-      font-size: 18px;
-      font-weight: 500;
-    }
-  `}
+      button {
+        width: 30%;
+        font-size: 18px;
+        font-weight: 500;
+      }
+    `}
 `
 
 export const ChangeQuantity = styled.button`
@@ -45,6 +47,7 @@ export const ChangeQuantity = styled.button`
   ${props =>
     props.quantity === 1 &&
     css`
+      transition: none;
       visibility: hidden;
     `}
 `

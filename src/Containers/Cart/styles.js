@@ -46,12 +46,11 @@ export const ContainersWrapper = styled.div`
 
 export const LeftContainer = styled.div`
   width: 70%;
+  height: fit-content;
   padding: 0 0 10px 0;
   border-radius: 25px;
   background-color: white;
 `
-
-export const RightContainer = styled.div``
 
 export const LayoutDiv = styled.div`
   display: grid;
@@ -102,7 +101,7 @@ export const QuantityColumn = styled.div`
     font-size: 11px;
     cursor: pointer;
 
-    &:hover { 
+    &:hover {
       color: #e00700;
       font-weight: 500;
     }
@@ -155,4 +154,77 @@ export const Division = styled.div`
   height: 1px;
   border-bottom: 2px solid #e7e7e7;
   width: 100%;
+`
+
+export const RightContainer = styled.div`
+  width: 30%;
+  height: fit-content;
+  padding: 30px 25px;
+  border-radius: 25px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+`
+
+export const Total = styled.div`
+  display: flex;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 10px;
+
+  label {
+    margin-left: auto;
+  }
+`
+
+export const TotalEconomy = styled.div`
+  color: #0db100;
+  font-size: 14px;
+  font-weight: 600;
+`
+
+export const PaymentTag = styled.div`
+  background-color: #0db100;
+  border-radius: 100px;
+  width: fit-content;
+  height: fit-content;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+`
+
+export const FinishButton = styled.button`
+  background-color: #9c19e8;
+  border: none;
+  border-radius: 100px;
+  height: 60px;
+  font-weight: 600;
+  width: 100%;
+  color: white;
+  cursor: pointer;
+  margin: 20px 0 10px;
+  transition: 200ms;
+
+  &:hover {
+    opacity: 0.8;
+  }
+`
+
+export const ContinueBuyingButton = styled.button`
+  color: #0db100;
+  border: 2px solid #0db100;
+  background-color: transparent;
+  border-radius: 100px;
+  height: 50px;
+  font-weight: 600;
+  width: 100%;
+  transition: 200ms;
+  cursor: pointer;
+
+  &:hover {
+    color: white;
+    background-color: #0db100;
+  }
 `

@@ -16,17 +16,31 @@ const i = name => {
 export function Cart() {
   const navigate = useNavigate()
 
-  const {
-    cartProducts,
-    addProductToCart,
-    removeProductToCart,
-    incrementQuantity,
-    removeQuantity
-  } = useContext(CartContext)
+  const { cartProducts, removeProductToCart } = useContext(CartContext)
 
-  const setQuantity = (productId, quantity) => {
-    incrementQuantity(productId, quantity)
-  }
+  const [total, setTotal] = useState()
+  const [economy, setEconomy] = useState()
+
+  useEffect(() => {
+    setTotal(
+      cartProducts.reduce(
+        (acc, product) =>
+          acc +
+          (product.offerPrice ? product.offerPrice : product.price) *
+            product.quantity,
+        0
+      )
+    )
+
+    setEconomy(
+      cartProducts.reduce(
+        (acc, product) =>
+          acc +
+          (product.offerEconomy ? product.offerEconomy : 0) * product.quantity,
+        0
+      )
+    )
+  }, [cartProducts])
 
   return cartProducts.length === 0 ? (
     <S.EmptyCartContainer>
@@ -96,7 +110,19 @@ export function Cart() {
             ))}
         </S.LeftContainer>
 
-        <S.RightContainer></S.RightContainer>
+        <S.RightContainer>
+          <S.Total>
+            Total <label>{total && priceToCurrency(total)}</label>
+          </S.Total>
+          {economy !== 0 && economy && (
+            <S.TotalEconomy>
+              Você economizou {priceToCurrency(economy)}
+            </S.TotalEconomy>
+          )}
+          <S.PaymentTag>PIX/CARTÃO RECEBA 3 DIAS ANTES</S.PaymentTag>
+          <S.FinishButton>FINALIZAR COMPRA</S.FinishButton>
+          <S.ContinueBuyingButton onClick={() => navigate('/products')}>CONTINUAR COMPRANDO</S.ContinueBuyingButton>
+        </S.RightContainer>
       </S.ContainersWrapper>
     </S.Container>
   )
