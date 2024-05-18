@@ -8,6 +8,14 @@ export const Wrapper = styled.form`
   justify-content: center;
   background-color: #f7f7f7;
 
+  form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
   ${props =>
     props.isPopup &&
     css`
@@ -88,6 +96,12 @@ export const InputWrapper = styled.div`
     transform: translateY(-10px);
     font-size: 12px;
   }
+
+  ${({ isHidden }) =>
+    isHidden &&
+    css`
+      display: none;
+    `}
 `
 
 export const Input = styled.input`
@@ -134,3 +148,5 @@ export const Link = styled.p`
     }
   }
 `
+
+export const ErrorMessage = styled.p``
