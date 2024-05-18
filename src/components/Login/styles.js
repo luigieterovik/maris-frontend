@@ -5,16 +5,9 @@ export const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
   justify-content: center;
   background-color: #f7f7f7;
-
-  form {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
 
   ${props =>
     props.isPopup &&
@@ -149,4 +142,20 @@ export const Link = styled.p`
   }
 `
 
-export const ErrorMessage = styled.p``
+export const DivError = styled.div`
+  background: #dc0000;
+  border-radius: 10px;
+  width: 300px;
+  padding: 15px;
+  margin-bottom: 20px;
+  font-size: 12px;
+  color: white;
+  position: absolute;
+  top: 80px;
+
+  ${({ hasError }) =>
+    hasError &&
+    css`
+      visibility: hidden;
+    `}
+`

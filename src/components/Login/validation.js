@@ -1,41 +1,38 @@
-import * as yup from 'yup'
+import * as Yup from 'yup'
 
-const schemas = {
-  login: yup.object().shape({
-    email: yup
-      .string()
-      .email('Digite um e-mail válido')
-      .required('O e-mail é obrigatório'),
-    password: yup
-      .string()
-      .required('A senha é obrigatória')
-      .min(6, 'A senha deve ter pelo menos 6 dígitos')
-  }),
-
-  recover: yup.object().shape({
-    email: yup
-      .string()
-      .email('Digite um e-mail válido')
-      .required('O e-mail é obrigatório')
-  }),
-
-  register: yup.object().shape({
-    name: yup.string().required('O nome é obrigatório'),
-    email: yup
-      .string()
-      .email('Digite um e-mail válido')
-      .required('O e-mail é obrigatório'),
-    password: yup
-      .string()
-      .required('A senha é obrigatória')
-      .min(6, 'A senha deve ter pelo menos 6 dígitos'),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('password'), null], 'As senhas devem coincidir')
-      .required('A confirmação da senha é obrigatória')
-  })
+const getValidationSchema = renderComponent => {
+  switch (renderComponent) {
+    case 'login':
+      return Yup.object().shape({
+        email: Yup.string()
+          .email('Email inválido')
+          .required('Email é obrigatório'),
+        password: Yup.string()
+          .min(6, 'A senha deve ter pelo menos 6 caracteres')
+          .required('Senha é obrigatória')
+      })
+    case 'recover':
+      return Yup.object().shape({
+        email: Yup.string()
+          .email('Email inválido')
+          .required('Email é obrigatório')
+      })
+    case 'register':
+      return Yup.object().shape({
+        name: Yup.string().required('Nome é obrigatório'),
+        email: Yup.string()
+          .email('Email inválido')
+          .required('Email é obrigatório'),
+        password: Yup.string()
+          .min(6, 'A senha deve ter pelo menos 6 caracteres')
+          .required('Senha é obrigatória'),
+        confirmPassword: Yup.string()
+          .oneOf([Yup.ref('password'), null], 'As senhas não correspondem')
+          .required('Confirmação de senha é obrigatória')
+      })
+    default:
+      return Yup.object().shape({})
+  }
 }
 
-export default function getValidationSchema(component) {
-  return schemas[component] || yup.object().shape({})
-}
+export default getValidationSchema
