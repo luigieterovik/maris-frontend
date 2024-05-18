@@ -5,7 +5,6 @@ export const Wrapper = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
   justify-content: center;
   background-color: #f7f7f7;
 
@@ -147,15 +146,21 @@ export const DivError = styled.div`
   border-radius: 10px;
   width: 300px;
   padding: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 12px;
   color: white;
-  position: absolute;
-  top: 80px;
+  text-wrap: wrap;
+  word-wrap: break-word;
 
   ${({ hasError }) =>
     hasError &&
     css`
-      visibility: hidden;
+      display: none;
+    `}
+
+    ${({ isPopup }) => isPopup && css`
+      font-size: 11px;
+      font-weight: 500;
+      margin-bottom: 20px;
     `}
 `

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import getValidationSchema from './validation'
 import * as S from './styles'
+
+import { api } from '../../services/api'
 
 const Account = ({ accountComponent, isPopup }) => {
   const [renderComponent, setRenderComponent] = useState(accountComponent)
@@ -31,9 +34,25 @@ const Account = ({ accountComponent, isPopup }) => {
     }
   }, [errors])
 
+  const navigate = useNavigate()
+  const navigateToRegister = () => {
+    setRenderComponent('register')
+    navigate('/account/register')
+  }
+  const navigateToLogin = () => {
+    setRenderComponent('login')
+    navigate('/account/login')
+  }
+  const navigateToRecover = () => {
+    setRenderComponent('recover')
+    navigate('/account/recover')
+  }
+
   return (
     <S.Wrapper isPopup={isPopup} noValidate onSubmit={handleSubmit(onSubmit)}>
-      <S.DivError hasError={currentError === ''}>{currentError}</S.DivError>
+      <S.DivError hasError={currentError === ''} isPopup={isPopup}>
+        {currentError}
+      </S.DivError>
       <S.Title>
         {renderComponent === 'login' && 'Entrar em minha conta'}
         {renderComponent === 'recover' && 'Recuperar senha'}
@@ -85,26 +104,23 @@ const Account = ({ accountComponent, isPopup }) => {
         <>
           <S.Link>
             Novo cliente?{' '}
-            <a onClick={() => setRenderComponent('register')}>
-              Criar sua conta
-            </a>
+            <a onClick={() => navigateToRegister()}>Criar sua conta</a>
           </S.Link>
           <S.Link>
             Esqueceu sua senha?{' '}
-            <a onClick={() => setRenderComponent('recover')}>Recuperar senha</a>
+            <a onClick={() => navigateToRecover()}>Recuperar senha</a>
           </S.Link>
         </>
       )}
       {renderComponent === 'register' && (
         <S.Link>
-          Já tem uma conta?{' '}
-          <a onClick={() => setRenderComponent('login')}>Entre aqui</a>
+          Já tem uma conta? <a onClick={() => navigateToLogin()}>Entre aqui</a>
         </S.Link>
       )}
       {renderComponent === 'recover' && (
         <S.Link>
           Lembrou sua senha?{' '}
-          <a onClick={() => setRenderComponent('login')}>Voltar para o login</a>
+          <a onClick={() => navigateToLogin()}>Voltar para o login</a>
         </S.Link>
       )}
     </S.Wrapper>
