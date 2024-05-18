@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import getValidationSchema from './validation'
 import * as S from './styles'
-
 import { api } from '../../services/api'
+import axios from 'axios'
 
 const Account = ({ accountComponent, isPopup }) => {
   const [renderComponent, setRenderComponent] = useState(accountComponent)
@@ -20,9 +20,29 @@ const Account = ({ accountComponent, isPopup }) => {
     resolver: yupResolver(validationSchema)
   })
 
-  const onSubmit = data => {
-    console.log('Form Data:', data)
+  const onSubmit = async data => {
     setCurrentError('')
+
+    if (renderComponent === 'register') {
+      const response = await axios.post('/users', {
+        name: data.name,
+        email: data.email,
+        password: data.password
+      })
+    }
+
+    if (renderComponent === 'login') {
+      const response = await axios.post('/sessions', {
+        email: data.email,
+        password: data.password
+      })
+    }
+
+    if (renderComponent === 'register') {
+      const response = await axios.post('/users', {
+        password: data.password
+      })
+    }
   }
 
   useEffect(() => {
