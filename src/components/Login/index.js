@@ -11,6 +11,7 @@ const Account = ({ accountComponent, isPopup }) => {
   const [renderComponent, setRenderComponent] = useState(accountComponent)
   const validationSchema = getValidationSchema(renderComponent)
   const [currentError, setCurrentError] = useState('')
+  const [recoverEmailSent, setRecoverEmailSent] = useState(false)
 
   const {
     register,
@@ -55,6 +56,10 @@ const Account = ({ accountComponent, isPopup }) => {
         setCurrentError(err.response.data.error)
       }
     }
+
+    if (renderComponent === 'recover') {
+      setRecoverEmailSent(true)
+    }
   }
 
   useEffect(() => {
@@ -85,7 +90,14 @@ const Account = ({ accountComponent, isPopup }) => {
   }
 
   return (
-    <S.Wrapper isPopup={isPopup} noValidate onSubmit={handleSubmit(onSubmit)}>
+    <S.Wrapper
+      isPopup={isPopup}
+      noValidate
+      onSubmit={handleSubmit(onSubmit)}
+      renderComponent={renderComponent}
+      recoverEmailSent={recoverEmailSent}
+    >
+      {' '}
       <S.DivError hasError={currentError === ''} isPopup={isPopup}>
         {currentError}
       </S.DivError>
@@ -105,6 +117,7 @@ const Account = ({ accountComponent, isPopup }) => {
           <S.Placeholder>Nome completo</S.Placeholder>
         </S.InputWrapper>
       )}
+      <S.EmailSentMessage>Nós te enviamos um email com instruções para redefinição de senha</S.EmailSentMessage>
       <S.InputWrapper>
         <S.Input type="email" placeholder="" {...register('email')} />
         <S.Placeholder>E-mail</S.Placeholder>

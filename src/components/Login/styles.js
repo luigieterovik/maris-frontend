@@ -44,6 +44,24 @@ export const Wrapper = styled.form`
       }
       .
     `}
+
+  ${({ recoverEmailSent, renderComponent }) =>
+    recoverEmailSent &&
+    renderComponent === 'recover' &&
+    css`
+      ${InputWrapper} {
+        display: none;
+      }
+
+      ${Button} {
+        display: none;
+      }
+
+      ${EmailSentMessage} {
+        display: block;
+        margin: 0 0 20px;
+      }
+    `}
 `
 
 export const Title = styled.h2`
@@ -158,9 +176,23 @@ export const DivError = styled.div`
       display: none;
     `}
 
-    ${({ isPopup }) => isPopup && css`
+  ${({ isPopup }) =>
+    isPopup &&
+    css`
       font-size: 11px;
       font-weight: 500;
       margin-bottom: 20px;
     `}
+`
+
+export const EmailSentMessage = styled.div`
+  width: 300px;
+  padding: 15px;
+  font-size: 13px;
+  color: #00D864;
+  background-color: #DCF4E7;
+  display: none;
+  border-radius: 5px;
+  text-align: center;
+  text-wrap: balance;
 `
