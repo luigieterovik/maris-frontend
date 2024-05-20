@@ -6,14 +6,14 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([])
 
   useEffect(() => {
-    const storedProducts = localStorage.getItem('cartProducts')
+    const storedProducts = localStorage.getItem('marisboutiks:cartProducts')
     if (storedProducts) {
       setCartProducts(JSON.parse(storedProducts))
     }
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('cartProducts', JSON.stringify(cartProducts))
+    localStorage.setItem('marisboutiks:cartProducts', JSON.stringify(cartProducts))
   }, [cartProducts])
 
   const addProductToCart = product => {

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import getValidationSchema from './validation'
 import * as S from './styles'
 import { api } from '../../services/api'
-import axios from 'axios'
+import { UserContext } from '../../contexts/User'
 
 const Account = ({ accountComponent, isPopup }) => {
   const [renderComponent, setRenderComponent] = useState(accountComponent)
@@ -20,30 +20,46 @@ const Account = ({ accountComponent, isPopup }) => {
     resolver: yupResolver(validationSchema)
   })
 
-  const onSubmit = async data => {
+  const { userData, setUserData } = useContext(UserContext)
+
+  const onSubmit = async userData => {
     setCurrentError('')
 
     if (renderComponent === 'register') {
-      const response = await axios.post('/users', {
-        name: data.name,
-        email: data.email,
-        password: data.password
-      })
+      try {
+        const { data } = await api.post('users', {
+          name: userData.name,
+          email: userData.email,
+          password: userData.password
+        })
+        setUserData(data)
+
+        navigate('/')
+      } catch (err) {
+        console.log(err.response.data.error)
+        setCurrentError(err.response.data.error)
+      }
     }
 
     if (renderComponent === 'login') {
-      const response = await axios.post('/sessions', {
-        email: data.email,
-        password: data.password
-      })
-    }
+      try {
+        const { data } = await api.post('sessions', {
+          email: userData.email,
+          password: userData.password
+        })
+        setUserData(data)
 
-    if (renderComponent === 'register') {
-      const response = await axios.post('/users', {
-        password: data.password
-      })
+        navigate('/')
+      } catch (err) {
+        console.log(err.response.data.error)
+        setCurrentError(err.response.data.error)
+      }
     }
   }
+
+  useEffect(() => {
+    setCurrentError('')
+  }, [renderComponent])
 
   useEffect(() => {
     if (errors) {
@@ -57,15 +73,15 @@ const Account = ({ accountComponent, isPopup }) => {
   const navigate = useNavigate()
   const navigateToRegister = () => {
     setRenderComponent('register')
-    navigate('/account/register')
+    if (!isPopup) navigate('/account/register')
   }
   const navigateToLogin = () => {
     setRenderComponent('login')
-    navigate('/account/login')
+    if (!isPopup) navigate('/account/login')
   }
   const navigateToRecover = () => {
     setRenderComponent('recover')
-    navigate('/account/recover')
+    if (!isPopup) navigate('/account/recover')
   }
 
   return (

@@ -9,16 +9,16 @@ import RouteTemplate from './components/RouteTemplate'
 
 import AllRoutes from './routes/routes'
 
-import { CartProvider } from './contexts/Cart'
+import { GlobalProvider } from './contexts/GlobalProvider'
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <BrowserRouter>
-    <CartProvider>
+    <GlobalProvider>
       <RouteTemplate>
         <AllRoutes />
       </RouteTemplate>
-    </CartProvider>
+    </GlobalProvider>
     <GlobalStyles />
   </BrowserRouter>
 )
