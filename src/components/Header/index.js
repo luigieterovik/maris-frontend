@@ -7,6 +7,7 @@ import { stringToUrl, navigateToSearch } from '../../utils/functions'
 import { categoriesState } from '../../utils/states'
 
 import { CartContext } from '../../contexts/Cart'
+import { UserContext } from '../../contexts/User'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -28,7 +29,9 @@ export default function Header() {
 
   const inputRef = useRef(null)
 
-  const { cartProducts } = useContext(CartContext) 
+  const { cartProducts } = useContext(CartContext)
+
+  const { userData, setUserData } = useContext(UserContext)
 
   return (
     <S.Header>
@@ -54,25 +57,30 @@ export default function Header() {
 
         <S.DivHeaderIcons>
           <S.Icons src={i('person.png')} alt="icone-person" />
-          <S.AIcons>
-            <S.LabelLogin>Entrar / Cadastrar</S.LabelLogin>
+          <S.AIcons userData={userData}>
+            <S.LabelLogin className="upperLabel">
+              {userData ? 'Olá, ' + userData.name : 'Entrar / Cadastrar'}
+            </S.LabelLogin>
             <br />
             <S.LabelLogin
               ref={labelLoginRef}
               className="labelMinhaConta"
               onClick={() => {
-                setWasLoginClicked(!wasLoginClicked)
+                if(userData){
+                  setUserData(null)
+                }
+                else setWasLoginClicked(!wasLoginClicked)
               }}
             >
-              Minha conta <S.DownArrow src={i('downArrow.png')} />
+              {userData ? 'Sair' : 'Minha conta'}{' '}
+              <S.DownArrow src={i('downArrow.png')} />
             </S.LabelLogin>
 
             <S.LoginWrapper
+              userData={userData}
               wasClicked={wasLoginClicked}
               ref={loginRef}
-              onClick={e => {
-                e.stopPropagation()
-              }}
+              onClick={e => e.stopPropagation()}
             >
               <Login accountComponent="login" isPopup />
             </S.LoginWrapper>

@@ -220,6 +220,10 @@ export const LoginWrapper = styled.div`
       visibility: visible;
       opacity: 1;
     `}
+
+    ${props => props.userData && css`
+      display: none;
+    `}
 `
 
 export const AIcons = styled.a`
@@ -242,6 +246,26 @@ export const AIcons = styled.a`
     font-size: 14px;
     cursor: pointer;
   }
+
+  ${({ userData }) =>
+    userData &&
+    css`
+      & > ${LabelLogin} {
+        color: blue;
+        font-weight: 500;
+        font-size: 12px;
+
+        & > ${DownArrow} {
+          display: none;
+        }
+      }
+
+      & > .upperLabel {
+        color: black;
+        font-size: 12px;
+        font-weight: 600;
+      }
+    `}
 `
 
 export const HeaderBottom = styled.div`

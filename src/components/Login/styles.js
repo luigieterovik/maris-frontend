@@ -194,5 +194,4 @@ export const EmailSentMessage = styled.div`
   display: none;
   border-radius: 5px;
   text-align: center;
-  text-wrap: balance;
 `

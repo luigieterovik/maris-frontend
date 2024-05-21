@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import getValidationSchema from './validation'
 import * as S from './styles'
@@ -12,6 +12,7 @@ const Account = ({ accountComponent, isPopup }) => {
   const validationSchema = getValidationSchema(renderComponent)
   const [currentError, setCurrentError] = useState('')
   const [recoverEmailSent, setRecoverEmailSent] = useState(false)
+  const [token, setToken] = useState()
 
   const {
     register,
@@ -21,7 +22,16 @@ const Account = ({ accountComponent, isPopup }) => {
     resolver: yupResolver(validationSchema)
   })
 
-  const { userData, setUserData } = useContext(UserContext)
+  const { setUserData } = useContext(UserContext)
+
+  const { token: tokenParam } = useParams()
+
+  useEffect(() => {
+    if (tokenParam) {
+      setToken(tokenParam)
+      console.log(tokenParam)
+    }
+  }, [tokenParam])
 
   const onSubmit = async userData => {
     setCurrentError('')
@@ -37,7 +47,6 @@ const Account = ({ accountComponent, isPopup }) => {
 
         navigate('/')
       } catch (err) {
-        console.log(err.response.data.error)
         setCurrentError(err.response.data.error)
       }
     }
@@ -52,13 +61,33 @@ const Account = ({ accountComponent, isPopup }) => {
 
         navigate('/')
       } catch (err) {
-        console.log(err.response.data.error)
         setCurrentError(err.response.data.error)
       }
     }
 
     if (renderComponent === 'recover') {
       setRecoverEmailSent(true)
+
+      try {
+        await api.post('recover', {
+          email: userData.email
+        })
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    if (renderComponent === 'reset') {
+      try {
+        await api.post('reset', {
+          token: token,
+          password: userData.password
+        })
+
+        navigate('/')
+      } catch (err) {
+        setCurrentError(err.response.data.error)
+      }
     }
   }
 
@@ -105,11 +134,13 @@ const Account = ({ accountComponent, isPopup }) => {
         {renderComponent === 'login' && 'Entrar em minha conta'}
         {renderComponent === 'recover' && 'Recuperar senha'}
         {renderComponent === 'register' && 'Criar nova conta'}
+        {renderComponent === 'reset' && 'Redefinir senha'}
       </S.Title>
       <S.Description>
         {renderComponent === 'login' && 'Insira seu e-mail e senha:'}
         {renderComponent === 'recover' && 'Insira seu e-mail:'}
         {renderComponent === 'register' && 'Insira seu nome, e-mail e senha:'}
+        {renderComponent === 'reset' && 'Insira uma nova senha:'}
       </S.Description>
       {renderComponent === 'register' && (
         <S.InputWrapper>
@@ -117,27 +148,32 @@ const Account = ({ accountComponent, isPopup }) => {
           <S.Placeholder>Nome completo</S.Placeholder>
         </S.InputWrapper>
       )}
-      <S.EmailSentMessage>Nós te enviamos um email com instruções para redefinição de senha</S.EmailSentMessage>
-      <S.InputWrapper>
-        <S.Input type="email" placeholder="" {...register('email')} />
-        <S.Placeholder>E-mail</S.Placeholder>
-      </S.InputWrapper>
+      <S.EmailSentMessage>
+        Nós te enviamos um email com instruções para redefinição de senha
+      </S.EmailSentMessage>
+      {renderComponent !== 'reset' && (
+        <S.InputWrapper>
+          <S.Input type="email" placeholder="" {...register('email')} />
+          <S.Placeholder>E-mail</S.Placeholder>
+        </S.InputWrapper>
+      )}
       {renderComponent !== 'recover' && (
         <S.InputWrapper>
           <S.Input type="password" placeholder="" {...register('password')} />
           <S.Placeholder>Senha</S.Placeholder>
         </S.InputWrapper>
       )}
-      {renderComponent === 'register' && (
-        <S.InputWrapper>
-          <S.Input
-            type="password"
-            placeholder=""
-            {...register('confirmPassword')}
-          />
-          <S.Placeholder>Confirme sua senha</S.Placeholder>
-        </S.InputWrapper>
-      )}
+      {renderComponent === 'register' ||
+        (renderComponent === 'reset' && (
+          <S.InputWrapper>
+            <S.Input
+              type="password"
+              placeholder=""
+              {...register('confirmPassword')}
+            />
+            <S.Placeholder>Confirme sua senha</S.Placeholder>
+          </S.InputWrapper>
+        ))}
       <S.Button
         type="submit"
         value={
@@ -145,7 +181,9 @@ const Account = ({ accountComponent, isPopup }) => {
             ? 'Entrar'
             : renderComponent === 'recover'
               ? 'Recuperar'
-              : 'Criar minha conta'
+              : renderComponent === 'register'
+                ? 'Criar minha conta'
+                : 'Redefinir senha'
         }
         className="button"
       />
@@ -166,7 +204,7 @@ const Account = ({ accountComponent, isPopup }) => {
           Já tem uma conta? <a onClick={() => navigateToLogin()}>Entre aqui</a>
         </S.Link>
       )}
-      {renderComponent === 'recover' && (
+      {(renderComponent === 'recover' || renderComponent === 'reset') && (
         <S.Link>
           Lembrou sua senha?{' '}
           <a onClick={() => navigateToLogin()}>Voltar para o login</a>

@@ -29,6 +29,11 @@ export default function AllRoutes() {
         path="/account/recover"
         element={<Login accountComponent={'recover'} />}
       />
+      
+      <Route
+        path="/account/reset/:token"
+        element={<Login accountComponent={'reset'} />}
+      />
     </Routes>
   )
 }
