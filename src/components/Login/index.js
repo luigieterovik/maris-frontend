@@ -39,8 +39,8 @@ const Account = ({ accountComponent, isPopup }) => {
     if (renderComponent === 'register') {
       try {
         const { data } = await api.post('users', {
-          name: userData.name,
-          email: userData.email,
+          name: userData.name.trim(),
+          email: userData.email.trim(),
           password: userData.password
         })
         setUserData(data)
@@ -54,7 +54,7 @@ const Account = ({ accountComponent, isPopup }) => {
     if (renderComponent === 'login') {
       try {
         const { data } = await api.post('sessions', {
-          email: userData.email,
+          email: userData.email.trim(),
           password: userData.password
         })
         setUserData(data)
@@ -70,7 +70,7 @@ const Account = ({ accountComponent, isPopup }) => {
 
       try {
         await api.post('recover', {
-          email: userData.email
+          email: userData.email.trim()
         })
       } catch (err) {
         console.log(err)
@@ -163,17 +163,16 @@ const Account = ({ accountComponent, isPopup }) => {
           <S.Placeholder>Senha</S.Placeholder>
         </S.InputWrapper>
       )}
-      {renderComponent === 'register' ||
-        (renderComponent === 'reset' && (
-          <S.InputWrapper>
-            <S.Input
-              type="password"
-              placeholder=""
-              {...register('confirmPassword')}
-            />
-            <S.Placeholder>Confirme sua senha</S.Placeholder>
-          </S.InputWrapper>
-        ))}
+      {(renderComponent === 'register' || renderComponent === 'reset') && (
+        <S.InputWrapper>
+          <S.Input
+            type="password"
+            placeholder=""
+            {...register('confirmPassword')}
+          />
+          <S.Placeholder>Confirme sua senha</S.Placeholder>
+        </S.InputWrapper>
+      )}
       <S.Button
         type="submit"
         value={

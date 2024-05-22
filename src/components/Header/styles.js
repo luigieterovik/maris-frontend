@@ -221,7 +221,9 @@ export const LoginWrapper = styled.div`
       opacity: 1;
     `}
 
-    ${props => props.userData && css`
+  ${props =>
+    props.userData &&
+    css`
       display: none;
     `}
 `
@@ -250,6 +252,10 @@ export const AIcons = styled.a`
   ${({ userData }) =>
     userData &&
     css`
+      max-width: 140px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
       & > ${LabelLogin} {
         color: blue;
         font-weight: 500;
@@ -264,6 +270,9 @@ export const AIcons = styled.a`
         color: black;
         font-size: 12px;
         font-weight: 600;
+        white-space: nowrap; /* impede que o texto quebre em várias linhas */
+        overflow: hidden; /* esconde o texto que ultrapassa a largura */
+        text-overflow: ellipsis; /* mostra "..." quando o texto é cortado */
       }
     `}
 `

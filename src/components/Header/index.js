@@ -33,6 +33,8 @@ export default function Header() {
 
   const { userData, setUserData } = useContext(UserContext)
 
+  console.log()
+
   return (
     <S.Header>
       <S.HeaderTop>
@@ -59,17 +61,18 @@ export default function Header() {
           <S.Icons src={i('person.png')} alt="icone-person" />
           <S.AIcons userData={userData}>
             <S.LabelLogin className="upperLabel">
-              {userData ? 'Olá, ' + userData.name : 'Entrar / Cadastrar'}
+              {userData && userData.name
+                ? 'Olá, ' + userData.name.split(' ')[0]
+                : 'Entrar / Cadastrar'}
             </S.LabelLogin>
             <br />
             <S.LabelLogin
               ref={labelLoginRef}
               className="labelMinhaConta"
               onClick={() => {
-                if(userData){
+                if (userData) {
                   setUserData(null)
-                }
-                else setWasLoginClicked(!wasLoginClicked)
+                } else setWasLoginClicked(!wasLoginClicked)
               }}
             >
               {userData ? 'Sair' : 'Minha conta'}{' '}
@@ -95,7 +98,7 @@ export default function Header() {
             className="carrinhoHeaderDiv"
             onClick={() => navigate('/cart')}
           >
-            <S.Icons src={i('cart.svg')} alt="icone-carrinho" />
+            <S.Icons src={i('cart2.png')} alt="icone-carrinho" />
             <S.QuantidadeProdutosCarrinho>
               <p>{cartProducts.length}</p>
             </S.QuantidadeProdutosCarrinho>{' '}
