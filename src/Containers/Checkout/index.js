@@ -51,7 +51,37 @@ export default function Checkout() {
           <S.Title>Entrega</S.Title>
           <S.Description>Cadastre ou selecione um endereço</S.Description>
 
-          <S.FieldLabel>CPF</S.FieldLabel>
+          <S.FieldLabel>CEP</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+
+          <S.FieldLabel>Endereço</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+
+          <S.FieldLabel>Número</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+
+          <S.FieldLabel>Bairro</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+
+          <S.FieldLabel>Complemento</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+
+          <S.FieldLabel>Destinatário</S.FieldLabel>
           <S.FieldDiv>
             <S.Input />
             <img />
