@@ -2,6 +2,10 @@ import React from 'react'
 
 import * as S from './styles'
 
+const i = name => {
+  return require('../../assets/' + name)
+}
+
 export default function Checkout() {
   return (
     <S.Container>
@@ -11,7 +15,9 @@ export default function Checkout() {
           <S.CheckDiv>
             <S.TitleDiv>
               <S.CheckNumber>1</S.CheckNumber>
-              <S.Title>Identificação <img /></S.Title>
+              <S.Title>
+                Identificação <img />
+              </S.Title>
             </S.TitleDiv>
             <S.Description>
               Utilizaremos seu e-mail para: Identificar seu perfil, histórico de
@@ -20,31 +26,31 @@ export default function Checkout() {
 
             <S.FieldLabel>Nome completo</S.FieldLabel>
             <S.FieldDiv>
-              <S.Input />
+              <S.Input placeholder="ex.: Maria de Almeida Cruz" />
               <img />
             </S.FieldDiv>
 
             <S.FieldLabel>E-mail</S.FieldLabel>
             <S.FieldDiv>
-              <S.Input />
+              <S.Input placeholder="ex.: maria@gmail.com" />
               <img />
             </S.FieldDiv>
 
             <S.FieldLabel>CPF</S.FieldLabel>
             <S.FieldDiv>
-              <S.Input />
+              <S.Input placeholder="000.000.000-00" />
               <img />
             </S.FieldDiv>
 
-            <S.FieldLabel isPhoneNumber>Celular / WhatsApp</S.FieldLabel>
-            <S.FieldDiv>
+            <S.FieldLabel>Celular / WhatsApp</S.FieldLabel>
+            <S.FieldDiv isPhoneNumber>
               <div>+55</div>
-              <S.Input />
+              <S.Input placeholder="(00) 00000-0000" />
               <img />
             </S.FieldDiv>
 
             <S.Button>
-              Continuar <img />
+              Continuar <img src={i('leftArrow.png')} />
             </S.Button>
           </S.CheckDiv>
 
@@ -52,10 +58,12 @@ export default function Checkout() {
           <S.CheckDiv>
             <S.TitleDiv>
               <S.CheckNumber>2</S.CheckNumber>
-              <S.Title>Entrega <img /></S.Title>
+              <S.Title>
+                Entrega <img />
+              </S.Title>
             </S.TitleDiv>
             <S.Description>Cadastre ou selecione um endereço</S.Description>
-            <AddAddress />
+            <Delivery />
           </S.CheckDiv>
         </S.JoinDiv>
 
@@ -63,7 +71,9 @@ export default function Checkout() {
         <S.CheckDiv>
           <S.TitleDiv>
             <S.CheckNumber>3</S.CheckNumber>
-            <S.Title>Pagamento <img /></S.Title>
+            <S.Title>
+              Pagamento <img />
+            </S.Title>
           </S.TitleDiv>
           <S.Description>Escolha uma forma de pagamento</S.Description>
         </S.CheckDiv>
@@ -75,11 +85,16 @@ export default function Checkout() {
 function AddAddress() {
   return (
     <>
-      <S.FieldLabel>CEP</S.FieldLabel>
-      <S.FieldDiv>
-        <S.Input />
-        <img />
-      </S.FieldDiv>
+      <S.InlineDiv isCep>
+        <div>
+          <S.FieldLabel>CEP</S.FieldLabel>
+          <S.FieldDiv isCep>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+        </div>
+        <p>São Paulo / SP</p>
+      </S.InlineDiv>
 
       <S.FieldLabel>Endereço</S.FieldLabel>
       <S.FieldDiv>
@@ -87,19 +102,25 @@ function AddAddress() {
         <img />
       </S.FieldDiv>
 
-      <S.FieldLabel>Número</S.FieldLabel>
-      <S.FieldDiv>
-        <S.Input />
-        <img />
-      </S.FieldDiv>
+      <S.InlineDiv neighborhood>
+        <div>
+          <S.FieldLabel>Número</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+        </div>
 
-      <S.FieldLabel>Bairro</S.FieldLabel>
-      <S.FieldDiv>
-        <S.Input />
-        <img />
-      </S.FieldDiv>
+        <div>
+          <S.FieldLabel>Bairro</S.FieldLabel>
+          <S.FieldDiv>
+            <S.Input />
+            <img />
+          </S.FieldDiv>
+        </div>
+      </S.InlineDiv>
 
-      <S.FieldLabel>Complemento</S.FieldLabel>
+      <S.FieldLabel>Complemento (opcional)</S.FieldLabel>
       <S.FieldDiv>
         <S.Input />
         <img />
@@ -119,14 +140,16 @@ function AddAddress() {
 function Delivery() {
   return (
     <>
-      <a>+ Novo endereço</a>
+      <S.NewAddress>+ Novo endereço</S.NewAddress>
 
       <S.AdressesWrapper>
-        <div>
+        <S.Address>
           <input type="radio" />
-          <h4>Rua, número - bairro</h4>
-          <p>São Paulo - SP | CEP</p>
-        </div>
+          <div>
+            <h4>Rua Silveira Pires, 635 - Parque Paulistano</h4>
+            <p>São Paulo - SP | CEP</p>
+          </div>
+        </S.Address>
       </S.AdressesWrapper>
 
       <S.Division />
