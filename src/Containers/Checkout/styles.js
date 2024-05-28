@@ -136,6 +136,7 @@ export const NewAddress = styled.a`
   font-size: 12px;
   font-weight: 600;
   margin: 15px 0;
+  cursor: pointer;
 `
 
 export const AdressesWrapper = styled.div`
@@ -181,10 +182,6 @@ export const Address = styled.div`
     border: 4px solid #414141;
   }
 
-  input[type='radio']:checked + & {
-    background-color: #f4f6f8;
-  }
-
   h4 {
     font-size: 11px;
     font-weight: 600;
@@ -197,7 +194,8 @@ export const Address = styled.div`
 
   &:has(input[type='radio']:checked) {
     background-color: #f4f6f8;
-  } 
+    border: 1px solid rgba(180, 180, 180, 0.8);
+  }
 
   &:hover {
     label:before {

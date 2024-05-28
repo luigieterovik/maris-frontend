@@ -140,12 +140,12 @@ function AddAddress() {
 function Delivery() {
   const [addressess, setAddressess] = useState([
     {
-      cep: '08080-160',
-      address: 'Rua Silveira Pires',
-      number: '635',
-      neighborhood: 'Parque Paulistano',
+      cep: '00000-000',
+      address: 'Rua',
+      number: '00',
+      neighborhood: 'Bairro',
       complement: '',
-      recipient: 'Luigi da Cunha Eterovik Olivi'
+      recipient: 'Carlos'
     }
   ])
 
