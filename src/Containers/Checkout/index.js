@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import * as S from './styles'
 
@@ -138,50 +138,74 @@ function AddAddress() {
 }
 
 function Delivery() {
+  const [addressess, setAddressess] = useState([
+    {
+      cep: '08080-160',
+      address: 'Rua Silveira Pires',
+      number: '635',
+      neighborhood: 'Parque Paulistano',
+      complement: '',
+      recipient: 'Luigi da Cunha Eterovik Olivi'
+    }
+  ])
+
   return (
     <>
       <S.NewAddress>+ Novo endereço</S.NewAddress>
 
       <S.AdressesWrapper>
-        <S.Address>
-          <input type="radio" />
-          <div>
-            <h4>Rua Silveira Pires, 635 - Parque Paulistano</h4>
-            <p>São Paulo - SP | CEP</p>
-          </div>
-        </S.Address>
+        {addressess.map((address, index) => (
+          <S.Address key={index} className="addressDiv">
+            <input type="radio" id={index} />
+            <label htmlFor={index}>
+              <div>
+                <h4>
+                  {address.address}, {address.number}
+                </h4>
+                <p>São Paulo - SP | {address.cep}</p>
+              </div>
+            </label>
+          </S.Address>
+        ))}
       </S.AdressesWrapper>
 
       <S.Division />
 
-      <p>Escolha uma forma de entrega:</p>
+      <S.Description>Escolha uma forma de entrega:</S.Description>
 
       <S.DeliveryWrapper>
-        <div>
-          <input type="radio" />
-          <div>
-            <h4>PAC Correios - 5 a 12 dias úteis</h4>
-            <p>Entrega garantida</p>
-          </div>
-          <label>Grátis</label>
-        </div>
+        <S.Address>
+          <input type="radio" id={'mail-1'} />
+          <label htmlFor={'mail-1'}>
+            <div>
+              <h4>PAC Correios - 5 a 12 dias úteis</h4>
+              <p>Entrega garantida</p>
+            </div>
+          </label>
+          <span>Grátis</span>
+        </S.Address>
 
-        <div>
-          <input type="radio" />
-          <div>
-            <h4>Frete Express - 3 a 9 dias úteis</h4>
-            <p>Entrega garantida</p>
-          </div>
-          <label>R$ 14,49</label>
-        </div>
+        <S.Address>
+          <input type="radio" id={'mail-2'} />
+          <label htmlFor={'mail-2'}>
+            <div>
+              <h4>Frete Express - 3 a 9 dias úteis</h4>
+              <p>Entrega garantida</p>
+            </div>
+          </label>
+          <span>R$ 14,49</span>
+        </S.Address>
       </S.DeliveryWrapper>
 
-      <p>
+      <S.Description>
         Fretes com seguro de entrega e código de rastreio, que será enviado por
-        e-mail após o pedido ser despachado. Você poderá entrar em contato com o
-        nosso suporte sempre que precisar. Atendimento rápido e humanizado
-        Pedidos despachados em até 24 horas.
-      </p>
+        e-mail após o pedido ser despachado.
+      </S.Description>
+
+      <S.Description>
+        Você poderá entrar em contato com o nosso suporte sempre que precisar.
+        Atendimento rápido e humanizado Pedidos despachados em até 24 horas.
+      </S.Description>
 
       <S.Button>Continuar</S.Button>
     </>

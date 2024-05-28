@@ -86,7 +86,7 @@ export const FieldDiv = styled.div`
         font-size: 12px;
         background-color: #f4f6f8;
         border-radius: 5px 0 0 5px;
-        width: 30%;
+        width: 60px;
         border-right: 1px solid rgb(180, 180, 180);
       }
     `}
@@ -140,35 +140,49 @@ export const NewAddress = styled.a`
 
 export const AdressesWrapper = styled.div`
   width: 100%;
+  margin-top: 10px;
 `
 
 export const Address = styled.div`
   width: 100%;
   display: flex;
   flex-direction: row;
-  background-color: #f4f6f8;
-  border: solid 1px black;
+  background-color: white;
+  border: solid 1px rgba(180, 180, 180, 0.5);
   border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
 
-  input {
-    margin-right: 10px;
-    color: black;
+  input[type='radio'] {
+    display: none;
   }
 
-  /* Estiliza o botão de rádio personalizado */
-  input[type='radio'] + label::before {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    border: 2px solid #000; /* Cor da borda */
-    background-color: #fff; /* Cor de fundo padrão */
-    margin-right: 5px; /* Espaçamento entre o botão e o texto */
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+
+    &:before {
+      content: '';
+      height: 13px;
+      width: 13px;
+      flex-shrink: 0;
+      border: 1px solid rgb(180, 180, 180);
+      border-radius: 50%;
+      margin-right: 15px;
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 
-  input[type='radio']:checked + label::before {
-    background-color: red; /* Nova cor de fundo quando selecionado */
+  input[type='radio']:checked + label:before {
+    box-sizing: border-box;
+    border: 4px solid #414141;
+  }
+
+  input[type='radio']:checked + & {
+    background-color: #f4f6f8;
   }
 
   h4 {
@@ -178,12 +192,55 @@ export const Address = styled.div`
 
   p {
     font-size: 11px;
+    margin-top: 1px;
+  }
+
+  &:has(input[type='radio']:checked) {
+    background-color: #f4f6f8;
+  } 
+
+  &:hover {
+    label:before {
+      border: 1px solid #414141;
+    }
+
+    & {
+      background-color: #f4f6f8;
+      border: 1px solid black;
+    }
+  }
+
+  span {
+    color: #0db100;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  & > :nth-child(2) {
+    flex: 5;
+    word-break: break-all;
+  }
+
+  & > :nth-child(3) {
+    margin-left: 5px;
+    flex: 1;
   }
 `
 
-export const Division = styled.div``
+export const Division = styled.div`
+  height: 1px;
+  border-bottom: 2px solid #e7e7e7;
+  width: 100%;
+  margin: 20px 0;
+  opacity: 0.8;
+`
 
-export const DeliveryWrapper = styled.div``
+export const DeliveryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+`
 
 export const InlineDiv = styled.div`
   display: flex;
