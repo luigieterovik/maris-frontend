@@ -7,6 +7,8 @@ const i = name => {
 }
 
 export default function Checkout() {
+  const [renderAddress, setRenderAddress] = useState()
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -63,7 +65,11 @@ export default function Checkout() {
               </S.Title>
             </S.TitleDiv>
             <S.Description>Cadastre ou selecione um endereço</S.Description>
-            <Delivery />
+            {renderAddress ? (
+              <AddAddress setRenderAddress={setRenderAddress} />
+            ) : (
+              <Delivery setRenderAddress={setRenderAddress} />
+            )}
           </S.CheckDiv>
         </S.JoinDiv>
 
@@ -76,13 +82,32 @@ export default function Checkout() {
             </S.Title>
           </S.TitleDiv>
           <S.Description>Escolha uma forma de pagamento</S.Description>
+          <S.PaymentWrapper>
+            <label>
+              <input />
+              
+              <S.Payment>
+                <h4>Cartão de crédito</h4>
+              </S.Payment>
+
+              <S.Payment>
+                <img />
+                <h4>Pix</h4>
+              </S.Payment>
+
+              <S.Payment>
+                <img />
+                <h4>Boleto</h4>
+              </S.Payment>
+            </label>
+          </S.PaymentWrapper>
         </S.CheckDiv>
       </S.Wrapper>
     </S.Container>
   )
 }
 
-function AddAddress() {
+function AddAddress({ setRenderAddress }) {
   return (
     <>
       <S.InlineDiv isCep>
@@ -132,18 +157,18 @@ function AddAddress() {
         <img />
       </S.FieldDiv>
 
-      <S.Button>Salvar</S.Button>
+      <S.Button onClick={() => setRenderAddress(false)}>Salvar</S.Button>
     </>
   )
 }
 
-function Delivery() {
+function Delivery({ setRenderAddress }) {
   const [addressess, setAddressess] = useState([
     {
-      cep: '00000-000',
-      address: 'Rua',
-      number: '00',
-      neighborhood: 'Bairro',
+      cep: '02260-001',
+      address: 'Avenida Luís Stamatis',
+      number: '103',
+      neighborhood: 'Vila Constança',
       complement: '',
       recipient: 'Carlos'
     }
@@ -151,7 +176,9 @@ function Delivery() {
 
   return (
     <>
-      <S.NewAddress>+ Novo endereço</S.NewAddress>
+      <S.NewAddress onClick={() => setRenderAddress(true)}>
+        + Novo endereço
+      </S.NewAddress>
 
       <S.AdressesWrapper>
         {addressess.map((address, index) => (

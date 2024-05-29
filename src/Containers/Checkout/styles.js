@@ -147,7 +147,6 @@ export const AdressesWrapper = styled.div`
 export const Address = styled.div`
   width: 100%;
   display: flex;
-  flex-direction: row;
   background-color: white;
   border: solid 1px rgba(180, 180, 180, 0.5);
   border-radius: 5px;
@@ -256,10 +255,10 @@ export const InlineDiv = styled.div`
     neighborhood &&
     css`
       & > div:first-child {
-        flex: 0 0 30%;
+        flex: 1;
       }
       & > div:last-child {
-        flex: calc(0 0 70% - 10px);
+        flex: 2;
       }
     `}
 
@@ -270,4 +269,84 @@ export const InlineDiv = styled.div`
         flex: 0 0 50%;
       }
     `}
+`
+
+export const PaymentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const Payment = styled.div`
+  width: 100%;
+  display: flex;
+  background-color: white;
+  border: solid 1px rgba(180, 180, 180, 0.5);
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+
+  input[type='radio'] {
+    display: none;
+  }
+
+  label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    flex: 1;
+
+    h4 {
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    &:before {
+      content: '';
+      height: 13px;
+      width: 13px;
+      flex-shrink: 0;
+      border: 1px solid rgb(180, 180, 180);
+      border-radius: 50%;
+      margin-right: 15px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  input[type='radio']:checked + label:before {
+    box-sizing: border-box;
+    border: 4px solid #414141;
+  }
+
+  &:has(input[type='radio']:checked) {
+    background-color: #f4f6f8;
+    border: 1px solid rgba(180, 180, 180, 0.8);
+  }
+
+  &:hover {
+    label:before {
+      border: 1px solid #414141;
+    }
+
+    & {
+      background-color: #f4f6f8;
+      border: 1px solid black;
+    }
+  }
+
+  span {
+    color: #0db100;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  & > :nth-child(2) {
+    flex: 5;
+    word-break: break-all;
+  }
+
+  & > :nth-child(3) {
+    margin-left: 5px;
+    flex: 1;
+  }
 `
