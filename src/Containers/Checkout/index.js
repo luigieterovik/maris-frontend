@@ -83,23 +83,42 @@ export default function Checkout() {
           </S.TitleDiv>
           <S.Description>Escolha uma forma de pagamento</S.Description>
           <S.PaymentWrapper>
-            <label>
-              <input />
-              
-              <S.Payment>
-                <h4>Cartão de crédito</h4>
-              </S.Payment>
+            <S.Payment>
+              <input type="radio" id="card" />
+              <label htmlFor="card">
+                <img src={i('card.png')} />
+                <h5>Cartão de crédito</h5>
+              </label>
 
-              <S.Payment>
-                <img />
-                <h4>Pix</h4>
-              </S.Payment>
+              <S.PaymentContentWrapper></S.PaymentContentWrapper>
+            </S.Payment>
 
-              <S.Payment>
-                <img />
-                <h4>Boleto</h4>
-              </S.Payment>
-            </label>
+            <S.Payment>
+              <input type="radio" id="pix" />
+              <label htmlFor="pix">
+                <img src={i('pix.png')} />
+                <h5>Pix</h5>
+              </label>
+
+              <S.PaymentContentWrapper>
+                <S.PaymentDescription>
+                  A confirmação de pagamento é realizada em poucos minutos.
+                  Utilize o aplicativo do seu banco para pagar.
+                </S.PaymentDescription>
+                <S.TotalToPay>Valor no Pix: R$ 142,41</S.TotalToPay>
+                <S.Button payment>Comprar Agora</S.Button>
+              </S.PaymentContentWrapper>
+            </S.Payment>
+
+            <S.Payment>
+              <input type="radio" id="bank-slip" />
+              <label htmlFor="bank-slip">
+                <img src={i('slip.png')} />
+                <h5>Boleto</h5>
+              </label>
+
+              <S.PaymentContentWrapper></S.PaymentContentWrapper>
+            </S.Payment>
           </S.PaymentWrapper>
         </S.CheckDiv>
       </S.Wrapper>
@@ -110,7 +129,7 @@ export default function Checkout() {
 function AddAddress({ setRenderAddress }) {
   return (
     <>
-      <S.InlineDiv isCep>
+      <S.InlineAddressDiv isCep>
         <div>
           <S.FieldLabel>CEP</S.FieldLabel>
           <S.FieldDiv isCep>
@@ -119,7 +138,7 @@ function AddAddress({ setRenderAddress }) {
           </S.FieldDiv>
         </div>
         <p>São Paulo / SP</p>
-      </S.InlineDiv>
+      </S.InlineAddressDiv>
 
       <S.FieldLabel>Endereço</S.FieldLabel>
       <S.FieldDiv>
@@ -127,7 +146,7 @@ function AddAddress({ setRenderAddress }) {
         <img />
       </S.FieldDiv>
 
-      <S.InlineDiv neighborhood>
+      <S.InlineAddressDiv neighborhood>
         <div>
           <S.FieldLabel>Número</S.FieldLabel>
           <S.FieldDiv>
@@ -143,7 +162,7 @@ function AddAddress({ setRenderAddress }) {
             <img />
           </S.FieldDiv>
         </div>
-      </S.InlineDiv>
+      </S.InlineAddressDiv>
 
       <S.FieldLabel>Complemento (opcional)</S.FieldLabel>
       <S.FieldDiv>

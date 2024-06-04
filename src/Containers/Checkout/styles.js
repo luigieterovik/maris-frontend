@@ -129,6 +129,11 @@ export const Button = styled.button`
     filter: brightness(0) saturate(100%) invert(99%) sepia(8%) saturate(111%)
       hue-rotate(221deg) brightness(113%) contrast(100%);
   }
+
+  ${({ payment }) => payment && css`
+    margin-top: 15px;
+    height: 50px;
+  `}
 `
 
 export const NewAddress = styled.a`
@@ -243,6 +248,9 @@ export const InlineDiv = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+`
+
+export const InlineAddressDiv = styled.div`
   gap: 10px;
 
   p {
@@ -279,38 +287,42 @@ export const PaymentWrapper = styled.div`
 export const Payment = styled.div`
   width: 100%;
   display: flex;
+  flex-direction: column;
   background-color: white;
   border: solid 1px rgba(180, 180, 180, 0.5);
   border-radius: 5px;
   padding: 10px;
   cursor: pointer;
 
-  input[type='radio'] {
-    display: none;
+  h5 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-left: 8px;
+  }
+
+  img {
+    height: 15px;
   }
 
   label {
     display: flex;
     align-items: center;
     cursor: pointer;
-    flex: 1;
-
-    h4 {
-      font-size: 11px;
-      font-weight: 600;
-    }
 
     &:before {
       content: '';
+      margin-bottom: auto;
       height: 13px;
       width: 13px;
       flex-shrink: 0;
       border: 1px solid rgb(180, 180, 180);
       border-radius: 50%;
-      margin-right: 15px;
-      display: inline-block;
-      vertical-align: middle;
+      margin-right: 10px;
     }
+  }
+
+  input[type='radio'] {
+    display: none;
   }
 
   input[type='radio']:checked + label:before {
@@ -349,4 +361,22 @@ export const Payment = styled.div`
     margin-left: 5px;
     flex: 1;
   }
+`
+
+export const PaymentDescription = styled.p`
+  font-weight: 600;
+  font-size: 12px;
+  margin-top: 15px;
+`
+
+export const PaymentContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+export const TotalToPay = styled.h3`
+  color: #0db100;
+  font-size: 16px;
+  font-weight: 800;
+  margin-top: 10px;
 `
