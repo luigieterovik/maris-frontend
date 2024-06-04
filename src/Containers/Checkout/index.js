@@ -9,6 +9,9 @@ const i = name => {
 export default function Checkout() {
   const [renderAddress, setRenderAddress] = useState()
 
+  const mp = new MercadoPago('YOUR_PUBLIC_KEY')
+  const bricksBuilder = mp.bricks()
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -90,7 +93,54 @@ export default function Checkout() {
                 <h5>Cartão de crédito</h5>
               </label>
 
-              <S.PaymentContentWrapper></S.PaymentContentWrapper>
+              <S.PaymentContentWrapper>
+                <S.FieldLabel>Número do cartão</S.FieldLabel>
+                <S.FieldDiv>
+                  <S.Input placeholder="1234 1234 1234 1234" />
+                  <img />
+                </S.FieldDiv>
+
+                <S.InlineDiv payment>
+                  <div>
+                    <S.FieldLabel>Validade (mês/ano)</S.FieldLabel>
+                    <S.FieldDiv>
+                      <S.Input placeholder="MM/AA" />
+                      <img />
+                    </S.FieldDiv>
+                  </div>
+
+                  <div>
+                    <S.FieldLabel>Cód. de segurança</S.FieldLabel>
+                    <S.FieldDiv>
+                      <S.Input />
+                      <img />
+                    </S.FieldDiv>
+                  </div>
+                </S.InlineDiv>
+
+                <S.FieldLabel>Nome e sobrenome do titular</S.FieldLabel>
+                <S.FieldDiv>
+                  <S.Input placeholder="ex.: Maria de Almeida Cruza" />
+                  <img />
+                </S.FieldDiv>
+
+                <S.FieldLabel>CPF do titular</S.FieldLabel>
+                <S.FieldDiv>
+                  <S.Input placeholder="000.000.000-00" />
+                  <img />
+                </S.FieldDiv>
+
+                <S.FieldLabel>Nº de parcelas</S.FieldLabel>
+                <S.FieldDiv>
+                  <S.Input placeholder="1234 1234 1234 1234" />
+                  <img />
+                </S.FieldDiv>
+
+                <S.Button payment>
+                  <img src={i('padlock.png')} />
+                  Comprar Agora
+                </S.Button>
+              </S.PaymentContentWrapper>
             </S.Payment>
 
             <S.Payment>
@@ -106,7 +156,10 @@ export default function Checkout() {
                   Utilize o aplicativo do seu banco para pagar.
                 </S.PaymentDescription>
                 <S.TotalToPay>Valor no Pix: R$ 142,41</S.TotalToPay>
-                <S.Button payment>Comprar Agora</S.Button>
+                <S.Button payment>
+                  <img src={i('padlock.png')} />
+                  Comprar Agora
+                </S.Button>
               </S.PaymentContentWrapper>
             </S.Payment>
 
@@ -117,7 +170,22 @@ export default function Checkout() {
                 <h5>Boleto</h5>
               </label>
 
-              <S.PaymentContentWrapper></S.PaymentContentWrapper>
+              <S.PaymentContentWrapper>
+                <S.PaymentDescription>
+                  Boleto Bancário não pode ser parcelado, caso queira parcelar
+                  em até 12x sua compra, finalize a compra com cartão de
+                  crédito.
+                </S.PaymentDescription>
+                <S.PaymentDescription>
+                  Somente quando recebermos a confirmação em até 24h, após o
+                  pagamento, seguiremos com o envio das suas compras.
+                </S.PaymentDescription>
+                <S.TotalToPay>Valor no Pix: R$ 142,41</S.TotalToPay>
+                <S.Button payment>
+                  <img src={i('padlock.png')} />
+                  Comprar Agora
+                </S.Button>
+              </S.PaymentContentWrapper>
             </S.Payment>
           </S.PaymentWrapper>
         </S.CheckDiv>

@@ -121,19 +121,29 @@ export const Button = styled.button`
     opacity: 0.8;
   }
 
-  img {
-    height: 12px;
-    width: 12px;
-    margin-left: 10px;
-    transform: rotate(180deg);
-    filter: brightness(0) saturate(100%) invert(99%) sepia(8%) saturate(111%)
-      hue-rotate(221deg) brightness(113%) contrast(100%);
-  }
+  ${({ payment }) =>
+    payment ||
+    css`
+      img {
+        height: 12px;
+        width: 12px;
+        margin-left: 10px;
+        transform: rotate(180deg);
+        filter: brightness(0) saturate(100%) invert(99%) sepia(8%)
+          saturate(111%) hue-rotate(221deg) brightness(113%) contrast(100%);
+      }
+    `}
 
-  ${({ payment }) => payment && css`
-    margin-top: 15px;
-    height: 50px;
-  `}
+  ${({ payment }) =>
+    payment &&
+    css`
+      margin-top: 15px;
+      height: 50px;
+
+      img {
+        margin-right: 10px;
+      }
+    `}
 `
 
 export const NewAddress = styled.a`
@@ -248,6 +258,18 @@ export const InlineDiv = styled.div`
   display: flex;
   flex-direction: row;
   width: 100%;
+
+  ${({ payment }) => payment && css`
+    gap: 10px;
+
+    > div:first-child {
+      flex: 1;
+    }
+
+    > div:last-child {
+      flex: 1;
+    }
+  `}
 `
 
 export const InlineAddressDiv = styled.div`
@@ -282,6 +304,7 @@ export const InlineAddressDiv = styled.div`
 export const PaymentWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
 `
 
 export const Payment = styled.div`
@@ -291,11 +314,11 @@ export const Payment = styled.div`
   background-color: white;
   border: solid 1px rgba(180, 180, 180, 0.5);
   border-radius: 5px;
-  padding: 10px;
+  padding: 15px 10px;
   cursor: pointer;
 
   h5 {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
     margin-left: 8px;
   }
@@ -304,20 +327,20 @@ export const Payment = styled.div`
     height: 15px;
   }
 
-  label {
+  > label {
     display: flex;
     align-items: center;
     cursor: pointer;
 
     &:before {
       content: '';
-      margin-bottom: auto;
       height: 13px;
       width: 13px;
       flex-shrink: 0;
       border: 1px solid rgb(180, 180, 180);
       border-radius: 50%;
-      margin-right: 10px;
+      margin-left: 5px;
+      margin-right: 15px;
     }
   }
 
@@ -365,7 +388,7 @@ export const Payment = styled.div`
 
 export const PaymentDescription = styled.p`
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 15px;
 `
 
