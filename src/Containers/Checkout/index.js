@@ -1,4 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
+import axios from 'axios'
+
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 
 import * as S from './styles'
 
@@ -8,9 +12,34 @@ const i = name => {
 
 export default function Checkout() {
   const [renderAddress, setRenderAddress] = useState()
+  const [preferenceId, setPreferenceId] = useState()
 
-  const mp = new MercadoPago('YOUR_PUBLIC_KEY')
-  const bricksBuilder = mp.bricks()
+  initMercadoPago('TEST-ded7b054-d29e-4d18-8fe8-c7c838e11686', {
+    locale: 'pt-BR'
+  })
+
+  const createPreference = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/pay', {
+        title: 'test',
+        quantity: 1,
+        unit_price: 100
+      })
+
+      console.log(response)
+
+      const { id } = response.data
+      return id
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleBuy = async () => {
+    const id = await createPreference()
+    console.log(id)
+    if (id) setPreferenceId(id)
+  }
 
   return (
     <S.Container>
@@ -89,58 +118,11 @@ export default function Checkout() {
             <S.Payment>
               <input type="radio" id="card" />
               <label htmlFor="card">
-                <img src={i('card.png')} />
+                <img src={i('card.png')} onClick={() => handleBuy()} />
                 <h5>Cartão de crédito</h5>
               </label>
 
-              <S.PaymentContentWrapper>
-                <S.FieldLabel>Número do cartão</S.FieldLabel>
-                <S.FieldDiv>
-                  <S.Input placeholder="1234 1234 1234 1234" />
-                  <img />
-                </S.FieldDiv>
-
-                <S.InlineDiv payment>
-                  <div>
-                    <S.FieldLabel>Validade (mês/ano)</S.FieldLabel>
-                    <S.FieldDiv>
-                      <S.Input placeholder="MM/AA" />
-                      <img />
-                    </S.FieldDiv>
-                  </div>
-
-                  <div>
-                    <S.FieldLabel>Cód. de segurança</S.FieldLabel>
-                    <S.FieldDiv>
-                      <S.Input />
-                      <img />
-                    </S.FieldDiv>
-                  </div>
-                </S.InlineDiv>
-
-                <S.FieldLabel>Nome e sobrenome do titular</S.FieldLabel>
-                <S.FieldDiv>
-                  <S.Input placeholder="ex.: Maria de Almeida Cruza" />
-                  <img />
-                </S.FieldDiv>
-
-                <S.FieldLabel>CPF do titular</S.FieldLabel>
-                <S.FieldDiv>
-                  <S.Input placeholder="000.000.000-00" />
-                  <img />
-                </S.FieldDiv>
-
-                <S.FieldLabel>Nº de parcelas</S.FieldLabel>
-                <S.FieldDiv>
-                  <S.Input placeholder="1234 1234 1234 1234" />
-                  <img />
-                </S.FieldDiv>
-
-                <S.Button payment>
-                  <img src={i('padlock.png')} />
-                  Comprar Agora
-                </S.Button>
-              </S.PaymentContentWrapper>
+              <Wallet initialization={{ preferenceId }} />
             </S.Payment>
 
             <S.Payment>
