@@ -41,6 +41,10 @@ export default function Checkout() {
     if (id) setPreferenceId(id)
   }
 
+  useEffect(() => {
+    handleBuy()
+  }, [])
+
   return (
     <S.Container>
       <S.Wrapper>
@@ -115,14 +119,14 @@ export default function Checkout() {
           </S.TitleDiv>
           <S.Description>Escolha uma forma de pagamento</S.Description>
           <S.PaymentWrapper>
-            <S.Payment>
+            <S.Payment wallet>
               <input type="radio" id="card" />
               <label htmlFor="card">
-                <img src={i('card.png')} onClick={() => handleBuy()} />
+                <img src={i('card.png')} />
                 <h5>Cartão de crédito</h5>
               </label>
 
-              <Wallet initialization={{ preferenceId }} />
+              {preferenceId && <Wallet initialization={{ preferenceId }} />}
             </S.Payment>
 
             <S.Payment>

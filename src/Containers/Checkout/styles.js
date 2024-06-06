@@ -259,17 +259,19 @@ export const InlineDiv = styled.div`
   flex-direction: row;
   width: 100%;
 
-  ${({ payment }) => payment && css`
-    gap: 10px;
+  ${({ payment }) =>
+    payment &&
+    css`
+      gap: 10px;
 
-    > div:first-child {
-      flex: 1;
-    }
+      > div:first-child {
+        flex: 1;
+      }
 
-    > div:last-child {
-      flex: 1;
-    }
-  `}
+      > div:last-child {
+        flex: 1;
+      }
+    `}
 `
 
 export const InlineAddressDiv = styled.div`
@@ -374,6 +376,14 @@ export const Payment = styled.div`
     font-size: 11px;
     font-weight: 700;
   }
+
+  ${({ wallet }) =>
+    wallet &&
+    css`
+      span {
+        color: white;
+      }
+    `}
 
   & > :nth-child(2) {
     flex: 5;
