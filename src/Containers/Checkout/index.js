@@ -1,8 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import axios from 'axios'
 
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+
+import { loadStripe } from '@stripe/stripe-js'
+
+import { CartContext } from '../../contexts/Cart'
 
 import * as S from './styles'
 
@@ -26,8 +30,6 @@ export default function Checkout() {
         unit_price: 100
       })
 
-      console.log(response)
-
       const { id } = response.data
       return id
     } catch (err) {
@@ -44,6 +46,68 @@ export default function Checkout() {
   useEffect(() => {
     handleBuy()
   }, [])
+
+  const { cartProducts } = useContext(CartContext)
+
+  const makePayment = async () => {
+    const stripe = await loadStripe(
+      'pk_live_51PP7vCRriQcsQV6wJQIO1AYT0epOgFBX1b6cLX6OINXrUaqleLkJeHwHZ5dvj4LlvXwgrZDyoQBsPcjHlLVeNi4B00oylhn9VP'
+    )
+
+    const body = {
+      products: cartProducts
+    }
+
+    const headers = {
+      'Content-Type': 'application/json'
+    }
+
+    const response = await fetch('http://localhost:3001/payStripe', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify(body)
+    })
+
+    const session = await response.json()
+
+    const result = stripe.redirectToCheckout({
+      sessionId: session.id
+    })
+
+    if (result.error) {
+      console.log(result.error)
+    }
+  }
+
+  const [qrCode, setQrCode] = useState()
+
+  const handlePixPayment = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/pix', {
+        transaction_amount: 100,
+        title: 'test',
+        quantity: 1,
+        payer: {
+          email: 'eterowiczluigi@gmail.com',
+          identification: {
+            type: 'CPF',
+            number: '49512657880'
+          }
+        }
+      })
+
+      console.log(response.data.point_of_interaction.transaction_data.qr_code)
+      console.log(
+        response.data.point_of_interaction.transaction_data.qr_code_base64
+      )
+
+      setQrCode(
+        response.data.point_of_interaction.transaction_data.qr_code_base64
+      )
+    } catch (error) {
+      console.error('Error processing PIX payment:', error)
+    }
+  }
 
   return (
     <S.Container>
@@ -142,7 +206,10 @@ export default function Checkout() {
                   Utilize o aplicativo do seu banco para pagar.
                 </S.PaymentDescription>
                 <S.TotalToPay>Valor no Pix: R$ 142,41</S.TotalToPay>
-                <S.Button payment>
+
+                {qrCode && <S.QrCode src={`data:image/png;base64,${qrCode}`} />}
+
+                <S.Button payment onClick={handlePixPayment}>
                   <img src={i('padlock.png')} />
                   Comprar Agora
                 </S.Button>

@@ -4,7 +4,9 @@
   "private": true,
   "dependencies": {
     "@hookform/resolvers": "^3.4.0",
+    "@mercadopago/sdk-js": "^0.0.3",
     "@mercadopago/sdk-react": "^0.0.19",
+    "@stripe/stripe-js": "^3.5.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",

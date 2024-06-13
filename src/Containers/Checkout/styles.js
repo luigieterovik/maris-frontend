@@ -413,3 +413,9 @@ export const TotalToPay = styled.h3`
   font-weight: 800;
   margin-top: 10px;
 `
+
+export const QrCode = styled.img`
+height: 250px !important;
+width: 250px !important;
+margin: 0 auto;
+`
