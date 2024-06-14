@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useRef } from 'react'
 
 import axios from 'axios'
-
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-
 import { loadStripe } from '@stripe/stripe-js'
 
 import { CartContext } from '../../contexts/Cart'
 
 import * as S from './styles'
+
+import QuantityChanger from '../../components/QuantityChanger'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -49,13 +49,14 @@ export default function Checkout() {
 
   const { cartProducts } = useContext(CartContext)
 
-  const makePayment = async () => {
+  const requestPaymentStripe = async method => {
     const stripe = await loadStripe(
       'pk_live_51PP7vCRriQcsQV6wJQIO1AYT0epOgFBX1b6cLX6OINXrUaqleLkJeHwHZ5dvj4LlvXwgrZDyoQBsPcjHlLVeNi4B00oylhn9VP'
     )
 
     const body = {
-      products: cartProducts
+      products: cartProducts,
+      method
     }
 
     const headers = {
@@ -81,7 +82,7 @@ export default function Checkout() {
 
   const [qrCode, setQrCode] = useState()
 
-  const handlePixPayment = async () => {
+  const requestPixPayment = async () => {
     try {
       const response = await axios.post('http://localhost:3001/pix', {
         transaction_amount: 100,
@@ -108,6 +109,8 @@ export default function Checkout() {
       console.error('Error processing PIX payment:', error)
     }
   }
+
+  const [selectedPaymentMethod, setSelectePaymentMethod] = useState()
 
   return (
     <S.Container>
@@ -183,65 +186,104 @@ export default function Checkout() {
           </S.TitleDiv>
           <S.Description>Escolha uma forma de pagamento</S.Description>
           <S.PaymentWrapper>
-            <S.Payment wallet>
-              <input type="radio" id="card" />
+            <S.Payment wallet onClick={() => setSelectePaymentMethod('card')}>
+              <input
+                type="radio"
+                id="card"
+                checked={selectedPaymentMethod === 'card'}
+                onChange={() => setSelectePaymentMethod('card')}
+              />
               <label htmlFor="card">
                 <img src={i('card.png')} />
                 <h5>Cartão de crédito</h5>
               </label>
 
-              {preferenceId && <Wallet initialization={{ preferenceId }} />}
+              {selectedPaymentMethod === 'card' && (
+                <S.PaymentContentWrapper>
+                  <S.PaymentDescription>
+                    Ao clicar no botão abaixo você será redirecionado para a
+                    tela de pagamento. Preencha os dados conforme se pede e
+                    finalize o pagamento.
+                  </S.PaymentDescription>
+                  <S.Button
+                    payment
+                    onClick={() => requestPaymentStripe('card')}
+                  >
+                    <img src={i('padlock.png')} />
+                    Comprar Agora
+                  </S.Button>
+                </S.PaymentContentWrapper>
+              )}
             </S.Payment>
 
-            <S.Payment>
-              <input type="radio" id="pix" />
+            <S.Payment onClick={() => setSelectePaymentMethod('pix')}>
+              <input
+                type="radio"
+                id="pix"
+                checked={selectedPaymentMethod === 'pix'}
+                onChange={() => setSelectePaymentMethod('pix')}
+              />
               <label htmlFor="pix">
                 <img src={i('pix.png')} />
                 <h5>Pix</h5>
               </label>
 
-              <S.PaymentContentWrapper>
-                <S.PaymentDescription>
-                  A confirmação de pagamento é realizada em poucos minutos.
-                  Utilize o aplicativo do seu banco para pagar.
-                </S.PaymentDescription>
-                <S.TotalToPay>Valor no Pix: R$ 142,41</S.TotalToPay>
+              {selectedPaymentMethod === 'pix' && (
+                <S.PaymentContentWrapper>
+                  <S.PaymentDescription>
+                    A confirmação de pagamento é realizada em poucos minutos.
+                    Utilize o aplicativo do seu banco para pagar.
+                  </S.PaymentDescription>
 
-                {qrCode && <S.QrCode src={`data:image/png;base64,${qrCode}`} />}
+                  {qrCode && (
+                    <S.QrCode src={`data:image/png;base64,${qrCode}`} />
+                  )}
 
-                <S.Button payment onClick={handlePixPayment}>
-                  <img src={i('padlock.png')} />
-                  Comprar Agora
-                </S.Button>
-              </S.PaymentContentWrapper>
+                  <S.Button payment onClick={requestPixPayment}>
+                    <img src={i('padlock.png')} />
+                    Comprar Agora
+                  </S.Button>
+                </S.PaymentContentWrapper>
+              )}
             </S.Payment>
 
-            <S.Payment>
-              <input type="radio" id="bank-slip" />
+            <S.Payment onClick={() => setSelectePaymentMethod('boleto')}>
+              <input
+                type="radio"
+                id="bank-slip"
+                checked={selectedPaymentMethod === 'boleto'}
+                onChange={() => setSelectePaymentMethod('boleto')}
+              />
               <label htmlFor="bank-slip">
                 <img src={i('slip.png')} />
                 <h5>Boleto</h5>
               </label>
 
-              <S.PaymentContentWrapper>
-                <S.PaymentDescription>
-                  Boleto Bancário não pode ser parcelado, caso queira parcelar
-                  em até 12x sua compra, finalize a compra com cartão de
-                  crédito.
-                </S.PaymentDescription>
-                <S.PaymentDescription>
-                  Somente quando recebermos a confirmação em até 24h, após o
-                  pagamento, seguiremos com o envio das suas compras.
-                </S.PaymentDescription>
-                <S.TotalToPay>Valor no Pix: R$ 142,41</S.TotalToPay>
-                <S.Button payment>
-                  <img src={i('padlock.png')} />
-                  Comprar Agora
-                </S.Button>
-              </S.PaymentContentWrapper>
+              {selectedPaymentMethod === 'boleto' && (
+                <S.PaymentContentWrapper>
+                  <S.PaymentDescription>
+                    Boleto Bancário não pode ser parcelado, caso queira parcelar
+                    em até 12x sua compra, finalize a compra com cartão de
+                    crédito.
+                  </S.PaymentDescription>
+                  <S.PaymentDescription>
+                    Somente quando recebermos a confirmação em até 24h, após o
+                    pagamento, seguiremos com o envio das suas compras.
+                  </S.PaymentDescription>
+                  <S.Button
+                    payment
+                    onClick={() => requestPaymentStripe('boleto')}
+                  >
+                    <img src={i('padlock.png')} />
+                    Comprar Agora
+                  </S.Button>
+                </S.PaymentContentWrapper>
+              )}
             </S.Payment>
           </S.PaymentWrapper>
         </S.CheckDiv>
+
+        <Summary />
       </S.Wrapper>
     </S.Container>
   )
@@ -376,5 +418,62 @@ function Delivery({ setRenderAddress }) {
 
       <S.Button>Continuar</S.Button>
     </>
+  )
+}
+
+function Summary() {
+  return (
+    <S.CheckDiv>
+      <S.SummaryWrapper>
+        <S.SummaryTitle>RESUMO</S.SummaryTitle>
+
+        <S.PriceSummaryDiv>
+          <div>
+            <p>Produtos</p> <p>R$ 209,80</p>
+          </div>
+
+          <div>
+            <p>Frete</p> <p>Grátis</p>
+          </div>
+
+          <div style={{ marginTop: '10px' }}>
+            <p style={{ color: '#0db100' }}>Total</p>
+            <S.TotalToPay>R$ 209,80</S.TotalToPay>
+          </div>
+        </S.PriceSummaryDiv>
+
+        <S.ProductsSummaryWrapper>
+          <S.ProductSummary>
+            <div>
+              <img src={i('perfume.jpg')} />
+            </div>
+            <div>
+              <h4>Teste</h4>
+              <label>R$ 59,90</label>
+              <QuantityChanger isCart />
+            </div>
+            <div>
+              <img src={i('trash.png')} />
+            </div>
+          </S.ProductSummary>
+
+          <S.Division />
+
+          <S.ProductSummary>
+            <div>
+              <img src={i('perfume.jpg')} />
+            </div>
+            <div>
+              <h4>Teste</h4>
+              <label>R$ 59,90</label>
+              <QuantityChanger isCart />
+            </div>
+            <div>
+              <img src={i('trash.png')} />
+            </div>
+          </S.ProductSummary>
+        </S.ProductsSummaryWrapper>
+      </S.SummaryWrapper>
+    </S.CheckDiv>
   )
 }

@@ -22,7 +22,7 @@ export const CheckDiv = styled.div`
   border-radius: 5px;
   padding: 30px;
   max-width: 450px;
-  width: 30vw;
+  width: 25vw;
   height: fit-content;
 `
 
@@ -411,11 +411,96 @@ export const TotalToPay = styled.h3`
   color: #0db100;
   font-size: 16px;
   font-weight: 800;
-  margin-top: 10px;
 `
 
 export const QrCode = styled.img`
-height: 250px !important;
-width: 250px !important;
-margin: 0 auto;
+  height: 250px !important;
+  width: 250px !important;
+  margin: 0 auto;
+`
+
+export const SummaryTitle = styled.h3`
+  font-weight: 600;
+  font-size: 18px;
+`
+
+export const SummaryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+`
+
+export const PriceSummaryDiv = styled.div`
+  background-color: #f4f6f8;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+
+    p {
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+`
+
+export const ProductsSummaryWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`
+
+export const ProductSummary = styled.div`
+  display: flex;
+  width: 100%;
+  gap: 10px;
+
+  & > :nth-child(1) {
+    flex: 2;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  & > :nth-child(2) {
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    h4 {
+      color: #888888;
+      font-weight: 500;
+      font-size: 12px;
+    }
+
+    label {
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 10px;
+    }
+  }
+
+  & > :nth-child(3) {
+    flex: 1;
+    display: flex;
+    align-items: start;
+
+    img {
+      max-width: 12px;
+      height: auto;
+      margin-left: auto;
+
+      filter: brightness(0) saturate(100%) invert(64%) sepia(37%) saturate(5%)
+        hue-rotate(50deg) brightness(90%) contrast(84%);
+    }
+  }
 `
