@@ -17,7 +17,7 @@ export const JoinDiv = styled.div`
   gap: 30px;
 `
 
-export const CheckDiv = styled.div`
+export const CheckDiv = styled.form`
   background-color: white;
   border-radius: 5px;
   padding: 30px;
@@ -88,6 +88,20 @@ export const FieldDiv = styled.div`
         border-radius: 5px 0 0 5px;
         width: 60px;
         border-right: 1px solid rgb(180, 180, 180);
+      }
+    `}
+
+  ${({ mask }) =>
+    mask &&
+    css`
+      input {
+        width: 100%;
+        border: none;
+        border-radius: 5px;
+        height: 100%;
+        outline: none;
+        padding: 0 15px;
+        font-size: 11px;
       }
     `}
 `
@@ -276,6 +290,7 @@ export const InlineDiv = styled.div`
 
 export const InlineAddressDiv = styled.div`
   gap: 10px;
+  display: flex;
 
   p {
     margin: 43px 0 0 10px;
@@ -498,9 +513,17 @@ export const ProductSummary = styled.div`
       max-width: 12px;
       height: auto;
       margin-left: auto;
+      cursor: pointer;
 
       filter: brightness(0) saturate(100%) invert(64%) sepia(37%) saturate(5%)
         hue-rotate(50deg) brightness(90%) contrast(84%);
     }
   }
+`
+
+export const ErrorMessage = styled.p`
+  color: red;
+  font-size: 10px;
+  font-weight: 500;
+  margin-top: 3px;
 `

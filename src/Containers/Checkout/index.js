@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useContext, useRef } from 'react'
 
 import axios from 'axios'
-import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { initMercadoPago } from '@mercadopago/sdk-react'
 import { loadStripe } from '@stripe/stripe-js'
-
-import { CartContext } from '../../contexts/Cart'
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import InputMask from 'react-input-mask'
 
 import * as S from './styles'
-
 import QuantityChanger from '../../components/QuantityChanger'
+import { CartContext } from '../../contexts/Cart'
+import { identificationSchema, deliverySchema } from './validation'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -16,36 +18,6 @@ const i = name => {
 
 export default function Checkout() {
   const [renderAddress, setRenderAddress] = useState()
-  const [preferenceId, setPreferenceId] = useState()
-
-  initMercadoPago('TEST-ded7b054-d29e-4d18-8fe8-c7c838e11686', {
-    locale: 'pt-BR'
-  })
-
-  const createPreference = async () => {
-    try {
-      const response = await axios.post('http://localhost:3001/pay', {
-        title: 'test',
-        quantity: 1,
-        unit_price: 100
-      })
-
-      const { id } = response.data
-      return id
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  const handleBuy = async () => {
-    const id = await createPreference()
-    console.log(id)
-    if (id) setPreferenceId(id)
-  }
-
-  useEffect(() => {
-    handleBuy()
-  }, [])
 
   const { cartProducts } = useContext(CartContext)
 
@@ -58,7 +30,6 @@ export default function Checkout() {
       products: cartProducts,
       method
     }
-
     const headers = {
       'Content-Type': 'application/json'
     }
@@ -81,6 +52,7 @@ export default function Checkout() {
   }
 
   const [qrCode, setQrCode] = useState()
+  const [copyPix, setCopyPix] = useState()
 
   const requestPixPayment = async () => {
     try {
@@ -97,14 +69,10 @@ export default function Checkout() {
         }
       })
 
-      console.log(response.data.point_of_interaction.transaction_data.qr_code)
-      console.log(
-        response.data.point_of_interaction.transaction_data.qr_code_base64
-      )
-
       setQrCode(
         response.data.point_of_interaction.transaction_data.qr_code_base64
       )
+      setCopyPix(response.data.point_of_interaction.transaction_data.qr_code)
     } catch (error) {
       console.error('Error processing PIX payment:', error)
     }
@@ -112,12 +80,40 @@ export default function Checkout() {
 
   const [selectedPaymentMethod, setSelectePaymentMethod] = useState()
 
+  const identificationForm = useForm({
+    resolver: yupResolver(identificationSchema)
+  })
+
+  const handleIdentificationFormSubmit = identificationData => {
+    console.log(identificationData)
+
+    localStorage.setItem(
+      'marisboutiks:checkoutIdentification',
+      JSON.stringify({
+        fullName: identificationData.fullName,
+        email: identificationData.email,
+        cpf: identificationData.cpf,
+        phoneNumber: identificationData.phoneNumber
+      })
+    )
+  }
+
+  const [errors, setErrors] = useState()
+  useEffect(() => {
+    if (identificationForm.formState.errors)
+      setErrors(identificationForm.formState.errors)
+  }, [identificationForm.formState.errors])
+
   return (
     <S.Container>
       <S.Wrapper>
         <S.JoinDiv>
           {/* Identificação */}
-          <S.CheckDiv>
+          <S.CheckDiv
+            onSubmit={identificationForm.handleSubmit(
+              handleIdentificationFormSubmit
+            )}
+          >
             <S.TitleDiv>
               <S.CheckNumber>1</S.CheckNumber>
               <S.Title>
@@ -131,30 +127,56 @@ export default function Checkout() {
 
             <S.FieldLabel>Nome completo</S.FieldLabel>
             <S.FieldDiv>
-              <S.Input placeholder="ex.: Maria de Almeida Cruz" />
+              <S.Input
+                placeholder="ex.: Maria de Almeida Cruz"
+                {...identificationForm.register('fullName')}
+              />
               <img />
             </S.FieldDiv>
+            {errors && errors.fullName && (
+              <S.ErrorMessage>{errors.fullName.message}</S.ErrorMessage>
+            )}
 
             <S.FieldLabel>E-mail</S.FieldLabel>
             <S.FieldDiv>
-              <S.Input placeholder="ex.: maria@gmail.com" />
+              <S.Input
+                placeholder="ex.: maria@gmail.com"
+                {...identificationForm.register('email')}
+              />
               <img />
             </S.FieldDiv>
+            {errors && errors.email && (
+              <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
+            )}
 
             <S.FieldLabel>CPF</S.FieldLabel>
-            <S.FieldDiv>
-              <S.Input placeholder="000.000.000-00" />
+            <S.FieldDiv mask>
+              <InputMask
+                placeholder="000.000.000-00"
+                mask="999.999.999-99"
+                {...identificationForm.register('cpf')}
+              />
               <img />
             </S.FieldDiv>
+            {errors && errors.cpf && (
+              <S.ErrorMessage>{errors.cpf.message}</S.ErrorMessage>
+            )}
 
             <S.FieldLabel>Celular / WhatsApp</S.FieldLabel>
-            <S.FieldDiv isPhoneNumber>
+            <S.FieldDiv isPhoneNumber mask>
               <div>+55</div>
-              <S.Input placeholder="(00) 00000-0000" />
+              <InputMask
+                placeholder="(00) 00000-0000"
+                mask="(99) 99999-9999"
+                {...identificationForm.register('phoneNumber')}
+              />
               <img />
             </S.FieldDiv>
+            {errors && errors.phoneNumber && (
+              <S.ErrorMessage>{errors.phoneNumber.message}</S.ErrorMessage>
+            )}
 
-            <S.Button>
+            <S.Button type="submit">
               Continuar <img src={i('leftArrow.png')} />
             </S.Button>
           </S.CheckDiv>
@@ -295,8 +317,8 @@ function AddAddress({ setRenderAddress }) {
       <S.InlineAddressDiv isCep>
         <div>
           <S.FieldLabel>CEP</S.FieldLabel>
-          <S.FieldDiv isCep>
-            <S.Input />
+          <S.FieldDiv isCep mask>
+            <InputMask placeholder="00000-000" mask="99999-999" />
             <img />
           </S.FieldDiv>
         </div>

@@ -126,7 +126,6 @@ const Account = ({ accountComponent, isPopup }) => {
       renderComponent={renderComponent}
       recoverEmailSent={recoverEmailSent}
     >
-      {' '}
       <S.DivError hasError={currentError === ''} isPopup={isPopup}>
         {currentError}
       </S.DivError>
