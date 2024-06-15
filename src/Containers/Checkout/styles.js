@@ -521,9 +521,11 @@ export const ProductSummary = styled.div`
   }
 `
 
-export const ErrorMessage = styled.p`
+export const ErrorMessage = styled.label`
   color: red;
   font-size: 10px;
   font-weight: 500;
   margin-top: 3px;
+  max-width: 100%; /* Defina o valor máximo conforme necessário */
+  overflow-wrap: break-word;
 `

@@ -26,14 +26,12 @@ export const deliverySchema = Yup.object().shape({
   address: Yup.string()
     .required('O endereço é obrigatório')
     .matches(/^([a-zA-ZÀ-ÿ0-9]+(\s[a-zA-ZÀ-ÿ]+)*)/, 'Endereço inválido'),
-  number: Yup.number('Número inválido').required('O número é obrigatório'),
-  bairro: Yup.string()
+  houseNumber: Yup.string('Número inválido').required('Campo obrigatório'),
+  neighborhood: Yup.string()
     .required('O bairro é obrigatório')
     .matches(/^([a-zA-ZÀ-ÿ0-9]+(\s[a-zA-ZÀ-ÿ]+)*)/, 'Bairro inválido'),
-  destinatário: Yup.string()
+  complement: Yup.string(),
+  recipient: Yup.string()
     .required('O destinatário é obrigatório')
-    .matches(
-      /^([a-zA-ZÀ-ÿ]+\s[a-zA-ZÀ-ÿ]+(\s[a-zA-ZÀ-ÿ]+)*)$/,
-      'Destinatário inválido'
-    )
+    .matches(/^([a-zA-ZÀ-ÿ]+(\s[a-zA-ZÀ-ÿ]+)*)$/, 'Destinatário inválido')
 })

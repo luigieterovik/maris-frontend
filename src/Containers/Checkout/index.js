@@ -17,8 +17,6 @@ const i = name => {
 }
 
 export default function Checkout() {
-  const [renderAddress, setRenderAddress] = useState()
-
   const { cartProducts } = useContext(CartContext)
 
   const requestPaymentStripe = async method => {
@@ -80,122 +78,15 @@ export default function Checkout() {
 
   const [selectedPaymentMethod, setSelectePaymentMethod] = useState()
 
-  const identificationForm = useForm({
-    resolver: yupResolver(identificationSchema)
-  })
-
-  const handleIdentificationFormSubmit = identificationData => {
-    console.log(identificationData)
-
-    localStorage.setItem(
-      'marisboutiks:checkoutIdentification',
-      JSON.stringify({
-        fullName: identificationData.fullName,
-        email: identificationData.email,
-        cpf: identificationData.cpf,
-        phoneNumber: identificationData.phoneNumber
-      })
-    )
-  }
-
-  const [errors, setErrors] = useState()
-  useEffect(() => {
-    if (identificationForm.formState.errors)
-      setErrors(identificationForm.formState.errors)
-  }, [identificationForm.formState.errors])
-
   return (
     <S.Container>
       <S.Wrapper>
         <S.JoinDiv>
           {/* Identificação */}
-          <S.CheckDiv
-            onSubmit={identificationForm.handleSubmit(
-              handleIdentificationFormSubmit
-            )}
-          >
-            <S.TitleDiv>
-              <S.CheckNumber>1</S.CheckNumber>
-              <S.Title>
-                Identificação <img />
-              </S.Title>
-            </S.TitleDiv>
-            <S.Description>
-              Utilizaremos seu e-mail para: Identificar seu perfil, histórico de
-              compra, notificação de pedidos e carrinho de compras.
-            </S.Description>
-
-            <S.FieldLabel>Nome completo</S.FieldLabel>
-            <S.FieldDiv>
-              <S.Input
-                placeholder="ex.: Maria de Almeida Cruz"
-                {...identificationForm.register('fullName')}
-              />
-              <img />
-            </S.FieldDiv>
-            {errors && errors.fullName && (
-              <S.ErrorMessage>{errors.fullName.message}</S.ErrorMessage>
-            )}
-
-            <S.FieldLabel>E-mail</S.FieldLabel>
-            <S.FieldDiv>
-              <S.Input
-                placeholder="ex.: maria@gmail.com"
-                {...identificationForm.register('email')}
-              />
-              <img />
-            </S.FieldDiv>
-            {errors && errors.email && (
-              <S.ErrorMessage>{errors.email.message}</S.ErrorMessage>
-            )}
-
-            <S.FieldLabel>CPF</S.FieldLabel>
-            <S.FieldDiv mask>
-              <InputMask
-                placeholder="000.000.000-00"
-                mask="999.999.999-99"
-                {...identificationForm.register('cpf')}
-              />
-              <img />
-            </S.FieldDiv>
-            {errors && errors.cpf && (
-              <S.ErrorMessage>{errors.cpf.message}</S.ErrorMessage>
-            )}
-
-            <S.FieldLabel>Celular / WhatsApp</S.FieldLabel>
-            <S.FieldDiv isPhoneNumber mask>
-              <div>+55</div>
-              <InputMask
-                placeholder="(00) 00000-0000"
-                mask="(99) 99999-9999"
-                {...identificationForm.register('phoneNumber')}
-              />
-              <img />
-            </S.FieldDiv>
-            {errors && errors.phoneNumber && (
-              <S.ErrorMessage>{errors.phoneNumber.message}</S.ErrorMessage>
-            )}
-
-            <S.Button type="submit">
-              Continuar <img src={i('leftArrow.png')} />
-            </S.Button>
-          </S.CheckDiv>
+          <Identification />
 
           {/* Entrega */}
-          <S.CheckDiv>
-            <S.TitleDiv>
-              <S.CheckNumber>2</S.CheckNumber>
-              <S.Title>
-                Entrega <img />
-              </S.Title>
-            </S.TitleDiv>
-            <S.Description>Cadastre ou selecione um endereço</S.Description>
-            {renderAddress ? (
-              <AddAddress setRenderAddress={setRenderAddress} />
-            ) : (
-              <Delivery setRenderAddress={setRenderAddress} />
-            )}
-          </S.CheckDiv>
+          <Delivery />
         </S.JoinDiv>
 
         {/* Pagamento */}
@@ -311,62 +202,256 @@ export default function Checkout() {
   )
 }
 
-function AddAddress({ setRenderAddress }) {
+function Identification() {
+  const [identificationErrors, setIdentificationErrors] = useState()
+
+  const identificationForm = useForm({
+    resolver: yupResolver(identificationSchema)
+  })
+
+  const handleIdentificationFormSubmit = identificationData => {
+    console.log(identificationData)
+
+    localStorage.setItem(
+      'marisboutiks:checkoutIdentification',
+      JSON.stringify({
+        fullName: identificationData.fullName,
+        email: identificationData.email,
+        cpf: identificationData.cpf,
+        phoneNumber: identificationData.phoneNumber
+      })
+    )
+  }
+
+  useEffect(() => {
+    if (identificationForm.formState.errors)
+      setIdentificationErrors(identificationForm.formState.errors)
+  }, [identificationForm.formState.errors])
+
+  return (
+    <S.CheckDiv
+      onSubmit={identificationForm.handleSubmit(handleIdentificationFormSubmit)}
+    >
+      <S.TitleDiv>
+        <S.CheckNumber>1</S.CheckNumber>
+        <S.Title>
+          Identificação <img />
+        </S.Title>
+      </S.TitleDiv>
+      <S.Description>
+        Utilizaremos seu e-mail para: Identificar seu perfil, histórico de
+        compra, notificação de pedidos e carrinho de compras.
+      </S.Description>
+
+      <div>
+        <S.FieldLabel>Nome completo</S.FieldLabel>
+        <S.FieldDiv>
+          <S.Input
+            placeholder="ex.: Maria de Almeida Cruz"
+            {...identificationForm.register('fullName')}
+          />
+          <img />
+        </S.FieldDiv>
+        {identificationErrors && identificationErrors.fullName && (
+          <S.ErrorMessage>
+            {identificationErrors.fullName.message}
+          </S.ErrorMessage>
+        )}
+      </div>
+
+      <div>
+        <S.FieldLabel>E-mail</S.FieldLabel>
+        <S.FieldDiv>
+          <S.Input
+            placeholder="ex.: maria@gmail.com"
+            {...identificationForm.register('email')}
+          />
+          <img />
+        </S.FieldDiv>
+        {identificationErrors && identificationErrors.email && (
+          <S.ErrorMessage>{identificationErrors.email.message}</S.ErrorMessage>
+        )}
+      </div>
+
+      <div>
+        <S.FieldLabel>CPF</S.FieldLabel>
+        <S.FieldDiv mask>
+          <InputMask
+            placeholder="000.000.000-00"
+            mask="999.999.999-99"
+            {...identificationForm.register('cpf')}
+          />
+          <img />
+        </S.FieldDiv>
+        {identificationErrors && identificationErrors.cpf && (
+          <S.ErrorMessage>{identificationErrors.cpf.message}</S.ErrorMessage>
+        )}
+      </div>
+
+      <div>
+        <S.FieldLabel>Celular / WhatsApp</S.FieldLabel>
+        <S.FieldDiv isPhoneNumber mask>
+          <div>+55</div>
+          <InputMask
+            placeholder="(00) 00000-0000"
+            mask="(99) 99999-9999"
+            {...identificationForm.register('phoneNumber')}
+          />
+          <img />
+        </S.FieldDiv>
+        {identificationErrors && identificationErrors.phoneNumber && (
+          <S.ErrorMessage>
+            {identificationErrors.phoneNumber.message}
+          </S.ErrorMessage>
+        )}
+      </div>
+
+      <S.Button type="submit">
+        Continuar <img src={i('leftArrow.png')} />
+      </S.Button>
+    </S.CheckDiv>
+  )
+}
+
+function Delivery() {
+  const [renderAddress, setRenderAddress] = useState(true)
+
+  useEffect(() => {
+    if (localStorage.getItem('marisboutiks:checkoutDelivery'))
+      setRenderAddress(false)
+  }, [])
+
+  const [deliveryErrors, setDeliveryErrors] = useState()
+
+  const deliveryForm = useForm({
+    resolver: yupResolver(deliverySchema)
+  })
+
+  const handleDeliveryFormSubmit = deliveryData => {
+    setRenderAddress(false)
+
+    localStorage.setItem(
+      'marisboutiks:checkoutDelivery',
+      JSON.stringify({
+        cep: deliveryData.cep,
+        address: deliveryData.address,
+        houseNumber: deliveryData.houseNumber,
+        neighborhood: deliveryData.neighborhood,
+        complement: deliveryData.complement,
+        recipient: deliveryData.recipient
+      })
+    )
+  }
+
+  useEffect(() => {
+    if (deliveryForm.formState.errors)
+      setDeliveryErrors(deliveryForm.formState.errors)
+  }, [deliveryForm.formState.errors])
+
+  return (
+    <S.CheckDiv onSubmit={deliveryForm.handleSubmit(handleDeliveryFormSubmit)}>
+      <S.TitleDiv>
+        <S.CheckNumber>2</S.CheckNumber>
+        <S.Title>
+          Entrega <img />
+        </S.Title>
+      </S.TitleDiv>
+      <S.Description>Cadastre ou selecione um endereço</S.Description>
+      {renderAddress ? (
+        <AddAddress
+          setRenderAddress={setRenderAddress}
+          deliveryForm={deliveryForm}
+          deliveryErrors={deliveryErrors}
+        />
+      ) : (
+        <SelectDelivery setRenderAddress={setRenderAddress} />
+      )}
+    </S.CheckDiv>
+  )
+}
+
+function AddAddress({ deliveryForm, deliveryErrors }) {
   return (
     <>
       <S.InlineAddressDiv isCep>
         <div>
           <S.FieldLabel>CEP</S.FieldLabel>
-          <S.FieldDiv isCep mask>
-            <InputMask placeholder="00000-000" mask="99999-999" />
+          <S.FieldDiv mask>
+            <InputMask
+              placeholder="00000-000"
+              mask="99999-999"
+              {...deliveryForm.register('cep')}
+            />
             <img />
           </S.FieldDiv>
+          {deliveryErrors && deliveryErrors.cep && (
+            <S.ErrorMessage>{deliveryErrors.cep.message}</S.ErrorMessage>
+          )}
         </div>
         <p>São Paulo / SP</p>
       </S.InlineAddressDiv>
 
       <S.FieldLabel>Endereço</S.FieldLabel>
       <S.FieldDiv>
-        <S.Input />
+        <S.Input {...deliveryForm.register('address')} />
         <img />
       </S.FieldDiv>
+      {deliveryErrors && deliveryErrors.address && (
+        <S.ErrorMessage>{deliveryErrors.address.message}</S.ErrorMessage>
+      )}
 
       <S.InlineAddressDiv neighborhood>
         <div>
           <S.FieldLabel>Número</S.FieldLabel>
           <S.FieldDiv>
-            <S.Input />
+            <S.Input {...deliveryForm.register('houseNumber')} />
             <img />
           </S.FieldDiv>
+          {deliveryErrors && deliveryErrors.houseNumber && (
+            <S.ErrorMessage>
+              {deliveryErrors.houseNumber.message}
+            </S.ErrorMessage>
+          )}
         </div>
 
         <div>
           <S.FieldLabel>Bairro</S.FieldLabel>
           <S.FieldDiv>
-            <S.Input />
+            <S.Input {...deliveryForm.register('neighborhood')} />
             <img />
           </S.FieldDiv>
+          {deliveryErrors && deliveryErrors.neighborhood && (
+            <S.ErrorMessage>
+              {deliveryErrors.neighborhood.message}
+            </S.ErrorMessage>
+          )}
         </div>
       </S.InlineAddressDiv>
 
       <S.FieldLabel>Complemento (opcional)</S.FieldLabel>
       <S.FieldDiv>
-        <S.Input />
+        <S.Input {...deliveryForm.register('complement')} />
         <img />
       </S.FieldDiv>
+      {deliveryErrors && deliveryErrors.complement && (
+        <S.ErrorMessage>{deliveryErrors.complement.message}</S.ErrorMessage>
+      )}
 
       <S.FieldLabel>Destinatário</S.FieldLabel>
       <S.FieldDiv>
-        <S.Input />
+        <S.Input {...deliveryForm.register('recipient')} />
         <img />
       </S.FieldDiv>
+      {deliveryErrors && deliveryErrors.recipient && (
+        <S.ErrorMessage>{deliveryErrors.recipient.message}</S.ErrorMessage>
+      )}
 
-      <S.Button onClick={() => setRenderAddress(false)}>Salvar</S.Button>
+      <S.Button type="submit">Salvar</S.Button>
     </>
   )
 }
 
-function Delivery({ setRenderAddress }) {
+function SelectDelivery({ setRenderAddress }) {
   const [addressess, setAddressess] = useState([
     {
       cep: '02260-001',
