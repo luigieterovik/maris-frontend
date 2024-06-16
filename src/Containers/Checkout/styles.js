@@ -171,6 +171,10 @@ export const NewAddress = styled.a`
 export const AdressesWrapper = styled.div`
   width: 100%;
   margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
 `
 
 export const Address = styled.div`
@@ -250,6 +254,23 @@ export const Address = styled.div`
   & > :nth-child(3) {
     margin-left: 5px;
     flex: 1;
+    display: flex;
+    align-items: start;
+
+    img {
+      max-width: 11px;
+      height: auto;
+      margin-left: auto;
+      z-index: 9999;
+      cursor: pointer;
+      filter: brightness(0) saturate(100%) invert(64%) sepia(37%) saturate(5%)
+        hue-rotate(50deg) brightness(90%) contrast(84%);
+
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(36%) sepia(5%) saturate(8%)
+          hue-rotate(101deg) brightness(99%) contrast(92%);
+      }
+    }
   }
 `
 
@@ -508,15 +529,20 @@ export const ProductSummary = styled.div`
     flex: 1;
     display: flex;
     align-items: start;
-
+    
     img {
-      max-width: 12px;
+      max-width: 11px;
       height: auto;
       margin-left: auto;
+      z-index: 9999;
       cursor: pointer;
-
       filter: brightness(0) saturate(100%) invert(64%) sepia(37%) saturate(5%)
         hue-rotate(50deg) brightness(90%) contrast(84%);
+
+      &:hover {
+        filter: brightness(0) saturate(100%) invert(36%) sepia(5%) saturate(8%)
+          hue-rotate(101deg) brightness(99%) contrast(92%);
+      }
     }
   }
 `

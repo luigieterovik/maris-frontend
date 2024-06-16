@@ -317,8 +317,14 @@ function Delivery() {
   const [renderAddress, setRenderAddress] = useState(true)
 
   useEffect(() => {
-    if (localStorage.getItem('marisboutiks:checkoutDelivery'))
+    if (
+      Array.isArray(
+        JSON.parse(localStorage.getItem('marisboutiks:checkoutDelivery'))
+      )
+    )
       setRenderAddress(false)
+    else
+      localStorage.setItem('marisboutiks:checkoutDelivery', JSON.stringify([]))
   }, [])
 
   const [deliveryErrors, setDeliveryErrors] = useState()
@@ -328,19 +334,28 @@ function Delivery() {
   })
 
   const handleDeliveryFormSubmit = deliveryData => {
-    setRenderAddress(false)
+    let checkoutDelivery = []
+
+    let storedData = JSON.parse(
+      localStorage.getItem('marisboutiks:checkoutDelivery')
+    )
+
+    checkoutDelivery.push(...storedData)
+    checkoutDelivery.push({
+      cep: deliveryData.cep,
+      address: deliveryData.address,
+      houseNumber: deliveryData.houseNumber,
+      neighborhood: deliveryData.neighborhood,
+      complement: deliveryData.complement,
+      recipient: deliveryData.recipient
+    })
 
     localStorage.setItem(
       'marisboutiks:checkoutDelivery',
-      JSON.stringify({
-        cep: deliveryData.cep,
-        address: deliveryData.address,
-        houseNumber: deliveryData.houseNumber,
-        neighborhood: deliveryData.neighborhood,
-        complement: deliveryData.complement,
-        recipient: deliveryData.recipient
-      })
+      JSON.stringify(checkoutDelivery)
     )
+
+    setRenderAddress(false)
   }
 
   useEffect(() => {
@@ -359,6 +374,7 @@ function Delivery() {
       <S.Description>Cadastre ou selecione um endereço</S.Description>
       {renderAddress ? (
         <AddAddress
+          renderAddress={renderAddress}
           setRenderAddress={setRenderAddress}
           deliveryForm={deliveryForm}
           deliveryErrors={deliveryErrors}
@@ -451,17 +467,37 @@ function AddAddress({ deliveryForm, deliveryErrors }) {
   )
 }
 
-function SelectDelivery({ setRenderAddress }) {
-  const [addressess, setAddressess] = useState([
-    {
-      cep: '02260-001',
-      address: 'Avenida Luís Stamatis',
-      number: '103',
-      neighborhood: 'Vila Constança',
-      complement: '',
-      recipient: 'Carlos'
+function SelectDelivery({ renderAddress, setRenderAddress }) {
+  const [addressess, setAddressess] = useState()
+
+  useEffect(() => {
+    if (!renderAddress) {
+      const storedData = JSON.parse(
+        localStorage.getItem('marisboutiks:checkoutDelivery')
+      )
+
+      setAddressess(storedData)
     }
-  ])
+  }, [renderAddress])
+
+  useEffect(() => {
+    if (addressess && addressess.length === 0) setRenderAddress(true)
+  }, [addressess])
+
+  const deleteAddress = indexToDelete => {
+    const deletedAddress = addressess.filter(
+      (address, index) => index !== indexToDelete
+    )
+
+    setAddressess(deletedAddress)
+
+    localStorage.setItem(
+      'marisboutiks:checkoutDelivery',
+      JSON.stringify(deletedAddress)
+    )
+  }
+
+  const [addressToCheck, setAddressToCheck] = useState(0)
 
   return (
     <>
@@ -470,48 +506,33 @@ function SelectDelivery({ setRenderAddress }) {
       </S.NewAddress>
 
       <S.AdressesWrapper>
-        {addressess.map((address, index) => (
-          <S.Address key={index} className="addressDiv">
-            <input type="radio" id={index} />
-            <label htmlFor={index}>
+        {addressess &&
+          addressess.map((address, index) => (
+            <S.Address key={index} className="addressDiv">
+              <input
+                type="radio"
+                id={index}
+                onChange={() => setAddressToCheck(index)}
+                checked={index === addressToCheck}
+                defaultChecked={index === 0}
+              />
+              <label htmlFor={index}>
+                <div>
+                  <h4>
+                    {address.address}, {address.houseNumber}
+                  </h4>
+                  <p>São Paulo - SP | {address.cep}</p>
+                </div>
+              </label>
               <div>
-                <h4>
-                  {address.address}, {address.number}
-                </h4>
-                <p>São Paulo - SP | {address.cep}</p>
+                <img
+                  src={i('trash.png')}
+                  onClick={() => deleteAddress(index)}
+                />
               </div>
-            </label>
-          </S.Address>
-        ))}
+            </S.Address>
+          ))}
       </S.AdressesWrapper>
-
-      <S.Division />
-
-      <S.Description>Escolha uma forma de entrega:</S.Description>
-
-      <S.DeliveryWrapper>
-        <S.Address>
-          <input type="radio" id={'mail-1'} />
-          <label htmlFor={'mail-1'}>
-            <div>
-              <h4>PAC Correios - 5 a 12 dias úteis</h4>
-              <p>Entrega garantida</p>
-            </div>
-          </label>
-          <span>Grátis</span>
-        </S.Address>
-
-        <S.Address>
-          <input type="radio" id={'mail-2'} />
-          <label htmlFor={'mail-2'}>
-            <div>
-              <h4>Frete Express - 3 a 9 dias úteis</h4>
-              <p>Entrega garantida</p>
-            </div>
-          </label>
-          <span>R$ 14,49</span>
-        </S.Address>
-      </S.DeliveryWrapper>
 
       <S.Description>
         Fretes com seguro de entrega e código de rastreio, que será enviado por
@@ -523,7 +544,9 @@ function SelectDelivery({ setRenderAddress }) {
         Atendimento rápido e humanizado Pedidos despachados em até 24 horas.
       </S.Description>
 
-      <S.Button>Continuar</S.Button>
+      <S.Button type="submit">
+        Continuar <img src={i('leftArrow.png')} />
+      </S.Button>
     </>
   )
 }
