@@ -78,19 +78,24 @@ export default function Checkout() {
 
   const [selectedPaymentMethod, setSelectePaymentMethod] = useState()
 
+  const [currentStep, setCurrentStep] = useState(1)
+
   return (
     <S.Container>
       <S.Wrapper>
         <S.JoinDiv>
           {/* Identificação */}
-          <Identification />
+          <Identification
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+          />
 
           {/* Entrega */}
-          <Delivery />
+          <Delivery currentStep={currentStep} setCurrentStep={setCurrentStep} />
         </S.JoinDiv>
 
         {/* Pagamento */}
-        <S.CheckDiv>
+        <S.CheckDiv currentStep={currentStep} step={3}>
           <S.TitleDiv>
             <S.CheckNumber>3</S.CheckNumber>
             <S.Title>
@@ -202,7 +207,7 @@ export default function Checkout() {
   )
 }
 
-function Identification() {
+function Identification({ currentStep, setCurrentStep }) {
   const [identificationErrors, setIdentificationErrors] = useState()
 
   const identificationForm = useForm({
@@ -210,8 +215,6 @@ function Identification() {
   })
 
   const handleIdentificationFormSubmit = identificationData => {
-    console.log(identificationData)
-
     localStorage.setItem(
       'marisboutiks:checkoutIdentification',
       JSON.stringify({
@@ -221,6 +224,8 @@ function Identification() {
         phoneNumber: identificationData.phoneNumber
       })
     )
+
+    setCurrentStep(prev => prev + 1)
   }
 
   useEffect(() => {
@@ -231,6 +236,8 @@ function Identification() {
   return (
     <S.CheckDiv
       onSubmit={identificationForm.handleSubmit(handleIdentificationFormSubmit)}
+      step={1}
+      currentStep={currentStep}
     >
       <S.TitleDiv>
         <S.CheckNumber>1</S.CheckNumber>
@@ -313,7 +320,7 @@ function Identification() {
   )
 }
 
-function Delivery() {
+function Delivery({ currentStep, setCurrentStep }) {
   const [renderAddress, setRenderAddress] = useState(true)
 
   useEffect(() => {
@@ -364,7 +371,11 @@ function Delivery() {
   }, [deliveryForm.formState.errors])
 
   return (
-    <S.CheckDiv onSubmit={deliveryForm.handleSubmit(handleDeliveryFormSubmit)}>
+    <S.CheckDiv
+      onSubmit={deliveryForm.handleSubmit(handleDeliveryFormSubmit)}
+      step={2}
+      currentStep={currentStep}
+    >
       <S.TitleDiv>
         <S.CheckNumber>2</S.CheckNumber>
         <S.Title>
@@ -380,7 +391,10 @@ function Delivery() {
           deliveryErrors={deliveryErrors}
         />
       ) : (
-        <SelectDelivery setRenderAddress={setRenderAddress} />
+        <SelectDelivery
+          setRenderAddress={setRenderAddress}
+          setCurrentStep={setCurrentStep}
+        />
       )}
     </S.CheckDiv>
   )
@@ -467,7 +481,7 @@ function AddAddress({ deliveryForm, deliveryErrors }) {
   )
 }
 
-function SelectDelivery({ renderAddress, setRenderAddress }) {
+function SelectDelivery({ renderAddress, setRenderAddress, setCurrentStep }) {
   const [addressess, setAddressess] = useState()
 
   useEffect(() => {
@@ -521,7 +535,9 @@ function SelectDelivery({ renderAddress, setRenderAddress }) {
                   <h4>
                     {address.address}, {address.houseNumber}
                   </h4>
-                  <p>São Paulo - SP | {address.cep}</p>
+                  <p>
+                    {address.neighborhood} | {address.cep}
+                  </p>
                 </div>
               </label>
               <div>
@@ -544,7 +560,7 @@ function SelectDelivery({ renderAddress, setRenderAddress }) {
         Atendimento rápido e humanizado Pedidos despachados em até 24 horas.
       </S.Description>
 
-      <S.Button type="submit">
+      <S.Button type="submit" onClick={() => setCurrentStep(prev => prev + 1)}>
         Continuar <img src={i('leftArrow.png')} />
       </S.Button>
     </>
@@ -553,7 +569,7 @@ function SelectDelivery({ renderAddress, setRenderAddress }) {
 
 function Summary() {
   return (
-    <S.CheckDiv>
+    <S.CheckDiv summary>
       <S.SummaryWrapper>
         <S.SummaryTitle>RESUMO</S.SummaryTitle>
 

@@ -24,6 +24,22 @@ export const CheckDiv = styled.form`
   max-width: 450px;
   width: 25vw;
   height: fit-content;
+
+  ${({ step, currentStep }) =>
+    step > currentStep &&
+    css`
+      filter: grayscale(1);
+    `}
+
+  ${({ step, currentStep }) =>
+    step === currentStep &&
+    css`
+      border: 2px solid #9e1de8;
+    `}
+
+    ${({ summary }) => summary && css`
+      border: none;
+    `}
 `
 
 export const TitleDiv = styled.div`
@@ -529,7 +545,7 @@ export const ProductSummary = styled.div`
     flex: 1;
     display: flex;
     align-items: start;
-    
+
     img {
       max-width: 11px;
       height: auto;
