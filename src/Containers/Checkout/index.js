@@ -216,7 +216,13 @@ function Delivery({ currentStep, setCurrentStep }) {
     )
 
     checkoutDelivery.push(...storedData)
-    checkoutDelivery.push(deliveryData)
+
+    const newDeliveryData = {
+      ...deliveryData,
+      city: fetchedCepData.localidade,
+      state: fetchedCepData.uf
+    }
+    checkoutDelivery.push(newDeliveryData)
 
     localStorage.setItem(
       'marisboutiks:checkoutDelivery',
@@ -233,11 +239,25 @@ function Delivery({ currentStep, setCurrentStep }) {
 
   const [storedDeliveryData, setStoredDeliveryData] = useState()
 
+  const [fetchedCepData, setFetchedCepData] = useState({
+    logradouro: '',
+    complemento: '',
+    bairro: '',
+    localidade: '',
+    uf: ''
+  })
+
+  const editForm = () => {
+    if (currentStep > 2) setCurrentStep(2)
+  }
+
   return (
     <S.CheckDiv
       onSubmit={deliveryForm.handleSubmit(handleDeliveryFormSubmit)}
       step={2}
       currentStep={currentStep}
+      completed={currentStep > 2}
+      onClick={editForm}
     >
       <S.TitleDiv>
         <S.CheckNumber>2</S.CheckNumber>
@@ -256,6 +276,8 @@ function Delivery({ currentStep, setCurrentStep }) {
             setRenderAddress={setRenderAddress}
             deliveryForm={deliveryForm}
             deliveryErrors={deliveryErrors}
+            fetchedCepData={fetchedCepData}
+            setFetchedCepData={setFetchedCepData}
           />
         ) : (
           <SelectDelivery
@@ -267,10 +289,17 @@ function Delivery({ currentStep, setCurrentStep }) {
       {currentStep > 2 && (
         <S.FormValidationSummaryWrapper>
           <S.FormValidationSummaryDescription>
-            {storedDeliveryData.address} - {storedDeliveryData.neighborhood}
+            {storedDeliveryData.address}, {storedDeliveryData.houseNumber} -{' '}
+            {storedDeliveryData.neighborhood}
           </S.FormValidationSummaryDescription>
+          {storedDeliveryData && storedDeliveryData.complement && (
+            <S.FormValidationSummaryDescription>
+              {storedDeliveryData.complement}
+            </S.FormValidationSummaryDescription>
+          )}
           <S.FormValidationSummaryDescription>
-            {storedDeliveryData.address}
+            {storedDeliveryData.city}-{storedDeliveryData.state} |{' '}
+            {storedDeliveryData.cep}
           </S.FormValidationSummaryDescription>
         </S.FormValidationSummaryWrapper>
       )}
@@ -278,31 +307,12 @@ function Delivery({ currentStep, setCurrentStep }) {
   )
 }
 
-function AddAddress({ deliveryForm, deliveryErrors, renderAddress }) {
-  const [fetchedCepData, setFetchedCepData] = useState({
-    logradouro: '',
-    complemento: '',
-    bairro: '',
-    localidade: '',
-    uf: ''
-  })
-
-  const [inputValue, setInputValue] = useState({
-    logradouro: '',
-    complemento: '',
-    bairro: '',
-    localidade: '',
-    uf: '',
-    destinatário: ''
-  })
-
-  const changeRecipientField = name => {
-    setInputValue(prevValues => ({
-      ...prevValues,
-      destinatário: name
-    }))
-  }
-
+function AddAddress({
+  deliveryForm,
+  deliveryErrors,
+  fetchedCepData,
+  setFetchedCepData
+}) {
   const getCep = async event => {
     const { value } = event.target
 
@@ -314,35 +324,18 @@ function AddAddress({ deliveryForm, deliveryErrors, renderAddress }) {
       const response = await fetch(`http://viacep.com.br/ws/${cep}/json/`)
       const data = await response.json()
 
-      setInputValue(data)
-      setFetchedCepData(data)
+      deliveryForm.setValue('address', data.logradouro)
+      deliveryForm.setValue('neighborhood', data.bairro)
+      deliveryForm.setValue(
+        'recipient',
+        JSON.parse(localStorage.getItem('marisboutiks:checkoutIdentification'))
+          .fullName
+      )
+
+      const dataWithCep = { ...data, cep }
+      setFetchedCepData(dataWithCep)
     }
   }
-
-  const handleInputChange = (event, field) => {
-    setInputValue(prevValues => ({
-      ...prevValues,
-      [field]: event.target.value
-    }))
-  }
-
-  useEffect(() => {
-    setInputValue({
-      logradouro: '',
-      complemento: '',
-      bairro: '',
-      localidade: '',
-      uf: '',
-      destinatário: ''
-    })
-  }, [renderAddress])
-
-  useEffect(() => {
-    changeRecipientField(
-      JSON.parse(localStorage.getItem('marisboutiks:checkoutIdentification'))
-        .fullName
-    )
-  }, [])
 
   return (
     <>
@@ -370,11 +363,7 @@ function AddAddress({ deliveryForm, deliveryErrors, renderAddress }) {
 
       <S.FieldLabel>Endereço</S.FieldLabel>
       <S.FieldDiv>
-        <S.Input
-          value={inputValue.logradouro}
-          onChange={e => handleInputChange(e, 'logradouro')}
-          {...deliveryForm.register('address')}
-        />
+        <S.Input {...deliveryForm.register('address')} />
         <img />
       </S.FieldDiv>
       {deliveryErrors && deliveryErrors.address && (
@@ -398,11 +387,7 @@ function AddAddress({ deliveryForm, deliveryErrors, renderAddress }) {
         <div>
           <S.FieldLabel>Bairro</S.FieldLabel>
           <S.FieldDiv>
-            <S.Input
-              value={inputValue.bairro}
-              onChange={e => handleInputChange(e, 'bairro')}
-              {...deliveryForm.register('neighborhood')}
-            />
+            <S.Input {...deliveryForm.register('neighborhood')} />
             <img />
           </S.FieldDiv>
           {deliveryErrors && deliveryErrors.neighborhood && (
@@ -424,11 +409,7 @@ function AddAddress({ deliveryForm, deliveryErrors, renderAddress }) {
 
       <S.FieldLabel>Destinatário</S.FieldLabel>
       <S.FieldDiv>
-        <S.Input
-          value={inputValue.destinatário}
-          onChange={e => changeRecipientField(e.target.value)}
-          {...deliveryForm.register('recipient')}
-        />
+        <S.Input {...deliveryForm.register('recipient')} />
         <img />
       </S.FieldDiv>
       {deliveryErrors && deliveryErrors.recipient && (
@@ -473,6 +454,8 @@ function SelectDelivery({
       'marisboutiks:checkoutDelivery',
       JSON.stringify(deletedAddress)
     )
+
+    setAddressToCheck(0)
   }
 
   const [addressToCheck, setAddressToCheck] = useState(0)
@@ -553,20 +536,24 @@ function Payment({ currentStep, cartProducts }) {
       'Content-Type': 'application/json'
     }
 
-    const response = await fetch('http://localhost:3001/payStripe', {
-      method: 'POST',
-      headers: headers,
-      body: JSON.stringify(body)
-    })
+    try {
+      const response = await fetch('http://localhost:3001/payStripe', {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body)
+      })
 
-    const session = await response.json()
+      const session = await response.json()
 
-    const result = stripe.redirectToCheckout({
-      sessionId: session.id
-    })
+      const result = await stripe.redirectToCheckout({
+        sessionId: session.id
+      })
 
-    if (result.error) {
-      console.log(result.error)
+      if (result.error) {
+        console.log(result.error)
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error)
     }
   }
 
@@ -600,7 +587,7 @@ function Payment({ currentStep, cartProducts }) {
   const [selectedPaymentMethod, setSelectePaymentMethod] = useState()
 
   return (
-    <S.CheckDiv currentStep={currentStep} step={3}>
+    <S.CheckDiv currentStep={currentStep} step={3} noValidate>
       <S.TitleDiv>
         <S.CheckNumber>3</S.CheckNumber>
         <S.Title>
@@ -629,7 +616,11 @@ function Payment({ currentStep, cartProducts }) {
                   de pagamento. Preencha os dados conforme se pede e finalize o
                   pagamento.
                 </S.PaymentDescription>
-                <S.Button payment onClick={() => requestPaymentStripe('card')}>
+                <S.Button
+                  payment
+                  onClick={() => requestPaymentStripe('card')}
+                  type="button"
+                >
                   <img src={i('padlock.png')} />
                   Comprar Agora
                 </S.Button>
@@ -656,9 +647,7 @@ function Payment({ currentStep, cartProducts }) {
                   Utilize o aplicativo do seu banco para pagar.
                 </S.PaymentDescription>
 
-                {qrCode && <S.QrCode src={`data:image/png;base64,${qrCode}`} />}
-
-                <S.Button payment onClick={requestPixPayment}>
+                <S.Button payment onClick={requestPixPayment} type="button">
                   <img src={i('padlock.png')} />
                   Comprar Agora
                 </S.Button>
@@ -692,6 +681,7 @@ function Payment({ currentStep, cartProducts }) {
                 <S.Button
                   payment
                   onClick={() => requestPaymentStripe('boleto')}
+                  type="button"
                 >
                   <img src={i('padlock.png')} />
                   Comprar Agora

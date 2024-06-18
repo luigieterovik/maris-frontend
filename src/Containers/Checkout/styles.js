@@ -475,8 +475,8 @@ export const TotalToPay = styled.h3`
 `
 
 export const QrCode = styled.img`
-  height: 250px !important;
-  width: 250px !important;
+  height: 100% !important;
+  width: 100% !important;
   margin: 0 auto;
 `
 
@@ -597,6 +597,13 @@ export const FormValidationSummaryDescription = styled.p`
     css`
       font-weight: 600;
       font-size: 14px;
+    `}
+
+  ${({ pix }) =>
+    pix &&
+    css`
+      font-size: 11px;
+      color: #646363;
     `}
 `
 
