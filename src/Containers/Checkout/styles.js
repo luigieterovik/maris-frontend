@@ -29,6 +29,7 @@ export const CheckDiv = styled.form`
     step > currentStep &&
     css`
       filter: grayscale(1);
+      opacity: 0.6;
     `}
 
   ${({ step, currentStep }) =>
@@ -37,8 +38,16 @@ export const CheckDiv = styled.form`
       border: 2px solid #9e1de8;
     `}
 
-    ${({ summary }) => summary && css`
+    ${({ summary }) =>
+    summary &&
+    css`
       border: none;
+    `}
+
+    ${({ completed }) =>
+    completed &&
+    css`
+      cursor: pointer;
     `}
 `
 
@@ -568,6 +577,40 @@ export const ErrorMessage = styled.label`
   font-size: 10px;
   font-weight: 500;
   margin-top: 3px;
-  max-width: 100%; /* Defina o valor máximo conforme necessário */
+  max-width: 100%;
   overflow-wrap: break-word;
+`
+
+export const FormValidationSummaryWrapper = styled.div`
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`
+
+export const FormValidationSummaryDescription = styled.p`
+  font-size: 13px;
+  font-weight: 400;
+
+  ${({ big }) =>
+    big &&
+    css`
+      font-weight: 600;
+      font-size: 14px;
+    `}
+`
+
+export const CheckIcon = styled.img`
+  display: none;
+
+  filter: brightness(0) saturate(100%) invert(51%) sepia(100%) saturate(7474%)
+    hue-rotate(273deg) brightness(89%) contrast(107%);
+  margin-left: 10px;
+  height: 13px;
+
+  ${({ display }) =>
+    display &&
+    css`
+      display: initial;
+    `}
 `
