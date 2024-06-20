@@ -1,5 +1,7 @@
 import * as Yup from 'yup'
 
+import { cpf as cpfValidator } from 'cpf-cnpj-validator'
+
 export const identificationSchema = Yup.object().shape({
   fullName: Yup.string()
     .required('Nome completo é obrigatório')
@@ -12,7 +14,7 @@ export const identificationSchema = Yup.object().shape({
 
   cpf: Yup.string()
     .required('CPF é obrigatório')
-    .matches(/^\d{3}\.\d{3}\.\d{3}-\d{2}$/, 'CPF inválido'),
+    .test('is-valid-cpf', 'CPF inválido', value => cpfValidator.isValid(value)),
 
   phoneNumber: Yup.string()
     .required('Celular é obrigatório')
