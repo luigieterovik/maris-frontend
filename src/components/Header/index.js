@@ -33,8 +33,6 @@ export default function Header() {
 
   const { userData, setUserData } = useContext(UserContext)
 
-  console.log()
-
   return (
     <S.Header>
       <S.HeaderTop>

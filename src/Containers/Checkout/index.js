@@ -10,17 +10,27 @@ import * as S from './styles'
 import QuantityChanger from '../../components/QuantityChanger'
 import { CartContext } from '../../contexts/Cart'
 import { identificationSchema, deliverySchema } from './validation'
+import {
+  offerPercentageCalculate,
+  priceToCurrency
+} from '../../utils/functions'
+import EmptyCart from '../EmptyCart'
+import Pix from '../Pix'
 
 const i = name => {
   return require('../../assets/' + name)
 }
 
 export default function Checkout() {
-  const { cartProducts } = useContext(CartContext)
+  const { cartProducts, removeProductToCart } = useContext(CartContext)
 
   const [currentStep, setCurrentStep] = useState(1)
 
-  return (
+  const [totalToPay, setTotalToPay] = useState(0)
+
+  return cartProducts.length === 0 ? (
+    <EmptyCart />
+  ) : (
     <S.Container>
       <S.Wrapper>
         <S.JoinDiv>
@@ -32,9 +42,18 @@ export default function Checkout() {
           <Delivery currentStep={currentStep} setCurrentStep={setCurrentStep} />
         </S.JoinDiv>
 
-        <Payment currentStep={currentStep} cartProducts={cartProducts} />
+        <Payment
+          currentStep={currentStep}
+          cartProducts={cartProducts}
+          totalToPay={totalToPay}
+        />
 
-        <Summary />
+        <Summary
+          cartProducts={cartProducts}
+          removeProductToCart={removeProductToCart}
+          totalToPay={totalToPay}
+          setTotalToPay={setTotalToPay}
+        />
       </S.Wrapper>
     </S.Container>
   )
@@ -522,7 +541,7 @@ function SelectDelivery({
   )
 }
 
-function Payment({ currentStep, cartProducts }) {
+function Payment({ currentStep, cartProducts, totalToPay }) {
   const requestPaymentStripe = async method => {
     const stripe = await loadStripe(
       'pk_live_51PP7vCRriQcsQV6wJQIO1AYT0epOgFBX1b6cLX6OINXrUaqleLkJeHwHZ5dvj4LlvXwgrZDyoQBsPcjHlLVeNi4B00oylhn9VP'
@@ -560,27 +579,46 @@ function Payment({ currentStep, cartProducts }) {
   const [qrCode, setQrCode] = useState()
   const [copyPix, setCopyPix] = useState()
 
-  const requestPixPayment = async () => {
-    try {
-      const response = await axios.post('http://localhost:3001/pix', {
-        transaction_amount: 100,
-        title: 'test',
-        quantity: 1,
-        payer: {
-          email: 'eterowiczluigi@gmail.com',
-          identification: {
-            type: 'CPF',
-            number: '49512657880'
-          }
-        }
-      })
+  const [pixError, setPixError] = useState()
+  const [loading, setLoading] = useState(false)
+  const [openPixPopup, setOpenPixPopup] = useState(false)
 
-      setQrCode(
-        response.data.point_of_interaction.transaction_data.qr_code_base64
+  const requestPixPayment = async () => {
+    if (qrCode) setOpenPixPopup(true)
+    else {
+      const storedIdentificationData = JSON.parse(
+        localStorage.getItem('marisboutiks:checkoutIdentification')
       )
-      setCopyPix(response.data.point_of_interaction.transaction_data.qr_code)
-    } catch (error) {
-      console.error('Error processing PIX payment:', error)
+
+      const cpf = storedIdentificationData.cpf.replace(/[.-]/g, '')
+
+      setOpenPixPopup(true)
+      setLoading(true)
+
+      try {
+        const response = await axios.post('http://localhost:3001/pix', {
+          transaction_amount: totalToPay,
+          title: 'Compra de produtos Maris Boutiks',
+          payer: {
+            email: storedIdentificationData.email,
+            identification: {
+              type: 'CPF',
+              number: cpf
+            }
+          }
+        })
+
+        setQrCode(
+          response.data.point_of_interaction.transaction_data.qr_code_base64
+        )
+        setCopyPix(response.data.point_of_interaction.transaction_data.qr_code)
+
+        setLoading(false)
+      } catch (error) {
+        console.error('Error processing PIX payment:', error)
+        setPixError(error)
+        setLoading(false)
+      }
     }
   }
 
@@ -689,13 +727,40 @@ function Payment({ currentStep, cartProducts }) {
               </S.PaymentContentWrapper>
             )}
           </S.Payment>
+
+          <S.PixWrapper open={openPixPopup}>
+            <Pix
+              qrCode={qrCode}
+              copyPix={copyPix}
+              loading={loading}
+              pixError={pixError}
+              setOpenPixPopup={setOpenPixPopup}
+            />
+          </S.PixWrapper>
         </S.PaymentWrapper>
       )}
     </S.CheckDiv>
   )
 }
 
-function Summary() {
+function Summary({
+  cartProducts,
+  removeProductToCart,
+  totalToPay,
+  setTotalToPay
+}) {
+  useEffect(() => {
+    setTotalToPay(
+      cartProducts.reduce(
+        (acc, product) =>
+          acc +
+          (product.offerPrice ? product.offerPrice : product.price) *
+            product.quantity,
+        0
+      )
+    )
+  }, [cartProducts])
+
   return (
     <S.CheckDiv summary>
       <S.SummaryWrapper>
@@ -703,7 +768,7 @@ function Summary() {
 
         <S.PriceSummaryDiv>
           <div>
-            <p>Produtos</p> <p>R$ 209,80</p>
+            <p>Produtos</p> <p>{priceToCurrency(totalToPay)}</p>
           </div>
 
           <div>
@@ -712,40 +777,46 @@ function Summary() {
 
           <div style={{ marginTop: '10px' }}>
             <p style={{ color: '#0db100' }}>Total</p>
-            <S.TotalToPay>R$ 209,80</S.TotalToPay>
+            <S.TotalToPay>{priceToCurrency(totalToPay)}</S.TotalToPay>
           </div>
         </S.PriceSummaryDiv>
 
         <S.ProductsSummaryWrapper>
-          <S.ProductSummary>
-            <div>
-              <img src={i('perfume.jpg')} />
-            </div>
-            <div>
-              <h4>Teste</h4>
-              <label>R$ 59,90</label>
-              <QuantityChanger isCart />
-            </div>
-            <div>
-              <img src={i('trash.png')} />
-            </div>
-          </S.ProductSummary>
-
-          <S.Division />
-
-          <S.ProductSummary>
-            <div>
-              <img src={i('perfume.jpg')} />
-            </div>
-            <div>
-              <h4>Teste</h4>
-              <label>R$ 59,90</label>
-              <QuantityChanger isCart />
-            </div>
-            <div>
-              <img src={i('trash.png')} />
-            </div>
-          </S.ProductSummary>
+          {cartProducts &&
+            cartProducts.map((product, index) => (
+              <>
+                <S.ProductSummary key={index}>
+                  <div>
+                    <img src={i(product.image)} />
+                  </div>
+                  <div>
+                    <h4>{product.name}</h4>
+                    <label>
+                      {product.offerPercentage
+                        ? priceToCurrency(
+                            offerPercentageCalculate(
+                              product.price,
+                              product.offerPercentage
+                            )
+                          )
+                        : priceToCurrency(product.price)}
+                    </label>
+                    <QuantityChanger
+                      isCart
+                      quantity={product.quantity}
+                      id={product.id}
+                    />
+                  </div>
+                  <div>
+                    <img
+                      src={i('trash.png')}
+                      onClick={() => removeProductToCart(index)}
+                    />
+                  </div>
+                </S.ProductSummary>
+                {cartProducts[index + 1] !== undefined && <S.Division />}
+              </>
+            ))}
         </S.ProductsSummaryWrapper>
       </S.SummaryWrapper>
     </S.CheckDiv>

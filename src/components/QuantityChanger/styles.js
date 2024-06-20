@@ -11,10 +11,10 @@ export const QuantityWrapper = styled.div`
   margin: 30px 0 10px;
 
   label {
-    margin: 0 5px;
+    margin: 0 5px !important;
     font-size: 12px;
     cursor: auto;
-  }
+  } 
 
   ${props =>
     props.isCart &&

@@ -13,7 +13,10 @@ export const CartProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem('marisboutiks:cartProducts', JSON.stringify(cartProducts))
+    localStorage.setItem(
+      'marisboutiks:cartProducts',
+      JSON.stringify(cartProducts)
+    )
   }, [cartProducts])
 
   const addProductToCart = product => {
@@ -21,9 +24,11 @@ export const CartProvider = ({ children }) => {
   }
 
   const removeProductToCart = idProduct => {
-    setCartProducts(prevProducts =>
-      prevProducts.filter(product => product.id !== idProduct)
-    )
+    if (cartProducts.length > 1)
+      setCartProducts(prevProducts =>
+        prevProducts.filter(product => product.id !== idProduct)
+      )
+    else setCartProducts([])
   }
 
   const incrementQuantity = (idProduct, quantity) => {

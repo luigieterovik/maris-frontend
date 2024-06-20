@@ -8,7 +8,6 @@ import GlobalStyles from './styles/GlobalStyles'
 import RouteTemplate from './components/RouteTemplate'
 
 import AllRoutes from './routes/routes'
-import Checkout from './Containers/Checkout'
 
 import { GlobalProvider } from './contexts/GlobalProvider'
 
@@ -17,7 +16,7 @@ root.render(
   <BrowserRouter>
     <GlobalProvider>
       <RouteTemplate>
-        <Checkout />
+        <AllRoutes />
       </RouteTemplate>
     </GlobalProvider>
     <GlobalStyles />

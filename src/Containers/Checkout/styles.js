@@ -474,12 +474,6 @@ export const TotalToPay = styled.h3`
   font-weight: 800;
 `
 
-export const QrCode = styled.img`
-  height: 100% !important;
-  width: 100% !important;
-  margin: 0 auto;
-`
-
 export const SummaryTitle = styled.h3`
   font-weight: 600;
   font-size: 18px;
@@ -528,6 +522,7 @@ export const ProductSummary = styled.div`
     img {
       max-width: 100%;
       height: auto;
+      z-index: 9999;
     }
   }
 
@@ -617,6 +612,26 @@ export const CheckIcon = styled.img`
 
   ${({ display }) =>
     display &&
+    css`
+      display: initial;
+    `}
+`
+
+export const PixWrapper = styled.div`
+  width: 30vw;
+  z-index: 99999 !important;
+  display: none;
+  position: fixed;
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  background-color: #f4f6f8;
+
+  ${({ open }) =>
+    open &&
     css`
       display: initial;
     `}

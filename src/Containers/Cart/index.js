@@ -9,6 +9,8 @@ import QuantityChanger from '../../components/QuantityChanger'
 
 import { priceToCurrency } from '../../utils/functions'
 
+import EmptyCart from '../EmptyCart'
+
 const i = name => {
   return require('../../assets/' + name)
 }
@@ -17,7 +19,7 @@ export function Cart() {
   const navigate = useNavigate()
 
   const { cartProducts, removeProductToCart } = useContext(CartContext)
-  
+
   const [total, setTotal] = useState()
   const [economy, setEconomy] = useState()
 
@@ -43,13 +45,7 @@ export function Cart() {
   }, [cartProducts])
 
   return cartProducts.length === 0 ? (
-    <S.EmptyCartContainer>
-      <S.CartImage src={i('cart2.png')} />
-      <h2>Seu carrinho está vazio</h2>
-      <S.CartButton onClick={() => navigate('/products')}>
-        Veja nossos produtos
-      </S.CartButton>
-    </S.EmptyCartContainer>
+    <EmptyCart />
   ) : (
     <S.Container>
       <h2>Meu carrinho</h2>
@@ -64,7 +60,6 @@ export function Cart() {
           {Array.isArray(cartProducts) &&
             cartProducts.map((product, index) => (
               <>
-                {' '}
                 <S.Division />
                 <S.LayoutDiv key={index} isProduct>
                   <S.ProductColumn>
@@ -120,8 +115,12 @@ export function Cart() {
             </S.TotalEconomy>
           )}
           <S.PaymentTag>PIX/CARTÃO RECEBA 3 DIAS ANTES</S.PaymentTag>
-          <S.FinishButton>FINALIZAR COMPRA</S.FinishButton>
-          <S.ContinueBuyingButton onClick={() => navigate('/products')}>CONTINUAR COMPRANDO</S.ContinueBuyingButton>
+          <S.FinishButton onClick={() => navigate('/checkout')}>
+            FINALIZAR COMPRA
+          </S.FinishButton>
+          <S.ContinueBuyingButton onClick={() => navigate('/products')}>
+            CONTINUAR COMPRANDO
+          </S.ContinueBuyingButton>
         </S.RightContainer>
       </S.ContainersWrapper>
     </S.Container>
