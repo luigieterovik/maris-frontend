@@ -612,11 +612,10 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
           response.data.point_of_interaction.transaction_data.qr_code_base64
         )
         setCopyPix(response.data.point_of_interaction.transaction_data.qr_code)
-
         setLoading(false)
       } catch (error) {
         console.error('Error processing PIX payment:', error)
-        setPixError(error)
+        setPixError(error.message)
         setLoading(false)
       }
     }

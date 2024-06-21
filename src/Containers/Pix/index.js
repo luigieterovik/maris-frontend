@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 
 import * as S from './styles'
 
@@ -8,14 +8,14 @@ const i = name => {
 
 export default function Pix({
   qrCode,
-  copyQrCode,
+  copyPix,
   loading,
   pixError,
   setOpenPixPopup
 }) {
   const [copy, setCopy] = useState('Copiar código PIX')
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(copyQrCode)
+    navigator.clipboard.writeText(copyPix)
     setCopy('Copiado!')
   }
 
@@ -50,7 +50,7 @@ export default function Pix({
       {pixError && (
         <S.PixDiv loading>
           <S.LoadingImg src={i('error.png')} />
-          <S.Description>{pixError}</S.Description>
+          <S.Description>{pixError} — Tente novamente</S.Description>
         </S.PixDiv>
       )}
     </S.Wrapper>
