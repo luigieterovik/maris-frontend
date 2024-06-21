@@ -594,6 +594,7 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
 
       setOpenPixPopup(true)
       setLoading(true)
+      setPixError()
 
       try {
         const response = await axios.post('http://localhost:3001/pix', {
