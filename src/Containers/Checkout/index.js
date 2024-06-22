@@ -340,7 +340,7 @@ function AddAddress({
     if (removedUnderscores.length === 9) {
       const cep = value.replace(/-/g, '')
 
-      const response = await fetch(`http://viacep.com.br/ws/${cep}/json/`)
+      const response = await axios.get(`http://viacep.com.br/ws/${cep}/json/`)
       const data = await response.json()
 
       deliveryForm.setValue('address', data.logradouro)
