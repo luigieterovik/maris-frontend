@@ -556,11 +556,14 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
     }
 
     try {
-      const response = await fetch('http://localhost:3001/payStripe', {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body)
-      })
+      const response = await fetch(
+        'https://maris-backend-production.up.railway.app/payStripe',
+        {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(body)
+        }
+      )
 
       const session = await response.json()
 
@@ -597,17 +600,20 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
       setPixError()
 
       try {
-        const response = await axios.post('http://localhost:3001/pix', {
-          transaction_amount: totalToPay,
-          title: 'Compra de produtos Maris Boutiks',
-          payer: {
-            email: storedIdentificationData.email,
-            identification: {
-              type: 'CPF',
-              number: cpf
+        const response = await axios.post(
+          'https://maris-backend-production.up.railway.app/pix',
+          {
+            transaction_amount: totalToPay,
+            title: 'Compra de produtos Maris Boutiks',
+            payer: {
+              email: storedIdentificationData.email,
+              identification: {
+                type: 'CPF',
+                number: cpf
+              }
             }
           }
-        })
+        )
 
         setQrCode(
           response.data.point_of_interaction.transaction_data.qr_code_base64
