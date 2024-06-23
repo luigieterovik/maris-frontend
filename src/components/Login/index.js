@@ -4,7 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import getValidationSchema from './validation'
 import * as S from './styles'
-import { api } from '../../services/api'
+import api from '../../services/api'
 import { UserContext } from '../../contexts/User'
 
 const Account = ({ accountComponent, isPopup }) => {

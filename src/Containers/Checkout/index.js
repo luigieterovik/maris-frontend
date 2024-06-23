@@ -340,7 +340,7 @@ function AddAddress({
     if (removedUnderscores.length === 9) {
       const cep = value.replace(/-/g, '')
 
-      const response = await axios.get(`http://viacep.com.br/ws/${cep}/json/`)
+      const response = await fetch(`http://viacep.com.br/ws/${cep}/json/`)
       const data = await response.json()
 
       deliveryForm.setValue('address', data.logradouro)
@@ -549,6 +549,9 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
 
     const body = {
       products: cartProducts,
+      email: JSON.parse(
+        localStorage.getItem('marisboutiks:checkoutIdentification').email
+      ),
       method
     }
     const headers = {
@@ -557,7 +560,7 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
 
     try {
       const response = await fetch(
-        'https://maris-backend-production.up.railway.app/payStripe',
+        `https://maris-backend-production.up.railway.app/payStripe`,
         {
           method: 'POST',
           headers: headers,
@@ -601,7 +604,7 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
 
       try {
         const response = await axios.post(
-          'https://maris-backend-production.up.railway.app/pix',
+          `https://maris-backend-production.up.railway.app/pix`,
           {
             transaction_amount: totalToPay,
             title: 'Compra de produtos Maris Boutiks',
