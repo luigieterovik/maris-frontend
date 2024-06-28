@@ -1,3 +1,5 @@
+import api from '../../services/api'
+
 export function stringToUrl(string) {
   const toLowerCase = string.toLowerCase()
   const removeAccentuation = toLowerCase
@@ -47,4 +49,41 @@ export function searchOnProducts(string, productsArray) {
   })
 
   return produtosSimilares
+}
+
+export async function validateToken() {
+  const storedUserData = JSON.parse(
+    localStorage.getItem('marisboutiks:userData')
+  )
+
+  try {
+    const response = await api.post('/validate-token', {
+      token: storedUserData.token
+    })
+
+    console.log(response)
+
+    if (!response.data.valid) {
+      localStorage.removeItem('marisboutiks:userData')
+      return false
+    }
+
+    return true
+  } catch (error) {
+    console.error('Error validating token:', error)
+    return false
+  }
+}
+
+export async function validateAndRedirect(navigate) {
+  try {
+    const isValid = await validateToken()
+
+    if (!isValid) {
+      navigate('/account/login/continue')
+    }
+  } catch (error) {
+    console.error('Error checking token validity:', error)
+    navigate('/account/login/continue')
+  }
 }

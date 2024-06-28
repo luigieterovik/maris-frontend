@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 
+import { useNavigate } from 'react-router-dom'
+
 import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js'
 import { useForm } from 'react-hook-form'
@@ -12,16 +14,31 @@ import { CartContext } from '../../contexts/Cart'
 import { identificationSchema, deliverySchema } from './validation'
 import {
   offerPercentageCalculate,
-  priceToCurrency
+  priceToCurrency,
+  validateAndRedirect
 } from '../../utils/functions'
 import EmptyCart from '../EmptyCart'
 import Pix from '../Pix'
+import api from '../../services/api'
+import { UserContext } from '../../contexts/User'
 
 const i = name => {
   return require('../../assets/' + name)
 }
 
 export default function Checkout() {
+  const navigate = useNavigate()
+
+  const { setUserData } = useContext(UserContext)
+
+  useEffect(() => {
+    async function validate() {
+      await validateAndRedirect(navigate)
+    }
+
+    validate()
+  }, [])
+
   const { cartProducts, removeProductToCart } = useContext(CartContext)
 
   const [currentStep, setCurrentStep] = useState(1)
@@ -544,38 +561,37 @@ function SelectDelivery({
 function Payment({ currentStep, cartProducts, totalToPay }) {
   const requestPaymentStripe = async method => {
     const stripe = await loadStripe(
-      'pk_live_51PP7vCRriQcsQV6wJQIO1AYT0epOgFBX1b6cLX6OINXrUaqleLkJeHwHZ5dvj4LlvXwgrZDyoQBsPcjHlLVeNi4B00oylhn9VP'
+      'pk_test_51PP7vCRriQcsQV6w0jpU1zPbGwWHeHc3e3OiTJ1eR2WrCXPU8LKwswCFCJjZthzBxj8awWgFWNykNkQnGoOEVS8800M9WshJFy'
     )
 
     const body = {
       products: cartProducts,
-      email: JSON.parse(
-        localStorage.getItem('marisboutiks:checkoutIdentification').email
-      ),
+      customer_email: JSON.parse(
+        localStorage.getItem('marisboutiks:checkoutIdentification')
+      ).email,
       method
     }
-    const headers = {
-      'Content-Type': 'application/json'
-    }
+
+    const token = JSON.parse(
+      localStorage.getItem('marisboutiks:userData')
+    ).token
 
     try {
-      const response = await fetch(
-        `https://maris-backend-production.up.railway.app/payStripe`,
-        {
-          method: 'POST',
-          headers: headers,
-          body: JSON.stringify(body)
+      const response = await api.post('/payStripe', body, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
         }
-      )
+      })
 
-      const session = await response.json()
+      const session = response.data
 
       const result = await stripe.redirectToCheckout({
         sessionId: session.id
       })
 
       if (result.error) {
-        console.log(result.error)
+        console.log(result.error.message)
       }
     } catch (error) {
       console.error('Error processing payment:', error)
@@ -598,13 +614,17 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
 
       const cpf = storedIdentificationData.cpf.replace(/[.-]/g, '')
 
+      const token = JSON.parse(
+        localStorage.getItem('marisboutiks:userData')
+      ).token
+
       setOpenPixPopup(true)
       setLoading(true)
       setPixError()
 
       try {
-        const response = await axios.post(
-          `https://maris-backend-production.up.railway.app/pix`,
+        const response = await api.post(
+          `/pix`,
           {
             transaction_amount: totalToPay,
             title: 'Compra de produtos Maris Boutiks',
@@ -615,6 +635,11 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
                 number: cpf
               }
             }
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}` // Adiciona o token no cabeçalho da solicitação
+            }
           }
         )
 
@@ -622,12 +647,12 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
           response.data.point_of_interaction.transaction_data.qr_code_base64
         )
         setCopyPix(response.data.point_of_interaction.transaction_data.qr_code)
-        setLoading(false)
       } catch (error) {
         console.error('Error processing PIX payment:', error)
         setPixError(error.message)
-        setLoading(false)
       }
+
+      setLoading(false)
     }
   }
 

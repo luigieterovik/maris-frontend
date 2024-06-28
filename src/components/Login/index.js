@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useLocation } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import getValidationSchema from './validation'
 import * as S from './styles'
@@ -32,6 +32,9 @@ const Account = ({ accountComponent, isPopup }) => {
       console.log(tokenParam)
     }
   }, [tokenParam])
+
+  const location = useLocation()
+  const isContinue = location.pathname.split('/login/')[1]
 
   const onSubmit = async userData => {
     setCurrentError('')
@@ -130,7 +133,8 @@ const Account = ({ accountComponent, isPopup }) => {
         {currentError}
       </S.DivError>
       <S.Title>
-        {renderComponent === 'login' && 'Entrar em minha conta'}
+        {renderComponent === 'login' &&
+          (isContinue ? 'Entre para continuar' : 'Entrar em minha conta')}
         {renderComponent === 'recover' && 'Recuperar senha'}
         {renderComponent === 'register' && 'Criar nova conta'}
         {renderComponent === 'reset' && 'Redefinir senha'}

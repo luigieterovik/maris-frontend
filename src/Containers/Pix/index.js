@@ -50,7 +50,9 @@ export default function Pix({
       {pixError && (
         <S.PixDiv loading>
           <S.LoadingImg src={i('error.png')} />
-          <S.Description>{pixError} — Tente novamente</S.Description>
+          <S.Description>
+            Ocorreu um erro ao processar o código PIX, tente novamente
+          </S.Description>
         </S.PixDiv>
       )}
     </S.Wrapper>

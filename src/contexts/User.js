@@ -13,10 +13,8 @@ export const UserProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    localStorage.setItem(
-      'marisboutiks:userData',
-      JSON.stringify(userData)
-    )
+    if (userData)
+      localStorage.setItem('marisboutiks:userData', JSON.stringify(userData))
   }, [userData])
 
   return (

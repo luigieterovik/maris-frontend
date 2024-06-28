@@ -20,7 +20,7 @@ export default function AllRoutes() {
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
       <Route
-        path="/account/login"
+        path="/account/login/*"
         element={<Login accountComponent={'login'} />}
       />
       <Route
