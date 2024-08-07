@@ -69,6 +69,7 @@ export default function Header() {
               className="labelMinhaConta"
               onClick={() => {
                 if (userData) {
+                  localStorage.removeItem('marisboutiks:userData')
                   setUserData(null)
                 } else setWasLoginClicked(!wasLoginClicked)
               }}

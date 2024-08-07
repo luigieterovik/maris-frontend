@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import axios from 'axios'
 import { loadStripe } from '@stripe/stripe-js'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -20,7 +19,6 @@ import {
 import EmptyCart from '../EmptyCart'
 import Pix from '../Pix'
 import api from '../../services/api'
-import { UserContext } from '../../contexts/User'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -28,8 +26,6 @@ const i = name => {
 
 export default function Checkout() {
   const navigate = useNavigate()
-
-  const { setUserData } = useContext(UserContext)
 
   useEffect(() => {
     async function validate() {
@@ -612,6 +608,10 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
         localStorage.getItem('marisboutiks:checkoutIdentification')
       )
 
+      console.log(
+        'EMAILLLLL::::::::::::::            ' + storedIdentificationData.email
+      )
+
       const cpf = storedIdentificationData.cpf.replace(/[.-]/g, '')
 
       const token = JSON.parse(
@@ -626,15 +626,22 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
         const response = await api.post(
           `/pix`,
           {
-            transaction_amount: totalToPay,
+            transaction_amount: 1.0,
             title: 'Compra de produtos Maris Boutiks',
             payer: {
               email: storedIdentificationData.email,
               identification: {
                 type: 'CPF',
-                number: cpf
+                number: '49512657880'
               }
-            }
+            },
+            items: [
+              {
+                id: 'MLB2907679857'
+              }
+            ],
+            external_reference: 'order-12345',
+            statement_descriptor: 'Minha Loja'
           },
           {
             headers: {
@@ -642,6 +649,8 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
             }
           }
         )
+
+        console.log(response)
 
         setQrCode(
           response.data.point_of_interaction.transaction_data.qr_code_base64
