@@ -46,6 +46,7 @@ const Account = ({ accountComponent, isPopup }) => {
           email: userData.email.trim(),
           password: userData.password
         })
+
         setUserData(data)
 
         navigate('/')

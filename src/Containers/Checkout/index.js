@@ -6,6 +6,7 @@ import { loadStripe } from '@stripe/stripe-js'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import InputMask from 'react-input-mask'
+import { initMercadoPago } from '@mercadopago/sdk-react'
 
 import * as S from './styles'
 import QuantityChanger from '../../components/QuantityChanger'
@@ -16,6 +17,7 @@ import {
   priceToCurrency,
   validateAndRedirect
 } from '../../utils/functions'
+
 import EmptyCart from '../EmptyCart'
 import Pix from '../Pix'
 import api from '../../services/api'
@@ -33,6 +35,13 @@ export default function Checkout() {
     }
 
     validate()
+  }, [])
+
+  useEffect(() => {
+    // Inicialize o MercadoPago SDK
+    initMercadoPago('APP_USR-87371d64-3ece-474c-bd6e-03679730504e', {
+      locale: 'pt-BR'
+    })
   }, [])
 
   const { cartProducts, removeProductToCart } = useContext(CartContext)
@@ -109,6 +118,7 @@ function Identification({ currentStep, setCurrentStep }) {
 
   return (
     <S.CheckDiv
+      id="form-checkout"
       onSubmit={identificationForm.handleSubmit(handleIdentificationFormSubmit)}
       step={1}
       currentStep={currentStep}
@@ -285,6 +295,7 @@ function Delivery({ currentStep, setCurrentStep }) {
 
   return (
     <S.CheckDiv
+      id="form-checkout"
       onSubmit={deliveryForm.handleSubmit(handleDeliveryFormSubmit)}
       step={2}
       currentStep={currentStep}
@@ -555,6 +566,22 @@ function SelectDelivery({
 }
 
 function Payment({ currentStep, cartProducts, totalToPay }) {
+  const [mercadoPagoInitialized, setMercadoPagoInitialized] = useState(false)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!mercadoPagoInitialized) {
+      const mp = new window.MercadoPago(
+        'APP_USR-87371d64-3ece-474c-bd6e-03679730504e',
+        {
+          locale: 'pt-BR'
+        }
+      )
+      setMercadoPagoInitialized(true)
+    }
+  }, [mercadoPagoInitialized])
+
   const requestPaymentStripe = async method => {
     const stripe = await loadStripe(
       'pk_test_51PP7vCRriQcsQV6w0jpU1zPbGwWHeHc3e3OiTJ1eR2WrCXPU8LKwswCFCJjZthzBxj8awWgFWNykNkQnGoOEVS8800M9WshJFy'
@@ -608,10 +635,6 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
         localStorage.getItem('marisboutiks:checkoutIdentification')
       )
 
-      console.log(
-        'EMAILLLLL::::::::::::::            ' + storedIdentificationData.email
-      )
-
       const cpf = storedIdentificationData.cpf.replace(/[.-]/g, '')
 
       const token = JSON.parse(
@@ -637,7 +660,12 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
             },
             items: [
               {
-                id: 'MLB2907679857'
+                id: 1,
+                category_id: 'fashion',
+                description: 'Perfume 1',
+                quantity: 1,
+                title: 'Perfume 1',
+                unit_price: 1
               }
             ],
             external_reference: 'order-12345',
@@ -650,7 +678,10 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
           }
         )
 
+        console.log('RES`POSTA')
         console.log(response)
+
+        window.location.href = response.data
 
         setQrCode(
           response.data.point_of_interaction.transaction_data.qr_code_base64
@@ -668,7 +699,12 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
   const [selectedPaymentMethod, setSelectePaymentMethod] = useState()
 
   return (
-    <S.CheckDiv currentStep={currentStep} step={3} noValidate>
+    <S.CheckDiv
+      id="form-checkout"
+      currentStep={currentStep}
+      step={3}
+      noValidate
+    >
       <S.TitleDiv>
         <S.CheckNumber>3</S.CheckNumber>
         <S.Title>
@@ -805,7 +841,7 @@ function Summary({
   }, [cartProducts])
 
   return (
-    <S.CheckDiv summary>
+    <S.CheckDiv id="form-checkout" summary>
       <S.SummaryWrapper>
         <S.SummaryTitle>RESUMO</S.SummaryTitle>
 
