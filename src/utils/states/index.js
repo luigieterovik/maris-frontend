@@ -57,7 +57,7 @@ export function productsState() {
       name: 'Perfume 3',
       description:
         'Conheça Purple Lady. O feminino oriental de Pascal Morabito. O perfume ideal para mulheres apaixonadas e cheias de si. Purple lady começa com aromas de café acompanhados de pêssego e limão. O coração de flores brancas inclui jasmim e flor de laranjeira. No rastro, as notas orientais de baunilha se misturam com as tonalidades de patchouli.',
-      price: 142.0,
+      price: 1.0,
       offerPercentage: null,
       category: 'ambiente',
       createdAt: '2023-04-17T14:30:00.000Z'

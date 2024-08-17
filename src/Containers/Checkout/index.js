@@ -21,6 +21,7 @@ import {
 import EmptyCart from '../EmptyCart'
 import Pix from '../Pix'
 import api from '../../services/api'
+import { v4 } from 'uuid'
 
 const i = name => {
   return require('../../assets/' + name)
@@ -38,7 +39,6 @@ export default function Checkout() {
   }, [])
 
   useEffect(() => {
-    // Inicialize o MercadoPago SDK
     initMercadoPago('APP_USR-87371d64-3ece-474c-bd6e-03679730504e', {
       locale: 'pt-BR'
     })
@@ -566,21 +566,26 @@ function SelectDelivery({
 }
 
 function Payment({ currentStep, cartProducts, totalToPay }) {
-  const [mercadoPagoInitialized, setMercadoPagoInitialized] = useState(false)
-
-  const navigate = useNavigate()
+  const [products, setProducts] = useState([])
 
   useEffect(() => {
-    if (!mercadoPagoInitialized) {
-      const mp = new window.MercadoPago(
-        'APP_USR-87371d64-3ece-474c-bd6e-03679730504e',
-        {
-          locale: 'pt-BR'
-        }
-      )
-      setMercadoPagoInitialized(true)
-    }
-  }, [mercadoPagoInitialized])
+    const updatedProducts = cartProducts.map(product => ({
+      id: product.id,
+      image: product.image,
+      name: product.name,
+      description: product.description,
+      price: product.offerPercentage
+        ? offerPercentageCalculate(product.price, product.offerPercentage)
+        : product.price,
+      unit_price: product.offerPercentage
+        ? offerPercentageCalculate(product.price, product.offerPercentage)
+        : product.price,
+      category: product.category,
+      quantity: product.quantity
+    }))
+
+    setProducts(updatedProducts)
+  }, [cartProducts])
 
   const requestPaymentStripe = async method => {
     const stripe = await loadStripe(
@@ -588,7 +593,7 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
     )
 
     const body = {
-      products: cartProducts,
+      products,
       customer_email: JSON.parse(
         localStorage.getItem('marisboutiks:checkoutIdentification')
       ).email,
@@ -621,6 +626,8 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
     }
   }
 
+  initMercadoPago('APP_USR-87371d64-3ece-474c-bd6e-03679730504e')
+
   const [qrCode, setQrCode] = useState()
   const [copyPix, setCopyPix] = useState()
 
@@ -636,6 +643,8 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
       )
 
       const cpf = storedIdentificationData.cpf.replace(/[.-]/g, '')
+
+      console.log(cpf)
 
       const token = JSON.parse(
         localStorage.getItem('marisboutiks:userData')
@@ -658,22 +667,13 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
                 number: '49512657880'
               }
             },
-            items: [
-              {
-                id: 1,
-                category_id: 'fashion',
-                description: 'Perfume 1',
-                quantity: 1,
-                title: 'Perfume 1',
-                unit_price: 1
-              }
-            ],
-            external_reference: 'order-12345',
-            statement_descriptor: 'Minha Loja'
+            items: products,
+            external_reference: v4(),
+            statement_descriptor: 'Maris Boutiks'
           },
           {
             headers: {
-              Authorization: `Bearer ${token}` // Adiciona o token no cabeçalho da solicitação
+              Authorization: `Bearer ${token}`
             }
           }
         )
