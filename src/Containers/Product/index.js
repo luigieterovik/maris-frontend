@@ -25,9 +25,11 @@ export default function Product() {
 
   const navigate = useNavigate()
 
-  // Scroll on images
-  const allImagesRef = useRef(null)
+  /*
+  // Scroll on mini images
 
+  const allImagesRef = useRef(null)
+  
   useEffect(() => {
     const preventScroll = e => {
       if (allImagesRef.current.contains(e.target)) {
@@ -40,6 +42,7 @@ export default function Product() {
       document.removeEventListener('wheel', preventScroll)
     }
   }, [])
+   */
 
   // Get params and set states
   const { id } = useParams()
@@ -104,6 +107,9 @@ export default function Product() {
         <S.Container>
           <S.LeftWrapper>
             <S.ImageWrapper>
+              {/*
+              MINI IMAGENS PARA QUE APARECEM AO LADO DA IMAGEM PRINCIPAL DO PRODUTO:
+
               <S.AllMiniImages ref={allImagesRef}>
                 {images.map((image, index) => (
                   <S.MiniImage
@@ -114,6 +120,7 @@ export default function Product() {
                   />
                 ))}
               </S.AllMiniImages>
+              */}
 
               <S.MainImage src={i(displayImage)} alt="product" />
             </S.ImageWrapper>

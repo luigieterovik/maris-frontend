@@ -3,10 +3,12 @@ import { Routes, Route } from 'react-router-dom'
 
 import Home from '../Containers/Home'
 import Catalog from '../Containers/Catalog'
+import Admin from '../Containers/Admin'
 import Login from '../components/Login'
 import { SearchSelector } from '../Containers/Search'
 import Product from '../Containers/Product'
 import { Cart } from '../Containers/Cart'
+import Orders from '../Containers/Orders'
 import Checkout from '../Containers/Checkout'
 
 export default function AllRoutes() {
@@ -19,6 +21,7 @@ export default function AllRoutes() {
       <Route path="/search/*" element={<SearchSelector />} />
       <Route path="/cart" element={<Cart />} />
       <Route path="/checkout" element={<Checkout />} />
+      <Route path="/orders" element={<Orders />} />
       <Route
         path="/account/login/*"
         element={<Login accountComponent={'login'} />}
@@ -36,6 +39,8 @@ export default function AllRoutes() {
         path="/account/reset/:token"
         element={<Login accountComponent={'reset'} />}
       />
+
+      <Route path="/admin" element={<Admin />} />
     </Routes>
   )
 }

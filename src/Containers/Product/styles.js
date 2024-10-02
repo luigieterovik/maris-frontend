@@ -23,7 +23,12 @@ export const ImageWrapper = styled.div`
 `
 
 export const MainImage = styled.img`
-  width: 80%;
+  /*
+Para mini images:
+
+width: 80%;
+*/
+  width: 100%;
   border-radius: 20px;
   margin-left: auto;
 `

@@ -190,3 +190,54 @@ export function productImagesState() {
 
   return { productImages, setProductImages }
 }
+
+export function ordersState() {
+  const [orders, setOrders] = useState([
+    {
+      id: 1,
+      image: 'perfume.jpg',
+      productId: 1,
+      name: 'Perfume A',
+      price: 1.0,
+      quantity: 1,
+      total: 100.0,
+      offerPercentage: null,
+      createdAt: '2023-04-17T14:30:00.000Z'
+    },
+    {
+      id: 2,
+      image: 'perfume.jpg',
+      name: 'Perfume B',
+      productId: 2,
+      price: 1.0,
+      quantity: 1,
+      total: 50.0,
+      offerPercentage: null,
+      createdAt: '2023-04-17T14:30:00.000Z'
+    },
+    {
+      id: 3,
+      image: 'perfume.jpg',
+      name: 'Perfume C',
+      productId: 3,
+      price: 1.0,
+      quantity: 1,
+      total: 150.0,
+      offerPercentage: null,
+      createdAt: '2023-04-17T14:30:00.000Z'
+    },
+    {
+      id: 4,
+      image: 'perfume.jpg',
+      name: 'Perfume D',
+      productId: 4,
+      price: 1.0,
+      quantity: 1,
+      total: 200.0,
+      offerPercentage: null,
+      createdAt: '2023-04-17T14:30:00.000Z'
+    }
+  ])
+
+  return { orders, setOrders }
+}

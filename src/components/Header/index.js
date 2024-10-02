@@ -88,7 +88,7 @@ export default function Header() {
             </S.LoginWrapper>
           </S.AIcons>
 
-          <S.AIcons>
+          <S.AIcons onClick={() => navigate('/orders')}>
             <S.Icons src={i('bag.svg')} alt="icone-sacola" />{' '}
             <span>Meus pedidos</span>
           </S.AIcons>
