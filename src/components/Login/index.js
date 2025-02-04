@@ -29,7 +29,6 @@ const Account = ({ accountComponent, isPopup }) => {
   useEffect(() => {
     if (tokenParam) {
       setToken(tokenParam)
-      console.log(tokenParam)
     }
   }, [tokenParam])
 
@@ -61,6 +60,7 @@ const Account = ({ accountComponent, isPopup }) => {
           email: userData.email.trim(),
           password: userData.password
         })
+        
         setUserData(data)
 
         navigate('/')

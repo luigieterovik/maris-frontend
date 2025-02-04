@@ -10,8 +10,7 @@ export const Container = styled.div`
 `
 
 export const Table = styled.table`
-  width: 100%;
-  max-width: 800px;
+  width: 90%;
   border-collapse: collapse;
   margin-top: 35px;
   background-color: white;
@@ -28,11 +27,8 @@ export const TableHeader = styled.thead`
 export const TableBody = styled.tbody`
   .productRow {
     &:hover {
-      cursor: pointer;
       opacity: 0.8;
-      span {
-        color: #9c19e8;
-      }
+      background-color: #e3e3e3;
     }
   }
 `
@@ -51,7 +47,8 @@ export const TableColumn = styled.td`
 
   &:nth-child(2),
   &:nth-child(3),
-  &:nth-child(4) {
+  &:nth-child(4),
+  &:nth-child(5) {
     width: 20%;
     text-align: center;
   }
@@ -101,33 +98,35 @@ export const ButtonAdd = styled.button`
 `
 
 export const ButtonEdit = styled.button`
-  background-color: #007bff;
-  color: white;
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 500;
+  background-color: transparent;
+  margin-right: 15px;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 10px;
-
+  img {
+    height: 15px;
+  }
   &:hover {
-    background-color: #0056b3;
+    img {
+      filter: brightness(0) saturate(100%) invert(12%) sepia(74%)
+        saturate(5399%) hue-rotate(277deg) brightness(90%) contrast(128%);
+      transform: scale(1.1);
+      cursor: pointer;
+    }
   }
 `
 
 export const ButtonDelete = styled.button`
-  background-color: #dc3545;
-  color: white;
-  padding: 8px 16px;
-  font-size: 12px;
-  font-weight: 500;
+  background-color: transparent;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
+  img {
+    height: 15px;
+  }
   &:hover {
-    background-color: #c82333;
+    img {
+      filter: brightness(0) saturate(100%) invert(12%) sepia(74%)
+        saturate(5399%) hue-rotate(277deg) brightness(90%) contrast(128%);
+      transform: scale(1.1);
+      cursor: pointer;
+    }
   }
 `
 
@@ -148,6 +147,7 @@ export const ModalOverlay = styled.div`
 
 export const ModalContent = styled.div`
   background-color: #fff;
+  overflow-y: auto; /* Adicionar rolagem vertical */
   width: 400px;
   max-height: 90vh; /* Limitar a altura para rolagem */
   border-radius: 12px; /* Arredondar os cantos */
@@ -175,12 +175,10 @@ export const ModalContent = styled.div`
 
 export const Form = styled.div`
   display: flex;
-  overflow-y: auto; /* Adicionar rolagem vertical */
   padding: 30px;
   padding-top: 20px;
   flex-direction: column;
   gap: 20px; /* Aumentar o espaço entre os elementos */
-
 `
 
 export const Label = styled.label`
@@ -194,6 +192,7 @@ export const Label = styled.label`
 export const Input = styled.input`
   padding: 8px;
   margin-top: 3px;
+  width: 100%;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 12px;
@@ -202,6 +201,41 @@ export const Input = styled.input`
   &:focus {
     border-color: #007bff; /* Efeito de foco */
     outline: none;
+  }
+
+  /* Remove as setas de incremento/decremento no Chrome, Safari, Edge, Opera */
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Remove as setas no Firefox */
+  & {
+    -moz-appearance: textfield;
+  }
+`
+
+export const DivInput = styled.div`
+  display: flex;
+  margin-top: 3px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+
+  div {
+    border-right: 1px solid #ccc;
+    background-color: #efefef;
+    border-radius: 5px 0 0 5px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+  }
+
+  input {
+    margin: 0;
+    border: none;
   }
 `
 
@@ -213,6 +247,8 @@ export const TextArea = styled.textarea`
   resize: none;
   font-size: 12px;
   transition: border-color 0.3s ease;
+  height: auto;
+  min-height: fit-content;
 
   &:focus {
     border-color: #007bff;
@@ -264,4 +300,11 @@ export const Faixa = styled.div`
   text-align: center;
   padding: 12px 0;
   border-radius: 6px 6px 0 0;
+`
+
+export const DeleteDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 10px 10px;
 `

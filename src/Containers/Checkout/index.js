@@ -31,11 +31,28 @@ export default function Checkout() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    async function validate() {
-      await validateAndRedirect(navigate)
+    const token = JSON.parse(
+      localStorage.getItem('marisboutiks:userData')
+    ).token
+
+    if (!token) navigate('/account/login/continue')
+    else {
+      const validateToken = async token => {
+        try {
+          const response = await api.post('/validate-token', {
+            token
+          })
+
+          console.log(response)
+        } catch (error) {
+          console.error('Error validating token:', error)
+        }
+      }
+
+      validateToken(token)
     }
 
-    validate()
+    console.log(token)
   }, [])
 
   useEffect(() => {
@@ -91,7 +108,7 @@ function Identification({ currentStep, setCurrentStep }) {
   const [storedUserData, setStoredUserData] = useState()
 
   const handleIdentificationFormSubmit = identificationData => {
-    localStorage.setItem(
+    sessionStorage.setItem(
       'marisboutiks:checkoutIdentification',
       JSON.stringify({
         fullName: identificationData.fullName,
@@ -102,7 +119,7 @@ function Identification({ currentStep, setCurrentStep }) {
     )
 
     setStoredUserData(
-      JSON.parse(localStorage.getItem('marisboutiks:checkoutIdentification'))
+      JSON.parse(sessionStorage.getItem('marisboutiks:checkoutIdentification'))
     )
     setCurrentStep(prev => prev + 1)
   }
@@ -236,12 +253,15 @@ function Delivery({ currentStep, setCurrentStep }) {
   useEffect(() => {
     if (
       Array.isArray(
-        JSON.parse(localStorage.getItem('marisboutiks:checkoutDelivery'))
+        JSON.parse(sessionStorage.getItem('marisboutiks:checkoutDelivery'))
       )
     )
       setRenderAddress(false)
     else
-      localStorage.setItem('marisboutiks:checkoutDelivery', JSON.stringify([]))
+      sessionStorage.setItem(
+        'marisboutiks:checkoutDelivery',
+        JSON.stringify([])
+      )
   }, [])
 
   const [deliveryErrors, setDeliveryErrors] = useState()
@@ -254,7 +274,7 @@ function Delivery({ currentStep, setCurrentStep }) {
     let checkoutDelivery = []
 
     let storedData = JSON.parse(
-      localStorage.getItem('marisboutiks:checkoutDelivery')
+      sessionStorage.getItem('marisboutiks:checkoutDelivery')
     )
 
     checkoutDelivery.push(...storedData)
@@ -266,7 +286,7 @@ function Delivery({ currentStep, setCurrentStep }) {
     }
     checkoutDelivery.push(newDeliveryData)
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       'marisboutiks:checkoutDelivery',
       JSON.stringify(checkoutDelivery)
     )
@@ -371,8 +391,9 @@ function AddAddress({
       deliveryForm.setValue('neighborhood', data.bairro)
       deliveryForm.setValue(
         'recipient',
-        JSON.parse(localStorage.getItem('marisboutiks:checkoutIdentification'))
-          .fullName
+        JSON.parse(
+          sessionStorage.getItem('marisboutiks:checkoutIdentification')
+        ).fullName
       )
 
       const dataWithCep = { ...data, cep }
@@ -475,7 +496,7 @@ function SelectDelivery({
   useEffect(() => {
     if (!renderAddress) {
       const storedData = JSON.parse(
-        localStorage.getItem('marisboutiks:checkoutDelivery')
+        sessionStorage.getItem('marisboutiks:checkoutDelivery')
       )
 
       setAddressess(storedData)
@@ -493,7 +514,7 @@ function SelectDelivery({
 
     setAddressess(deletedAddress)
 
-    localStorage.setItem(
+    sessionStorage.setItem(
       'marisboutiks:checkoutDelivery',
       JSON.stringify(deletedAddress)
     )
@@ -505,7 +526,7 @@ function SelectDelivery({
 
   useEffect(() => {
     setStoredDeliveryData(
-      JSON.parse(localStorage.getItem('marisboutiks:checkoutDelivery'))[
+      JSON.parse(sessionStorage.getItem('marisboutiks:checkoutDelivery'))[
         addressToCheck
       ]
     )
@@ -592,20 +613,27 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
       'pk_test_51PP7vCRriQcsQV6w0jpU1zPbGwWHeHc3e3OiTJ1eR2WrCXPU8LKwswCFCJjZthzBxj8awWgFWNykNkQnGoOEVS8800M9WshJFy'
     )
 
-    const body = {
-      products,
-      customer_email: JSON.parse(
-        localStorage.getItem('marisboutiks:checkoutIdentification')
-      ).email,
-      method
-    }
-
     const token = JSON.parse(
       localStorage.getItem('marisboutiks:userData')
     ).token
 
+    const body = {
+      products,
+      customer_email: JSON.parse(
+        sessionStorage.getItem('marisboutiks:checkoutIdentification')
+      ).email,
+      payerData: JSON.parse(
+        sessionStorage.getItem('marisboutiks:checkoutIdentification')
+      ),
+      deliveryData: JSON.parse(
+        sessionStorage.getItem('marisboutiks:checkoutDelivery')
+      )[0],
+      userToken: token,
+      method
+    }
+
     try {
-      const response = await api.post('/payStripe', body, {
+      const response = await api.post('/payStripe', JSON.stringify(body), {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`
@@ -639,7 +667,7 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
     if (qrCode) setOpenPixPopup(true)
     else {
       const storedIdentificationData = JSON.parse(
-        localStorage.getItem('marisboutiks:checkoutIdentification')
+        sessionStorage.getItem('marisboutiks:checkoutIdentification')
       )
 
       const cpf = storedIdentificationData.cpf.replace(/[.-]/g, '')
@@ -647,7 +675,7 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
       console.log(cpf)
 
       const token = JSON.parse(
-        localStorage.getItem('marisboutiks:userData')
+        sessionStorage.getItem('marisboutiks:userData')
       ).token
 
       setOpenPixPopup(true)
@@ -664,11 +692,10 @@ function Payment({ currentStep, cartProducts, totalToPay }) {
               email: storedIdentificationData.email,
               identification: {
                 type: 'CPF',
-                number: '49512657880'
+                number: cpf
               }
             },
             items: products,
-            external_reference: v4(),
             statement_descriptor: 'Maris Boutiks'
           },
           {

@@ -6,7 +6,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('masculino')
+  const [category, setCategory] = useState('1')
   const [offer, setOffer] = useState(false)
   const [offerPercentage, setOfferPercentage] = useState('')
 
@@ -21,7 +21,8 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
       price,
       category,
       offer,
-      offerPercentage: offer ? offerPercentage : null
+      offerPercentage: offer ? offerPercentage : null,
+      image
     }
     onSubmit(newProduct)
     onClose()
@@ -59,11 +60,14 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
           </S.Label>
           <S.Label>
             Preço:
-            <S.Input
-              type="number"
-              value={price}
-              onChange={e => setPrice(e.target.value)}
-            />
+            <S.DivInput>
+              <div>R$</div>
+              <S.Input
+                type="number"
+                value={price}
+                onChange={e => setPrice(e.target.value)}
+              />
+            </S.DivInput>
           </S.Label>
           <S.Label>
             Categoria:
@@ -71,9 +75,9 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
               value={category}
               onChange={e => setCategory(e.target.value)}
             >
-              <option value="masculino">Masculino</option>
-              <option value="feminino">Feminino</option>
-              <option value="ambiente">Ambiente</option>
+              <option value="masculino">1</option>
+              <option value="feminino">2</option>
+              <option value="ambiente">3</option>
             </S.Select>
           </S.Label>
           <S.Label>

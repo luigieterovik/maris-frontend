@@ -51,14 +51,18 @@ export function searchOnProducts(string, productsArray) {
   return produtosSimilares
 }
 
-export async function validateToken() {
-  const storedUserData = JSON.parse(
-    localStorage.getItem('marisboutiks:userData')
+export async function validateToken(token) {
+  const storedUserToken = JSON.parse(
+    localStorage.getItem('marisboutiks:userData').token
   )
+
+  console.log(storedUserToken)
+
+  if (!storedUserToken) return false
 
   try {
     const response = await api.post('/validate-token', {
-      token: storedUserData.token
+      token
     })
 
     console.log(response)
@@ -75,9 +79,9 @@ export async function validateToken() {
   }
 }
 
-export async function validateAndRedirect(navigate) {
+export async function validateAndRedirect(navigate, token) {
   try {
-    const isValid = await validateToken()
+    const isValid = await validateToken(token)
 
     if (!isValid) {
       navigate('/account/login/continue')
