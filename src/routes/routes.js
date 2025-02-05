@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import Home from '../Containers/Home'
 import Catalog from '../Containers/Catalog'
 import Admin from '../Containers/Admin'
+import AdminProducts from '../Containers/Admin/Products'
 import Login from '../components/Login'
 import { SearchSelector } from '../Containers/Search'
 import Product from '../Containers/Product'
@@ -41,6 +42,8 @@ export default function AllRoutes() {
       />
 
       <Route path="/admin" element={<Admin />} />
+
+      <Route path="/admin/products" element={<AdminProducts />} />
     </Routes>
   )
 }

@@ -51,30 +51,26 @@ export function searchOnProducts(string, productsArray) {
   return produtosSimilares
 }
 
-export async function validateToken(token) {
-  const storedUserToken = JSON.parse(
-    localStorage.getItem('marisboutiks:userData').token
-  )
+export const validateToken = async token => {
+  const userData = localStorage.getItem('marisboutiks:userData')
 
-  console.log(storedUserToken)
+  if (!userData) return false
 
-  if (!storedUserToken) return false
+  const storedUserToken = JSON.parse(userData)?.token
+
+  if (!storedUserToken || token !== storedUserToken) return false
 
   try {
-    const response = await api.post('/validate-token', {
-      token
-    })
+    const response = await api.post('/validate-token', { token })
 
-    console.log(response)
-
-    if (!response.data.valid) {
+    if (response.data.valid === false) {
       localStorage.removeItem('marisboutiks:userData')
       return false
     }
 
     return true
   } catch (error) {
-    console.error('Error validating token:', error)
+    console.error('Erro ao validar token:', error)
     return false
   }
 }
