@@ -87,3 +87,16 @@ export async function validateAndRedirect(navigate, token) {
     navigate('/account/login/continue')
   }
 }
+
+export async function fetchAllProducts() {
+  try {
+    const response = await api.get('/catalog')
+    console.log('Fetched products data:', response.data)
+
+    return response.data
+  } catch (error) {
+    console.error('Error fetching products data:', error)
+
+    throw error
+  }
+}

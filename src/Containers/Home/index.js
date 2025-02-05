@@ -10,7 +10,7 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import CategoryItem from '../../components/CategoryItem'
 
-import { stringToUrl } from '../../utils/functions'
+import { fetchAllProducts, stringToUrl } from '../../utils/functions'
 import { categoriesState, productsState } from '../../utils/states'
 
 const i = name => {
@@ -24,6 +24,10 @@ export default function Home() {
   const { products } = productsState()
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    fetchAllProducts()
+  }, [])
 
   return (
     <S.Main>
