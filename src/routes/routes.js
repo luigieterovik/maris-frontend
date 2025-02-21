@@ -5,6 +5,8 @@ import Home from '../Containers/Home'
 import Catalog from '../Containers/Catalog'
 import Admin from '../Containers/Admin'
 import AdminProducts from '../Containers/Admin/Products'
+import AdminCategories from '../Containers/Admin/Categories'
+import AdminOrders from '../Containers/Admin/Orders'
 import Login from '../components/Login'
 import { SearchSelector } from '../Containers/Search'
 import Product from '../Containers/Product'
@@ -44,6 +46,8 @@ export default function AllRoutes() {
       <Route path="/admin" element={<Admin />} />
 
       <Route path="/admin/products" element={<AdminProducts />} />
+      <Route path="/admin/categories" element={<AdminCategories />} />
+      <Route path="/admin/orders" element={<AdminOrders />} />
     </Routes>
   )
 }

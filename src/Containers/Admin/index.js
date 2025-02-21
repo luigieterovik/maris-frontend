@@ -26,13 +26,15 @@ const ProductList = () => {
           <p>Opções de gerenciamento</p>
         </S.TableHeader>
 
-        <S.Option>Categorias</S.Option>
+        <S.Option onClick={() => navigate('/admin/categories')}>
+          Categorias
+        </S.Option>
 
         <S.Option onClick={() => navigate('/admin/products')}>
           Produtos
         </S.Option>
 
-        <S.Option>Compras</S.Option>
+        <S.Option onClick={() => navigate('/admin/orders')}>Pedidos</S.Option>
       </S.MenuContainer>
     </S.Container>
   )

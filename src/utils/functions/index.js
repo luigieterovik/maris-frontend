@@ -1,4 +1,5 @@
 import api from '../../services/api'
+import { categoriesState } from '../states'
 
 export function stringToUrl(string) {
   const toLowerCase = string.toLowerCase()

@@ -13,7 +13,7 @@ export default function CategoryItem({ ...props }) {
 
   return (
     <S.CategoryItem onClick={() => navigate(`/products/?category=${props.navigate}`)}>
-      <S.CategoryImage src={i(props.image)} alt="offer-category-icon" />
+      <S.CategoryImage src={props.image} alt="offer-category-icon" />
       <S.CategoryDescription>
         {props.description}{' '}
         <S.RightArrowCategory

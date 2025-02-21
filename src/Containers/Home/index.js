@@ -10,7 +10,10 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import CategoryItem from '../../components/CategoryItem'
 
-import { fetchAllProducts, stringToUrl } from '../../utils/functions'
+import {
+  fetchAllProducts,
+  stringToUrl
+} from '../../utils/functions'
 import { categoriesState, productsState } from '../../utils/states'
 
 const i = name => {
@@ -37,7 +40,7 @@ export default function Home() {
         {categories.map(category => (
           <CategoryItem
             key={category.id}
-            image={category.image}
+            image={category.path}
             description={category.name}
             navigate={stringToUrl(category.name)}
           />

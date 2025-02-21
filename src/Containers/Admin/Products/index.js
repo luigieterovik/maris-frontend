@@ -4,7 +4,7 @@ import api from '../../../services/api.js'
 import EditProductModal from './modals/editProductModal.js'
 import DeleteConfirmationModal from './modals/deleteConfirmationModal.js'
 import { validateToken } from '../../../utils/functions/index.js'
-import Modal from './modals/addProductModal.js'
+import AddProductModal from './modals/addProductModal.js'
 import { productsState } from '../../../utils/states/index.js'
 import * as S from './styles.js'
 
@@ -164,7 +164,7 @@ const AdminProducts = () => {
         </S.TableBody>
       </S.Table>
 
-      <Modal
+      <AddProductModal
         isOpen={isAddModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmitAddModal}

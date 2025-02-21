@@ -1,28 +1,22 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import api from '../../services/api'
 
 export function categoriesState() {
-  const [categories, setCategories] = useState([
-    {
-      id: 1,
-      image: 'offerCategory.png',
-      name: 'Ofertas'
-    },
-    {
-      id: 2,
-      image: 'feminineCategory.png',
-      name: 'Feminino'
-    },
-    {
-      id: 3,
-      image: 'masculineCategory.png',
-      name: 'Masculino'
-    },
-    {
-      id: 4,
-      image: 'ambientCategory.png',
-      name: 'Ambiente'
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    async function fetchCategories() {
+      try {
+        const response = await api.get('/categories')
+        console.log('Fetched categories data:', response.data)
+        setCategories(response.data)
+      } catch (error) {
+        console.error('Error fetching categories data:', error)
+      }
     }
-  ])
+
+    fetchCategories()
+  }, [])
 
   return { categories, setCategories }
 }
