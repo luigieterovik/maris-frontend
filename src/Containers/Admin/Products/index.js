@@ -58,66 +58,66 @@ const AdminProducts = () => {
     setIsDeleteModalOpen(true)
   }
 
-  const confirmDelete = () => {
-    setProducts(products.filter(product => product.id !== productToDelete.id))
-    setIsDeleteModalOpen(false)
-    setProductToDelete(null)
-  }
+  // const confirmDelete = () => {
+  //   setProducts(products.filter(product => product.id !== productToDelete.id))
+  //   setIsDeleteModalOpen(false)
+  //   setProductToDelete(null)
+  // }
 
-  const handleCloseModal = () => {
-    setIsAddModalOpen(false)
-    setIsEditModalOpen(false)
-    setIsDeleteModalOpen(false)
-  }
+  // const handleCloseModal = () => {
+  //   setIsAddModalOpen(false)
+  //   setIsEditModalOpen(false)
+  //   setIsDeleteModalOpen(false)
+  // }
 
-  const handleSubmitAddModal = async newProduct => {
-    try {
-      const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
-      const token = userData?.token
+  // const handleSubmitAddModal = async newProduct => {
+  //   try {
+  //     const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
+  //     const token = userData?.token
 
-      if (!token) {
-        console.error('Token não encontrado!')
-        return
-      }
+  //     if (!token) {
+  //       console.error('Token não encontrado!')
+  //       return
+  //     }
 
-      const formData = new FormData()
-      formData.append('name', newProduct.name)
-      formData.append('description', newProduct.description)
-      formData.append('price', newProduct.price)
-      formData.append('categoryId', newProduct.category)
-      formData.append('offer', newProduct.offer ? 'true' : 'false')
+  //     const formData = new FormData()
+  //     formData.append('name', newProduct.name)
+  //     formData.append('description', newProduct.description)
+  //     formData.append('price', newProduct.price)
+  //     formData.append('categoryId', newProduct.category)
+  //     formData.append('offer', newProduct.offer ? 'true' : 'false')
 
-      if (newProduct.image) {
-        formData.append('file', newProduct.image)
-      } else {
-        console.warn('Nenhuma imagem anexada!')
-      }
+  //     if (newProduct.image) {
+  //       formData.append('file', newProduct.image)
+  //     } else {
+  //       console.warn('Nenhuma imagem anexada!')
+  //     }
 
-      // Debug: Verificando o conteúdo do FormData
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1])
-      }
+  //     // Debug: Verificando o conteúdo do FormData
+  //     for (let pair of formData.entries()) {
+  //       console.log(pair[0], pair[1])
+  //     }
 
-      const response = await api.post('/catalog', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+  //     const response = await api.post('/catalog', formData, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'multipart/form-data'
+  //       }
+  //     })
 
-      console.log(response)
-    } catch (error) {
-      console.error('Erro ao enviar produto:', error)
-    }
-  }
+  //     console.log(response)
+  //   } catch (error) {
+  //     console.error('Erro ao enviar produto:', error)
+  //   }
+  // }
 
-  const handleSubmitEditModal = updatedProduct => {
-    setProducts(
-      products.map(product =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    )
-  }
+  // const handleSubmitEditModal = updatedProduct => {
+  //   setProducts(
+  //     products.map(product =>
+  //       product.id === updatedProduct.id ? updatedProduct : product
+  //     )
+  //   )
+  // }
 
   return (
     <S.Container>
@@ -141,14 +141,15 @@ const AdminProducts = () => {
             <S.TableRow key={product.id} className="productRow">
               <S.TableColumn>
                 <S.ProductColumn>
-                  <S.ProductImage src={i(product.image)} alt={product.name} />
+                  <S.ProductImage src={product.path} alt={product.name} />
                   <S.ProductName>{product.name}</S.ProductName>
                 </S.ProductColumn>
               </S.TableColumn>
               <S.TableColumn>{formatPrice(product.price)}</S.TableColumn>
-              <S.TableColumn>{product.category}</S.TableColumn>
+              <S.TableColumn>{product.category.name}</S.TableColumn>
               <S.TableColumn>
-                {formatOffer(product.offerPercentage)}
+                {product.offerPercentage &&
+                  formatOffer(product.offerPercentage)}
               </S.TableColumn>
               <S.TableColumn>{formatDate(product.createdAt)}</S.TableColumn>
               <S.TableColumn>
@@ -164,7 +165,7 @@ const AdminProducts = () => {
         </S.TableBody>
       </S.Table>
 
-      <AddProductModal
+      {/* <AddProductModal
         isOpen={isAddModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmitAddModal}
@@ -180,7 +181,7 @@ const AdminProducts = () => {
         onClose={handleCloseModal}
         onConfirm={confirmDelete}
         product={productToDelete}
-      />
+      /> */}
     </S.Container>
   )
 }

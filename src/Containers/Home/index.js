@@ -10,10 +10,7 @@ import CarouselItem from '../../components/CarouselItem'
 import CarouselWrapper from '../../components/CarouselWrapper'
 import CategoryItem from '../../components/CategoryItem'
 
-import {
-  fetchAllProducts,
-  stringToUrl
-} from '../../utils/functions'
+import { fetchAllProducts, stringToUrl } from '../../utils/functions'
 import { categoriesState, productsState } from '../../utils/states'
 
 const i = name => {
@@ -27,10 +24,6 @@ export default function Home() {
   const { products } = productsState()
 
   const navigate = useNavigate()
-
-  useEffect(() => {
-    fetchAllProducts()
-  }, [])
 
   return (
     <S.Main>
@@ -47,29 +40,50 @@ export default function Home() {
         ))}
       </S.CategoriesWrapper>
 
-      <CarouselWrapper
-        title="Ofertas da semana"
-        seeAll="Ver todos"
-        arrow="rightArrow.png"
-      >
-        <Carousel className="Carousel" itemsToShow={5}>
-          {products.map(
-            product =>
-              product.offerPercentage !== null && (
-                <CarouselItem
-                  isOffer
-                  key={product.id}
-                  id={product.id}
-                  image={product.image}
-                  name={product.name}
-                  price={product.price}
-                  offerPercentage={product.offerPercentage}
-                  installment={product.installment}
-                />
-              )
-          )}
-        </Carousel>
-      </CarouselWrapper>
+      {products.filter(product => product.offerPercentage !== null) <= 5 ? (
+        <CarouselWrapper
+          title="Ofertas da semana"
+          seeAll="Ver todos"
+          arrow="rightArrow.png"
+        >
+          <Carousel className="Carousel" itemsToShow={5}>
+            {products.map(
+              product =>
+                product.offerPercentage !== null && (
+                  <CarouselItem
+                    isOffer
+                    key={product.id}
+                    id={product.id}
+                    image={product.path}
+                    name={product.name}
+                    price={product.price}
+                    offerPercentage={product.offerPercentage}
+                  />
+                )
+            )}
+          </Carousel>
+        </CarouselWrapper>
+      ) : (
+        <CarouselWrapper
+          title="Nossos produtos"
+          seeAll="Ver todos"
+          arrow="rightArrow.png"
+        >
+          <Carousel className="Carousel" itemsToShow={5}>
+            {products.map(product => (
+              <CarouselItem
+                isOffer
+                key={product.id}
+                id={product.id}
+                image={product.path}
+                name={product.name}
+                price={product.price}
+                offerPercentage={product.offerPercentage}
+              />
+            ))}
+          </Carousel>
+        </CarouselWrapper>
+      )}
 
       <CarouselWrapper
         isSpecialCarousel
@@ -84,10 +98,9 @@ export default function Home() {
                 <CarouselItem
                   key={product.id}
                   id={product.id}
-                  image={product.image}
+                  image={product.path}
                   name={product.name}
                   price={product.price}
-                  installment={product.installment}
                 />
               )
           )}

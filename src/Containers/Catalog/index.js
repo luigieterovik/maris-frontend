@@ -231,7 +231,7 @@ export default function Catalog() {
             </S.LabelOrderBy>
           ))}
         </S.DivLabelsOrderBy>
-        
+
         <S.Division />
 
         <S.WrapperProducts>
@@ -240,7 +240,7 @@ export default function Catalog() {
               key={product.id}
               id={product.id}
               offerPercentage={product.offerPercentage}
-              image={product.image}
+              image={product.path}
               name={product.name}
               price={product.price}
               installment={product.installment}

@@ -22,7 +22,7 @@ function RegularCarouselItem(props) {
       {...props}
       onClick={() => navigate(`/products/id/${props.id}`)}
     >
-      <S.ItemImage src={i(props.image)} alt="perfume-image" />
+      <S.ItemImage src={props.image} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice>{priceToCurrency(props.price)} </S.ItemPrice>
       <S.ItemInstallment>
@@ -46,7 +46,7 @@ function OfferCarouselItem(props) {
       <S.OfferTag>
         <img src={i('leftArrow.png')} /> {props.offerPercentage}%
       </S.OfferTag>
-      <S.ItemImage src={i(props.image)} alt="perfume-image" />
+      <S.ItemImage src={props.image} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice style={{ color: '#0DB100' }}>
         {' '}
@@ -82,7 +82,6 @@ RegularCarouselItem.propTypes = {
   image: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
-  installment: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired
 }
 
@@ -92,7 +91,6 @@ OfferCarouselItem.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.string.isRequired,
   offerPercentage: PropTypes.number,
-  installment: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired
 }
 
