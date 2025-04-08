@@ -1,7 +1,7 @@
 import React from 'react'
 import * as S from '../styles.js'
 
-const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
+const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, category }) => {
   if (!isOpen) return null
 
   return (
@@ -12,12 +12,12 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
         </S.Faixa>
         <S.Form>
           <p style={{ fontSize: '14px' }}>
-            Você deseja deletar o produto <b>&quot;{product?.name}&quot;</b>?
-            Essa ação <b>não poderá ser revertida</b>.
+            Você deseja deletar a categoria <b>{category.name}</b>? Essa ação{' '}
+            <b>não poderá ser revertida</b>.
           </p>
         </S.Form>
         <S.DeleteDiv>
-          <S.Button onClick={onConfirm}>Sim, deletar</S.Button>
+          <S.Button onClick={() => onConfirm(category)}>Sim, deletar</S.Button>
           <S.ButtonCancel onClick={onClose}>Cancelar</S.ButtonCancel>
         </S.DeleteDiv>
       </S.ModalContent>

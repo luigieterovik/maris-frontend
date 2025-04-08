@@ -38,10 +38,28 @@ const AdminCategories = () => {
     setIsDeleteModalOpen(true)
   }
 
-  const confirmDelete = () => {
-    setCategories(
-      categories.filter(category => category.id !== categoryToDelete.id)
-    )
+  const confirmDelete = async category => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
+      const token = userData?.token
+
+      if (!token) {
+        console.error('Token não encontrado!')
+        return
+      }
+
+      const response = await api.delete(`/categories/${category.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      console.log(response)
+    } catch (error) {
+      console.error('Erro ao enviar categoria:', error)
+    }
+
     setIsDeleteModalOpen(false)
     setCategoryToDelete(null)
   }
@@ -116,6 +134,13 @@ const AdminCategories = () => {
         isOpen={isAddModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmitAddModal}
+      />
+
+      <DeleteConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={category => confirmDelete(category)}
+        category={categoryToDelete}
       />
     </S.Container>
   )
