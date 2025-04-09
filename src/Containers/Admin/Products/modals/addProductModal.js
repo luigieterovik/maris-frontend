@@ -6,17 +6,17 @@ const Modal = ({ isOpen, onClose, onSubmit, categories }) => {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
-  const [categorySelected, setCategorySelected] = useState('')
+  const [categorySelected, setCategorySelected] = useState()
   const [offer, setOffer] = useState(false)
-  const [offerPercentage, setOfferPercentage] = useState('')
-
-  useEffect(() => {
-    console.log(categorySelected)
-  }, [categorySelected])
+  const [offerPercentage, setOfferPercentage] = useState(null)
 
   const handleImageChange = e => {
     setImage(e.target.files[0])
   }
+
+  useEffect(() => {
+    console.log('OfferPercentage: ' + offerPercentage)
+  }, [])
 
   const handleSubmit = () => {
     const newProduct = {
@@ -24,10 +24,10 @@ const Modal = ({ isOpen, onClose, onSubmit, categories }) => {
       description,
       price,
       categorySelected,
-      offer,
-      offerPercentage: offer ? offerPercentage : null,
+      offerPercentage,
       image
     }
+
     onSubmit(newProduct)
     onClose()
   }

@@ -86,8 +86,8 @@ const AdminProducts = () => {
       formData.append('name', newProduct.name)
       formData.append('description', newProduct.description)
       formData.append('price', newProduct.price)
-      formData.append('categoryId', newProduct.category)
-      formData.append('offer', newProduct.offer ? 'true' : 'false')
+      formData.append('categoryId', newProduct.categorySelected)
+      formData.append('offerPercentage', newProduct.offerPercentage)
 
       if (newProduct.image) {
         formData.append('file', newProduct.image)
