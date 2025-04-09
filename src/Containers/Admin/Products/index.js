@@ -5,7 +5,7 @@ import EditProductModal from './modals/editProductModal.js'
 import DeleteConfirmationModal from './modals/deleteConfirmationModal.js'
 import { validateToken } from '../../../utils/functions/index.js'
 import AddProductModal from './modals/addProductModal.js'
-import { productsState } from '../../../utils/states/index.js'
+import { productsState, categoriesState } from '../../../utils/states/index.js'
 import * as S from './styles.js'
 
 const i = name => {
@@ -39,6 +39,8 @@ const AdminProducts = () => {
   }, [])
 
   const { products, setProducts } = productsState()
+  const { categories, setCategories } = categoriesState()
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -58,66 +60,66 @@ const AdminProducts = () => {
     setIsDeleteModalOpen(true)
   }
 
-  // const confirmDelete = () => {
-  //   setProducts(products.filter(product => product.id !== productToDelete.id))
-  //   setIsDeleteModalOpen(false)
-  //   setProductToDelete(null)
-  // }
+  const confirmDelete = () => {
+    setProducts(products.filter(product => product.id !== productToDelete.id))
+    setIsDeleteModalOpen(false)
+    setProductToDelete(null)
+  }
 
-  // const handleCloseModal = () => {
-  //   setIsAddModalOpen(false)
-  //   setIsEditModalOpen(false)
-  //   setIsDeleteModalOpen(false)
-  // }
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false)
+    setIsEditModalOpen(false)
+    setIsDeleteModalOpen(false)
+  }
 
-  // const handleSubmitAddModal = async newProduct => {
-  //   try {
-  //     const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
-  //     const token = userData?.token
+  const handleSubmitAddModal = async newProduct => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
+      const token = userData?.token
 
-  //     if (!token) {
-  //       console.error('Token não encontrado!')
-  //       return
-  //     }
+      if (!token) {
+        console.error('Token não encontrado!')
+        return
+      }
 
-  //     const formData = new FormData()
-  //     formData.append('name', newProduct.name)
-  //     formData.append('description', newProduct.description)
-  //     formData.append('price', newProduct.price)
-  //     formData.append('categoryId', newProduct.category)
-  //     formData.append('offer', newProduct.offer ? 'true' : 'false')
+      const formData = new FormData()
+      formData.append('name', newProduct.name)
+      formData.append('description', newProduct.description)
+      formData.append('price', newProduct.price)
+      formData.append('categoryId', newProduct.category)
+      formData.append('offer', newProduct.offer ? 'true' : 'false')
 
-  //     if (newProduct.image) {
-  //       formData.append('file', newProduct.image)
-  //     } else {
-  //       console.warn('Nenhuma imagem anexada!')
-  //     }
+      if (newProduct.image) {
+        formData.append('file', newProduct.image)
+      } else {
+        console.warn('Nenhuma imagem anexada!')
+      }
 
-  //     // Debug: Verificando o conteúdo do FormData
-  //     for (let pair of formData.entries()) {
-  //       console.log(pair[0], pair[1])
-  //     }
+      // Debug: Verificando o conteúdo do FormData
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1])
+      }
 
-  //     const response = await api.post('/catalog', formData, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //         'Content-Type': 'multipart/form-data'
-  //       }
-  //     })
+      const response = await api.post('/catalog', formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      })
 
-  //     console.log(response)
-  //   } catch (error) {
-  //     console.error('Erro ao enviar produto:', error)
-  //   }
-  // }
+      console.log(response)
+    } catch (error) {
+      console.error('Erro ao enviar produto:', error)
+    }
+  }
 
-  // const handleSubmitEditModal = updatedProduct => {
-  //   setProducts(
-  //     products.map(product =>
-  //       product.id === updatedProduct.id ? updatedProduct : product
-  //     )
-  //   )
-  // }
+  const handleSubmitEditModal = updatedProduct => {
+    setProducts(
+      products.map(product =>
+        product.id === updatedProduct.id ? updatedProduct : product
+      )
+    )
+  }
 
   return (
     <S.Container>
@@ -165,10 +167,11 @@ const AdminProducts = () => {
         </S.TableBody>
       </S.Table>
 
-      {/* <AddProductModal
+      <AddProductModal
         isOpen={isAddModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleSubmitAddModal}
+        categories={categories}
       />
       <EditProductModal
         isOpen={isEditModalOpen}
@@ -181,7 +184,7 @@ const AdminProducts = () => {
         onClose={handleCloseModal}
         onConfirm={confirmDelete}
         product={productToDelete}
-      /> */}
+      />
     </S.Container>
   )
 }

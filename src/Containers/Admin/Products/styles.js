@@ -147,7 +147,6 @@ export const ModalOverlay = styled.div`
 
 export const ModalContent = styled.div`
   background-color: #fff;
-  overflow-y: auto; /* Adicionar rolagem vertical */
   width: 400px;
   max-height: 90vh; /* Limitar a altura para rolagem */
   border-radius: 12px; /* Arredondar os cantos */

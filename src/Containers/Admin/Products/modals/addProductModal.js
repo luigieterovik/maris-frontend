@@ -1,14 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import * as S from '../styles.js'
 
-const Modal = ({ isOpen, onClose, onSubmit }) => {
+const Modal = ({ isOpen, onClose, onSubmit, categories }) => {
   const [image, setImage] = useState(null)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('1')
+  const [categorySelected, setCategorySelected] = useState('')
   const [offer, setOffer] = useState(false)
   const [offerPercentage, setOfferPercentage] = useState('')
+
+  useEffect(() => {
+    console.log(categorySelected)
+  }, [categorySelected])
 
   const handleImageChange = e => {
     setImage(e.target.files[0])
@@ -19,7 +23,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
       name,
       description,
       price,
-      category,
+      categorySelected,
       offer,
       offerPercentage: offer ? offerPercentage : null,
       image
@@ -72,12 +76,16 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
           <S.Label>
             Categoria:
             <S.Select
-              value={category}
-              onChange={e => setCategory(e.target.value)}
+              value={categorySelected}
+              onChange={e => setCategorySelected(e.target.value)}
             >
-              <option value="masculino">1</option>
-              <option value="feminino">2</option>
-              <option value="ambiente">3</option>
+              {categories.map(categoryMapped => {
+                return (
+                  <option key={categoryMapped.id} value={categoryMapped.id}>
+                    {categoryMapped.name}
+                  </option>
+                )
+              })}
             </S.Select>
           </S.Label>
           <S.Label>
