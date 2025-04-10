@@ -60,8 +60,28 @@ const AdminProducts = () => {
     setIsDeleteModalOpen(true)
   }
 
-  const confirmDelete = () => {
-    setProducts(products.filter(product => product.id !== productToDelete.id))
+  const confirmDelete = async product => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
+      const token = userData?.token
+
+      if (!token) {
+        console.error('Token não encontrado!')
+        return
+      }
+
+      const response = await api.delete(`/catalog/${product.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      console.log(response)
+    } catch (error) {
+      console.error('Erro ao enviar produto:', error)
+    }
+
     setIsDeleteModalOpen(false)
     setProductToDelete(null)
   }
@@ -182,7 +202,7 @@ const AdminProducts = () => {
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onClose={handleCloseModal}
-        onConfirm={confirmDelete}
+        onConfirm={product => confirmDelete(product)}
         product={productToDelete}
       />
     </S.Container>

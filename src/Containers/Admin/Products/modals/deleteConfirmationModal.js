@@ -12,12 +12,12 @@ const DeleteConfirmationModal = ({ isOpen, onClose, onConfirm, product }) => {
         </S.Faixa>
         <S.Form>
           <p style={{ fontSize: '14px' }}>
-            Você deseja deletar o produto <b>&quot;{product?.name}&quot;</b>?
-            Essa ação <b>não poderá ser revertida</b>.
+            Você deseja deletar o produto <b>{product?.name}</b>? Essa ação{' '}
+            <b>não poderá ser revertida</b>.
           </p>
         </S.Form>
         <S.DeleteDiv>
-          <S.Button onClick={onConfirm}>Sim, deletar</S.Button>
+          <S.Button onClick={() => onConfirm(product)}>Sim, deletar</S.Button>
           <S.ButtonCancel onClick={onClose}>Cancelar</S.ButtonCancel>
         </S.DeleteDiv>
       </S.ModalContent>
