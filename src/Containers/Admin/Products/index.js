@@ -61,6 +61,12 @@ const AdminProducts = () => {
     setIsDeleteModalOpen(true)
   }
 
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false)
+    setIsEditModalOpen(false)
+    setIsDeleteModalOpen(false)
+  }
+
   const handleSubmitEditModal = async updatedProduct => {
     try {
       const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
@@ -70,8 +76,6 @@ const AdminProducts = () => {
         console.error('Token não encontrado!')
         return
       }
-
-      console.log(updatedProduct)
 
       const formData = new FormData()
       formData.append('name', updatedProduct.name)
@@ -100,12 +104,6 @@ const AdminProducts = () => {
     } catch (error) {
       console.error('Erro ao enviar produto:', error)
     }
-  }
-
-  const handleCloseModal = () => {
-    setIsAddModalOpen(false)
-    setIsEditModalOpen(false)
-    setIsDeleteModalOpen(false)
   }
 
   const confirmDelete = async product => {

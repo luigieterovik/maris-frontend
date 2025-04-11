@@ -107,6 +107,43 @@ const AdminCategories = () => {
     }
   }
 
+  const handleSubmitEditModal = async updatedCategory => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
+      const token = userData?.token
+
+      if (!token) {
+        console.error('Token não encontrado!')
+        return
+      }
+
+      console.log(updatedCategory)
+
+      const formData = new FormData()
+      formData.append('name', updatedCategory.name)
+      formData.append('file', updatedCategory.image)
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1])
+      }
+
+      const response = await api.put(
+        `/categories/${updatedCategory.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      )
+
+      console.log(response)
+    } catch (error) {
+      console.error('Erro ao enviar categoria:', error)
+    }
+  }
+
   return (
     <S.Container>
       <h1>Gerenciamento de Categorias</h1>
@@ -135,7 +172,12 @@ const AdminCategories = () => {
         onClose={handleCloseModal}
         onSubmit={handleSubmitAddModal}
       />
-
+      <EditCategoryModal
+        isOpen={isEditModalOpen}
+        onClose={handleCloseModal}
+        onSubmit={handleSubmitEditModal}
+        category={categoryToEdit}
+      />
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
         onClose={handleCloseModal}
