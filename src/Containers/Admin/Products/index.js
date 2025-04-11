@@ -26,6 +26,8 @@ const formatOffer = offer => {
 }
 
 const AdminProducts = () => {
+  const navigate = useNavigate()
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
     const token = userData?.token
@@ -44,10 +46,9 @@ const AdminProducts = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+
   const [productToEdit, setProductToEdit] = useState(null)
   const [productToDelete, setProductToDelete] = useState(null)
-
-  const navigate = useNavigate()
 
   const handleEdit = product => {
     setProductToEdit(product)
@@ -58,6 +59,53 @@ const AdminProducts = () => {
     const product = products.find(p => p.id === productId)
     setProductToDelete(product)
     setIsDeleteModalOpen(true)
+  }
+
+  const handleSubmitEditModal = async updatedProduct => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('marisboutiks:userData'))
+      const token = userData?.token
+
+      if (!token) {
+        console.error('Token não encontrado!')
+        return
+      }
+
+      console.log(updatedProduct)
+
+      const formData = new FormData()
+      formData.append('name', updatedProduct.name)
+      formData.append('description', updatedProduct.description)
+      formData.append('price', updatedProduct.price)
+      formData.append('categoryId', updatedProduct.categoryId)
+      formData.append('offerPercentage', updatedProduct.offerPercentage)
+      formData.append('file', updatedProduct.image)
+
+      for (let pair of formData.entries()) {
+        console.log(pair[0], pair[1])
+      }
+
+      const response = await api.put(
+        `/catalog/${updatedProduct.id}`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'multipart/form-data'
+          }
+        }
+      )
+
+      console.log(response)
+    } catch (error) {
+      console.error('Erro ao enviar produto:', error)
+    }
+  }
+
+  const handleCloseModal = () => {
+    setIsAddModalOpen(false)
+    setIsEditModalOpen(false)
+    setIsDeleteModalOpen(false)
   }
 
   const confirmDelete = async product => {
@@ -84,12 +132,6 @@ const AdminProducts = () => {
 
     setIsDeleteModalOpen(false)
     setProductToDelete(null)
-  }
-
-  const handleCloseModal = () => {
-    setIsAddModalOpen(false)
-    setIsEditModalOpen(false)
-    setIsDeleteModalOpen(false)
   }
 
   const handleSubmitAddModal = async newProduct => {
@@ -131,14 +173,6 @@ const AdminProducts = () => {
     } catch (error) {
       console.error('Erro ao enviar produto:', error)
     }
-  }
-
-  const handleSubmitEditModal = updatedProduct => {
-    setProducts(
-      products.map(product =>
-        product.id === updatedProduct.id ? updatedProduct : product
-      )
-    )
   }
 
   return (
@@ -198,6 +232,7 @@ const AdminProducts = () => {
         onClose={handleCloseModal}
         product={productToEdit}
         onSubmit={handleSubmitEditModal}
+        categories={categories}
       />
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}

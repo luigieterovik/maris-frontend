@@ -1,28 +1,35 @@
 import React, { useState, useEffect } from 'react'
 import * as S from '../styles.js'
 
-const EditProductModal = ({ isOpen, onClose, product, onSubmit }) => {
-  const [name, setName] = useState('')
-  const [price, setPrice] = useState('')
-  const [category, setCategory] = useState('')
-  const [description, setDescription] = useState('') // Estado para descrição
-  const [offer, setOffer] = useState('') // Estado para oferta
-  const [image, setImage] = useState(null) // Armazena o arquivo de imagem
-  const [finalPrice, setFinalPrice] = useState('') // Estado para o preço final com desconto
+const EditProductModal = ({
+  isOpen,
+  onClose,
+  product,
+  onSubmit,
+  categories
+}) => {
+  const [id, setId] = useState()
+  const [name, setName] = useState()
+  const [price, setPrice] = useState()
+  const [category, setCategory] = useState()
+  const [description, setDescription] = useState()
+  const [offer, setOffer] = useState()
+  const [image, setImage] = useState()
+  const [finalPrice, setFinalPrice] = useState()
 
   useEffect(() => {
     if (product) {
+      setId(product.id)
       setName(product.name)
       setPrice(product.price)
-      setCategory(product.category)
-      setDescription(product.description) // Pega a descrição existente
-      setOffer(product.offerPercentage ?? 0) // Garante que o valor de oferta seja tratado, caso seja null
-      setImage(product.image) // Pode manter o caminho da imagem ou null
+      setCategory(product.categoryId)
+      setDescription(product.description)
+      setOffer(product.offerPercentage)
+      setImage(product.image)
     }
   }, [product])
 
   useEffect(() => {
-    // Calcula o preço final quando a oferta ou o preço mudam
     if (offer > 0 && price > 0) {
       const discount = (price * offer) / 100
       setFinalPrice(price - discount)
@@ -32,18 +39,18 @@ const EditProductModal = ({ isOpen, onClose, product, onSubmit }) => {
   }, [offer, price])
 
   const handleImageChange = e => {
-    setImage(e.target.files[0]) // Obtém o arquivo selecionado
+    setImage(e.target.files[0])
   }
 
   const handleSubmit = () => {
     const updatedProduct = {
-      ...product,
+      id,
       name,
       price: parseFloat(price),
-      category,
+      categoryId: category,
       description,
-      offer: parseFloat(offer) || 0, // Converte oferta em número ou define como 0 se estiver vazio
-      image // Aqui você pode tratar o upload do arquivo no backend
+      offerPercentage: parseFloat(offer),
+      image
     }
     onSubmit(updatedProduct)
     onClose()
@@ -65,7 +72,7 @@ const EditProductModal = ({ isOpen, onClose, product, onSubmit }) => {
             <S.Input
               type="file"
               accept="image/*"
-              onChange={handleImageChange} // Manipula a seleção de imagem
+              onChange={handleImageChange}
             />
           </S.Label>
           <S.Label>
@@ -89,11 +96,18 @@ const EditProductModal = ({ isOpen, onClose, product, onSubmit }) => {
           </S.Label>
           <S.Label>
             Categoria:
-            <S.Input
-              type="text"
+            <S.Select
               value={category}
               onChange={e => setCategory(e.target.value)}
-            />
+            >
+              {categories.map(categoryMapped => {
+                return (
+                  <option key={categoryMapped.id} value={categoryMapped.id}>
+                    {categoryMapped.name}
+                  </option>
+                )
+              })}
+            </S.Select>
           </S.Label>
           <S.Label>
             Descrição:
@@ -107,14 +121,13 @@ const EditProductModal = ({ isOpen, onClose, product, onSubmit }) => {
             <S.Input
               type="number"
               value={offer}
-              max="100" // Define o valor máximo como 100
+              max="100"
               onChange={e => setOffer(e.target.value)}
             />
           </S.Label>
 
-          {/* Exibe o preço final se houver oferta */}
           {offer > 0 && (
-            <S.Label>Preço final: R$ {finalPrice.toFixed(2)}</S.Label>
+            <S.Label>Preço final: R$ {Number(finalPrice).toFixed(2)}</S.Label>
           )}
 
           <S.Button onClick={handleSubmit}>Salvar</S.Button>
