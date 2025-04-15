@@ -9,15 +9,22 @@ const i = name => {
 }
 
 function RegularCarouselWrapper({ ...props }) {
+  const navigate = useNavigate()
+
+  const navigateToProducts = () => {
+    window.scrollTo(0, 0)
+    navigate('/products')
+  }
+
   return (
     <>
       <S.CarouselWrapper>
         <S.CarouselTitle>
-          {props.title}{' '}
-          <S.CarouselSeeAll>
-            {props.seeAll}{' '}
-            <S.RightArrowSeeAll src={i(props.arrow)} alt="right-arrow-icon" />{' '}
-          </S.CarouselSeeAll>{' '}
+          {props.title}
+          <S.CarouselSeeAll onClick={() => navigateToProducts('/products')}>
+            {props.seeAll}
+            <S.RightArrowSeeAll src={i(props.arrow)} alt="right-arrow-icon" />
+          </S.CarouselSeeAll>
         </S.CarouselTitle>
 
         <S.CarouselBar></S.CarouselBar>
@@ -45,7 +52,12 @@ function SpecialCarouselWrapper({ ...props }) {
           <S.SpecialCarouselDescription>
             {props.description}
           </S.SpecialCarouselDescription>
-          <Button isSpecialButton={true} onClick={() => navigateToProducts('/products')}>{props.button}</Button>
+          <Button
+            isSpecialButton={true}
+            onClick={() => navigateToProducts('/products')}
+          >
+            {props.button}
+          </Button>
         </S.SpecialCarouselInformations>
 
         {props.children}
