@@ -18,7 +18,7 @@ const AdminCategories = () => {
     else validateToken(token)
   }, [])
 
-  const { categories, setCategories } = categoriesState()
+  const { categories } = categoriesState()
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)

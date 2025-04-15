@@ -24,9 +24,9 @@ function RegularCarouselItem(props) {
     >
       <S.ItemImage src={props.image} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
-      <S.ItemPrice>{priceToCurrency(props.price)} </S.ItemPrice>
+      <S.ItemPrice>R$ {priceToCurrency(props.price)} </S.ItemPrice>
       <S.ItemInstallment>
-        em até <b>12x</b> de{' '}
+        em até <b>12x</b> de
         <span style={{ color: '#0DB100', fontWeight: 600 }}>
           {priceToCurrency(installmentCalculation(props.price))}
         </span>
@@ -49,14 +49,13 @@ function OfferCarouselItem(props) {
       <S.ItemImage src={props.image} alt="perfume-image" />
       <S.ItemName>{props.name}</S.ItemName>
       <S.ItemPrice style={{ color: '#0DB100' }}>
-        {' '}
         {priceToCurrency(
           offerPercentageCalculate(props.price, props.offerPercentage)
         )}
         <S.OldPrice>{priceToCurrency(props.price)}</S.OldPrice>
       </S.ItemPrice>
       <S.ItemInstallment>
-        em até <b>12x</b> de{' '}
+        em até <b>12x</b> de
         <span style={{ color: '#0DB100', fontWeight: 600 }}>
           {priceToCurrency(installmentCalculation(props.price))}
         </span>

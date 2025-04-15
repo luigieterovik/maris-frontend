@@ -36,7 +36,9 @@ export default function Catalog() {
       product => product.offerPercentage !== null
     )
   } else {
-    filteredProducts = products.filter(product => product.category === category)
+    filteredProducts = products.filter(
+      product => product.category.name.toLowerCase() === category.toLowerCase()
+    )
   }
   const indexOfLastProduct = Math.min(
     currentPage * productsPerPage,
@@ -48,7 +50,6 @@ export default function Catalog() {
     indexOfLastProduct
   )
 
-  // Order by
   const labelsOrderBy = [
     'Ordem alfabética, A-Z',
     'Ordem alfabética, Z-A',
