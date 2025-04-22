@@ -53,6 +53,7 @@ export const DownArrow = styled.img`
   top: 2px;
   transform: rotate(0);
   transition: all 200ms ease-out;
+  cursor: pointer;
 `
 
 export const MenuLink = styled.a`
@@ -164,6 +165,12 @@ export const DivOrderBy = styled.div`
     cursor: pointer;
   }
 
+  label {
+    &:hover {
+      color: #000fcb;
+    }
+  }
+
   ${props =>
     props.isOrderByActive &&
     css`
@@ -180,6 +187,9 @@ export const LabelOrderBy = styled.label`
   margin-right: 10px;
   display: block;
   margin-bottom: 10px;
+  &:hover {
+    color: #000fcb;
+  }
 
   ${props =>
     props.isSelected &&
@@ -190,7 +200,7 @@ export const LabelOrderBy = styled.label`
 
 export const Division = styled.div`
   height: 1px;
-  border-bottom: 2px solid #E7E7E7;
+  border-bottom: 2px solid #e7e7e7;
   width: 100%;
   margin: 15px 0;
 `

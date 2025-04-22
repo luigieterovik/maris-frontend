@@ -58,7 +58,7 @@ export default function Catalog() {
     'Data, mais antiga primeiro',
     'Data, mais recente primeiro'
   ]
-  const [currentOrderBy, setCurrentOrderBy] = useState(labelsOrderBy[0])
+  const [currentOrderBy, setCurrentOrderBy] = useState('___________________')
   const [isOrderByActive, setIsOrderByActive] = useState(false)
 
   const handleClickOrderBy = orderBy => {
@@ -122,7 +122,7 @@ export default function Catalog() {
 
   useEffect(() => {
     const categoryParam = searchParams.get('category')
-    if (categoryParam) setCategory(categoryParam)
+    if (categoryParam) handleCategoryChange(categoryParam)
 
     const pageParam = searchParams.get('page')
     if (pageParam) setCurrentPage(pageParam)
@@ -131,9 +131,13 @@ export default function Catalog() {
     if (orderByParam) setCurrentOrderBy(orderByParam)
   }, [])
 
+  useEffect(() => {
+    const categoryParam = searchParams.get('category')
+    if (categoryParam) handleCategoryChange(categoryParam)
+  }, [searchParams.get('category')])
+
   const handleCategoryChange = newCategory => {
     setCurrentPage(1)
-    setCurrentOrderBy(labelsOrderBy[0])
     setCategory(newCategory)
     navigate(`/products/?category=${newCategory}`)
   }
@@ -154,11 +158,13 @@ export default function Catalog() {
   // Animation
   const labelOrderByRef = useRef()
   const divLabelsOrderByRef = useRef()
+  const downArrowRef = useRef()
 
   window.addEventListener('click', e => {
     if (
       e.target !== labelOrderByRef.current &&
-      e.target !== divLabelsOrderByRef.current
+      e.target !== divLabelsOrderByRef.current &&
+      e.target !== downArrowRef.current
     ) {
       setIsOrderByActive(false)
     }
@@ -208,8 +214,8 @@ export default function Catalog() {
           onClick={() => setIsOrderByActive(!isOrderByActive)}
           isOrderByActive={isOrderByActive}
         >
-          <label ref={labelOrderByRef}>Ordenar por: {currentOrderBy}</label>{' '}
-          <S.DownArrow src={i('downArrow.png')} />
+          <label ref={labelOrderByRef}>Ordenar por: {currentOrderBy}</label>
+          <S.DownArrow src={i('downArrow.png')} ref={downArrowRef} />
         </S.DivOrderBy>
 
         <S.DivLabelsOrderBy
