@@ -13,6 +13,7 @@ import Product from '../Containers/Product'
 import { Cart } from '../Containers/Cart'
 import Orders from '../Containers/Orders'
 import Checkout from '../Containers/Checkout'
+import ProtectedRoute from '../components/ProtectedRoute'
 
 export default function AllRoutes() {
   return (
@@ -43,11 +44,39 @@ export default function AllRoutes() {
         element={<Login accountComponent={'reset'} />}
       />
 
-      <Route path="/admin" element={<Admin />} />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <Admin />
+          </ProtectedRoute>
+        }
+      />
 
-      <Route path="/admin/products" element={<AdminProducts />} />
-      <Route path="/admin/categories" element={<AdminCategories />} />
-      <Route path="/admin/orders" element={<AdminOrders />} />
+      <Route
+        path="/admin/products"
+        element={
+          <ProtectedRoute>
+            <AdminProducts />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/categories"
+        element={
+          <ProtectedRoute>
+            <AdminCategories />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/orders"
+        element={
+          <ProtectedRoute>
+            <AdminOrders />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   )
 }
