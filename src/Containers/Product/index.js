@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
+import api from '../../services/api'
 
 import { productImagesState, productsState } from '../../utils/states'
 
@@ -21,7 +22,7 @@ const i = name => {
 
 export default function Product() {
   const { products } = productsState()
-  const { productImages } = productImagesState()
+  // const { productImages } = productImagesState()
 
   const navigate = useNavigate()
 
@@ -48,21 +49,27 @@ export default function Product() {
   const { id } = useParams()
 
   const [product, setProduct] = useState()
-  const [images, setImages] = useState()
+  // const [images, setImages] = useState()
   const [displayImage, setDisplayImage] = useState()
 
   useEffect(() => {
     const parsedId = parseInt(id)
-    const filteredProduct = products.find(product => product.id === parsedId)
-    setProduct(filteredProduct)
-    setDisplayImage(filteredProduct.image)
-    setImages(() => {
-      return [
-        filteredProduct.image,
-        ...(productImages.find(item => item.productId === parsedId)?.images ||
-          [])
-      ]
-    })
+    const fetchProductById = async () => {
+      const response = await api.get(`/catalog/${parsedId}`)
+      const fetchedProduct = response.data
+      setProduct(fetchedProduct)
+      setDisplayImage(fetchedProduct.path)
+    }
+
+    fetchProductById()
+
+    // setImages(() => {
+    //   return [
+    //     filteredProduct.image,
+    //     ...(productImages.find(item => item.productId === parsedId)?.images ||
+    //       [])
+    //   ]
+    // })
   }, [id])
 
   const [offerPrice, setOfferPrice] = useState()
@@ -103,7 +110,7 @@ export default function Product() {
 
   return (
     <>
-      {product && images && (
+      {product && (
         <S.Container>
           <S.LeftWrapper>
             <S.ImageWrapper>
@@ -122,7 +129,7 @@ export default function Product() {
               </S.AllMiniImages>
               */}
 
-              <S.MainImage src={i(displayImage)} alt="product" />
+              <S.MainImage src={displayImage} alt="product" />
             </S.ImageWrapper>
 
             <S.Division />
